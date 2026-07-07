@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>terraNova Energy | Solucion Empresa</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="input-panel" aria-label="Datos del proyecto">
+        <div class="brand-row">
+          <div class="brand-lockup">
+            <img src="assets/terranova-energy-logo.png" alt="TerraNova Energy" />
+            <h1>Solucion Empresa</h1>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Secciones">
+          <button class="tab active" type="button" data-target="client">Cliente</button>
+          <button class="tab" type="button" data-target="technical">RETScreen</button>
+          <button class="tab" type="button" data-target="finance">Inversion</button>
+          <button class="tab" type="button" data-target="tax">Fiscal</button>
+          <button class="tab" type="button" data-target="carbon">Carbono</button>
+        </div>
+
+        <form id="project-form">
+          <section class="form-section active" data-section="client">
+            <label>
+              Nombre de la empresa
+              <input id="companyName" type="text" value="Empresa ABC" />
+            </label>
+            <label>
+              Ubicacion
+              <input id="location" type="text" value="Colombia" />
+            </label>
+            <div class="field-grid">
+              <label>
+                Consumo mensual factura
+                <span class="input-unit">
+                  <input id="monthlyConsumption" type="number" value="200000" min="0" step="100" />
+                  <small>kWh</small>
+                </span>
+              </label>
+              <label>
+                Valor total factura
+                <span class="input-unit">
+                  <input id="monthlyBill" type="number" value="136000000" min="0" step="100000" />
+                  <small>COP</small>
+                </span>
+              </label>
+            </div>
+            <label>
+              Aumento anual esperado red
+              <span class="input-unit">
+                <input id="tariffEscalation" type="number" value="5" min="0" max="25" step="0.1" />
+                <small>%</small>
+              </span>
+            </label>
+            <div class="field-grid">
+              <label>
+                Consumo en horas solares
+                <span class="input-unit">
+                  <input id="dayConsumptionPercent" type="number" value="70" min="0" max="100" step="1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Descuento energia nocturna
+                <span class="input-unit">
+                  <input id="nightDiscountRate" type="number" value="20" min="0" step="1" />
+                  <small>COP/kWh</small>
+                </span>
+              </label>
+            </div>
+            <input id="terranovaNightMargin" type="hidden" value="15" />
+          </section>
+
+          <section class="form-section" data-section="technical">
+            <div class="field-grid">
+              <label>
+                Tamano FV estimado
+                <span class="input-unit">
+                  <input id="systemSize" type="number" value="1.72" min="0" step="0.01" />
+                  <small>MWp</small>
+                </span>
+              </label>
+              <label>
+                Horas solares pico
+                <span class="input-unit">
+                  <input id="peakSunHours" type="number" value="4.5" min="0" max="8" step="0.1" />
+                  <small>h/dia</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Cobertura objetivo
+                <span class="input-unit">
+                  <input id="coverageObjective" type="number" value="100" min="1" max="100" step="1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Perdidas del sistema
+                <span class="input-unit">
+                  <input id="systemLosses" type="number" value="10" min="0" max="60" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Energia aplicable al cliente
+                <span class="input-unit">
+                  <input id="selfConsumption" type="number" value="92" min="0" max="100" step="1" />
+                  <small>%</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Degradacion anual
+                <span class="input-unit">
+                  <input id="degradation" type="number" value="0.5" min="0" max="5" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Factor CO2 red
+                <span class="input-unit">
+                  <input id="emissionsFactor" type="number" value="0.62" min="0" max="2" step="0.01" />
+                  <small>kg/kWh</small>
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <section class="form-section" data-section="finance">
+            <label>
+              Costo por MWp instalado
+              <span class="input-unit">
+                <input id="capexUsd" type="number" value="790000" min="0" step="1000" />
+                <small>USD/MWp</small>
+              </span>
+            </label>
+            <div class="field-grid">
+              <label>
+                TRM / conversion
+                <span class="input-unit">
+                  <input id="exchangeRate" type="number" value="4000" min="0" step="10" />
+                  <small>COP/USD</small>
+                </span>
+              </label>
+              <label>
+                Costo solar entregado
+                <span class="input-unit">
+                  <input id="solarDeliveredRate" type="number" value="280" min="0" step="1" />
+                  <small>COP/kWh</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                OPEX anual
+                <span class="input-unit">
+                  <input id="opexPercent" type="number" value="1.5" min="0" max="10" step="0.1" />
+                  <small>% CAPEX</small>
+                </span>
+              </label>
+              <label>
+                Horizonte
+                <span class="input-unit">
+                  <input id="analysisYears" type="number" value="30" min="1" max="30" step="1" />
+                  <small>anos</small>
+                </span>
+              </label>
+            </div>
+            <label>
+              Tasa de descuento
+              <span class="input-unit">
+                <input id="discountRate" type="number" value="12" min="0" max="40" step="0.1" />
+                <small>%</small>
+              </span>
+            </label>
+          </section>
+
+          <section class="form-section" data-section="tax">
+            <div class="field-grid">
+              <label>
+                Utilidad fiscal ano 1
+                <span class="input-unit">
+                  <input id="taxableIncome" type="number" value="1200000000" min="0" step="1000000" />
+                  <small>COP</small>
+                </span>
+              </label>
+              <label>
+                Crecimiento utilidad
+                <span class="input-unit">
+                  <input id="incomeGrowth" type="number" value="4" min="-20" max="50" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Impuesto renta
+                <span class="input-unit">
+                  <input id="incomeTaxRate" type="number" value="35" min="0" max="50" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Max deducible anual
+                <span class="input-unit">
+                  <input id="maxDeductionPercent" type="number" value="50" min="0" max="100" step="1" />
+                  <small>% utilidad</small>
+                </span>
+              </label>
+            </div>
+            <label>
+              Plazo maximo incentivo
+              <span class="input-unit">
+                <input id="deductionYears" type="number" value="15" min="1" max="15" step="1" />
+                <small>anos</small>
+              </span>
+            </label>
+          </section>
+
+          <section class="form-section" data-section="carbon">
+            <div class="field-grid">
+              <label>
+                Precio conservador CO2
+                <span class="input-unit">
+                  <input id="carbonPriceUsd" type="number" value="5" min="0" step="0.5" />
+                  <small>USD/tCO2</small>
+                </span>
+              </label>
+              <label>
+                Costo certificacion
+                <span class="input-unit">
+                  <input id="carbonCertificationCostUsd" type="number" value="5000" min="0" step="500" />
+                  <small>USD</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Anos aplicables
+                <span class="input-unit">
+                  <input id="carbonYears" type="number" value="10" min="1" max="30" step="1" />
+                  <small>anos</small>
+                </span>
+              </label>
+              <label>
+                Incluir en retorno
+                <span class="input-unit">
+                  <input id="includeCarbonRevenue" type="number" value="0" min="0" max="1" step="1" />
+                  <small>0/1</small>
+                </span>
+              </label>
+            </div>
+          </section>
+        </form>
+      </aside>
+
+      <section class="dashboard" aria-live="polite">
+        <header class="dashboard-header">
+          <div>
+            <p class="eyebrow">Analisis para decision empresarial</p>
+            <h2 id="headline">Empresa ABC</h2>
+            <p id="subheadline">Santo Domingo, RD</p>
+          </div>
+          <button id="printButton" class="print-button" type="button" title="Imprimir propuesta">
+            <span aria-hidden="true">PDF</span>
+            Imprimir
+          </button>
+        </header>
+
+        <section class="summary-band">
+          <article>
+            <p>Factura actual</p>
+            <strong id="currentMonthlyBill">$136M</strong>
+            <span>por mes</span>
+          </article>
+          <article>
+            <p>Ahorro ano 1</p>
+            <strong id="yearOneSavings">$814M</strong>
+            <span>energia + fiscal estimado</span>
+          </article>
+          <article>
+            <p>Payback</p>
+            <strong id="payback">4.5 anos</strong>
+            <span>sobre inversion COP</span>
+          </article>
+          <article>
+            <p>Ahorro acumulado</p>
+            <strong id="lifetimeSavings">$25B</strong>
+            <span>horizonte completo</span>
+          </article>
+        </section>
+
+        <section class="insight-grid">
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Comparacion</p>
+                <h3>Sin proyecto vs con solar</h3>
+              </div>
+              <span id="coverageBadge">68% cubierto</span>
+            </div>
+            <div class="bar-chart" id="barChart" aria-label="Comparacion de costos anuales"></div>
+          </div>
+
+          <div class="panel decision-panel">
+            <p class="eyebrow">Lectura ejecutiva</p>
+            <h3 id="decisionTitle">El proyecto reduce costo energetico desde el primer ano.</h3>
+            <p id="decisionCopy">
+              La empresa convierte gasto electrico variable en un activo propio, con ahorro creciente frente a la tarifa de red.
+            </p>
+            <dl>
+              <div>
+                <dt>Tarifa real factura</dt>
+                <dd id="currentRate">$680/kWh</dd>
+              </div>
+              <div>
+                <dt>Costo solar entregado</dt>
+                <dd id="solarLcoe">$280/kWh</dd>
+              </div>
+              <div>
+                <dt>VAN estimado</dt>
+                <dd id="projectNpv">$3B</dd>
+              </div>
+              <div>
+                <dt>TIR aproximada</dt>
+                <dd id="projectIrr">22.6%</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="insight-grid bottom">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Flujo de caja</p>
+                <h3>Recuperacion acumulada</h3>
+              </div>
+              <span id="equityBadge">Inversion: $3.2B COP</span>
+            </div>
+            <svg id="cashflowChart" class="line-chart" role="img" aria-label="Flujo de caja acumulado"></svg>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Datos tecnicos</p>
+                <h3>Base importada de RETScreen</h3>
+              </div>
+            </div>
+            <div class="technical-list">
+              <div>
+                <span>Consumo mensual</span>
+                <strong id="monthlyMwhMetric">200 MWh</strong>
+              </div>
+              <div>
+                <span>Cliente no regulado</span>
+                <strong id="nonRegulatedMetric">Cumple</strong>
+              </div>
+              <div>
+                <span>MWp recomendados</span>
+                <strong id="recommendedMwpMetric">1.65 MWp</strong>
+              </div>
+              <div>
+                <span>Minimo Terranova</span>
+                <strong id="terranovaMinimumMetric">Cumple</strong>
+              </div>
+              <div>
+                <span>Produccion diaria</span>
+                <strong id="dailyProductionMetric">7,740 kWh/dia</strong>
+              </div>
+              <div>
+                <span>Produccion ano 1</span>
+                <strong id="productionMetric">2,825,100 kWh</strong>
+              </div>
+              <div>
+                <span>Produccion ano 1</span>
+                <strong id="productionMwhMetric">2,825 MWh</strong>
+              </div>
+              <div>
+                <span>Energia usada por cliente</span>
+                <strong id="usedSolarMetric">2,400,000 kWh</strong>
+              </div>
+              <div>
+                <span>Costo instalado</span>
+                <strong id="installedCostMetric">$790/kWp</strong>
+              </div>
+              <div>
+                <span>Perdidas modeladas</span>
+                <strong id="lossesMetric">10%</strong>
+              </div>
+              <div>
+                <span>CO2 evitado ano 1</span>
+                <strong id="co2Metric">937 t</strong>
+              </div>
+              <div>
+                <span>Inversion convertida</span>
+                <strong id="capexCopMetric">$3.2B COP</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Energia en frontera</p>
+              <h3>Ahorro nocturno gestionado por Terranova</h3>
+            </div>
+            <span id="nightBadge">30% nocturno</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Concepto</th>
+                  <th>Mensual</th>
+                  <th>Anual</th>
+                  <th>Lectura para cliente</th>
+                </tr>
+              </thead>
+              <tbody id="nightRows"></tbody>
+            </table>
+          </div>
+          <p class="fine-print">
+            Este modulo estima el descuento sobre consumo fuera de horas solares cuando Terranova comercializa la energia de red en frontera. No reemplaza el analisis regulatorio ni contractual del suministro.
+          </p>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Oportunidad potencial</p>
+              <h3>Bonos de carbono</h3>
+            </div>
+            <span id="carbonBadge">No incluido en retorno</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Concepto</th>
+                  <th>Ano 1</th>
+                  <th>Total periodo</th>
+                  <th>Nota</th>
+                </tr>
+              </thead>
+              <tbody id="carbonRows"></tbody>
+            </table>
+          </div>
+          <p class="fine-print">
+            Estimacion conservadora. Los ingresos por carbono dependen de certificacion, metodologia, costos de medicion/reporte/verificacion y precio de mercado.
+          </p>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Colombia</p>
+              <h3>Beneficios fiscales estimados</h3>
+            </div>
+            <span>Requiere certificacion</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ano</th>
+                  <th>Utilidad fiscal</th>
+                  <th>Max deducible</th>
+                  <th>Deduccion usada</th>
+                  <th>Ahorro impuesto</th>
+                  <th>Saldo incentivo</th>
+                </tr>
+              </thead>
+              <tbody id="taxRows"></tbody>
+            </table>
+          </div>
+          <p class="fine-print">
+            El modelo toma una deduccion maxima equivalente al 50% de la inversion y la aplica cada ano segun la utilidad fiscal proyectada. Estimacion preliminar sujeta a certificacion UPME, requisitos DIAN y revision tributaria del cliente.
+          </p>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Resumen proyectado</p>
+              <h3>Proyeccion a 30 anos</h3>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ano</th>
+                  <th>Produccion</th>
+                  <th>Ahorro + fiscal</th>
+                  <th>Costo solar + OPEX</th>
+                  <th>Flujo neto</th>
+                </tr>
+              </thead>
+              <tbody id="projectionRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
