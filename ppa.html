@@ -1,0 +1,1751 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TerraNova Energy | Plan PPA Empresas</title>
+    <style>
+:root {
+  --bg: #f4f6f4;
+  --panel: #ffffff;
+  --ink: #1c2420;
+  --muted: #66736d;
+  --line: #dce4df;
+  --green: #1f7a4f;
+  --green-dark: #155e3b;
+  --yellow: #f4c84a;
+  --sky: #4b8fb8;
+  --terra: #c76b42;
+  --shadow: 0 18px 45px rgba(25, 37, 31, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(244, 200, 74, 0.18), transparent 32%),
+    linear-gradient(210deg, rgba(75, 143, 184, 0.14), transparent 35%),
+    var(--bg);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.input-panel {
+  background: rgba(255, 255, 255, 0.86);
+  border-right: 1px solid var(--line);
+  padding: 28px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.brand-row,
+.dashboard-header,
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand-row {
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.brand-lockup {
+  display: grid;
+  gap: 10px;
+}
+
+.brand-lockup img {
+  display: block;
+  width: min(100%, 270px);
+  height: auto;
+}
+
+.brand-lockup h1 {
+  border-left: 4px solid var(--yellow);
+  color: var(--green-dark);
+  font-size: 1.08rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  padding-left: 10px;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: var(--green-dark);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0 0 5px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 1.15rem;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3vw, 2.4rem);
+  margin-bottom: 6px;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+  gap: 7px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #e8f0eb;
+  margin-bottom: 22px;
+}
+
+.tab {
+  border: 1px solid rgba(31, 122, 79, 0.12);
+  border-radius: 6px;
+  min-height: 39px;
+  background: rgba(255, 255, 255, 0.62);
+  color: #53645c;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.tab.active {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(21, 94, 59, 0.18);
+}
+
+.form-section {
+  display: none;
+}
+
+.form-section.active {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 43px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 0 12px;
+  outline: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--green);
+  min-height: auto;
+  width: 18px;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(31, 122, 79, 0.13);
+}
+
+input:disabled {
+  background: #eef3ef;
+  color: #8b9790;
+  cursor: not-allowed;
+}
+
+.step-callout {
+  background: #f8fbf8;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  padding: 12px 13px;
+}
+
+.step-callout span,
+.energy-step-header span {
+  color: var(--green-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.step-callout strong,
+.energy-step-header strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.step-callout small,
+.energy-step-header small {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.reference-box {
+  background: #f8fbf8;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.reference-box h3,
+.reference-box p {
+  margin: 0;
+}
+
+.reference-box p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.optional-text {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.field-lock-note {
+  background: #fff4e8;
+  border: 1px solid rgba(199, 107, 66, 0.36);
+  border-radius: 8px;
+  color: #8a4a25;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.45;
+  margin: 0;
+  padding: 11px 12px;
+}
+
+.energy-gate-card {
+  background: #f8fbf8;
+  border: 1px solid rgba(31, 122, 79, 0.24);
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 13px;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.energy-gate-card.locked {
+  background: linear-gradient(135deg, rgba(199, 107, 66, 0.16), rgba(255, 244, 232, 0.9));
+  border-color: rgba(199, 107, 66, 0.5);
+}
+
+.energy-gate-card.locked input:disabled {
+  background: #fff2e4;
+  border-color: rgba(199, 107, 66, 0.62);
+  color: #946240;
+}
+
+.energy-step-header {
+  display: grid;
+  gap: 4px;
+}
+
+.consent-box {
+  align-items: flex-start;
+  background: #f8fbf8;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: auto minmax(0, 1fr);
+  line-height: 1.45;
+  padding: 13px;
+}
+
+.consent-box span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.privacy-policy {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.privacy-policy summary {
+  color: var(--green-dark);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 850;
+  padding: 13px;
+}
+
+.privacy-policy div {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+  max-height: 320px;
+  overflow: auto;
+  padding: 14px;
+}
+
+.privacy-policy h3,
+.privacy-policy h4,
+.privacy-policy p {
+  margin: 0;
+}
+
+.privacy-policy h3 {
+  font-size: 1rem;
+}
+
+.privacy-policy h4 {
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+
+.privacy-policy p {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.input-unit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.input-unit input {
+  border: 0;
+  border-radius: 0;
+}
+
+.input-unit small {
+  color: var(--muted);
+  padding: 0 11px;
+  white-space: nowrap;
+}
+
+.rate-tools {
+  align-self: end;
+  display: grid;
+  gap: 8px;
+}
+
+.utility-button {
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  min-height: 43px;
+  background: #eef8f1;
+  color: var(--green-dark);
+  cursor: pointer;
+  font-weight: 850;
+  padding: 0 12px;
+}
+
+.utility-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+#trmStatus {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.dashboard {
+  padding: 30px;
+  overflow: hidden;
+}
+
+.dashboard-header {
+  margin-bottom: 22px;
+}
+
+#subheadline {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.lead-gate-notice {
+  background: #fff8e5;
+  border: 1px solid rgba(199, 107, 66, 0.42);
+  border-radius: 8px;
+  color: #7a482d;
+  font-size: 0.88rem;
+  font-weight: 750;
+  line-height: 1.45;
+  margin: -8px 0 16px;
+  padding: 12px 14px;
+}
+
+.print-button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 42px;
+  padding: 0 14px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.print-button span {
+  color: var(--green-dark);
+}
+
+.print-button.disabled {
+  opacity: 0.62;
+}
+
+.summary-band {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.summary-band article,
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(220, 228, 223, 0.95);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.summary-band article {
+  padding: 18px;
+  min-height: 122px;
+  display: grid;
+  align-content: space-between;
+}
+
+.summary-band p,
+.summary-band span {
+  color: var(--muted);
+  margin: 0;
+}
+
+.summary-band strong {
+  font-size: clamp(1.38rem, 2.4vw, 2rem);
+  line-height: 1.05;
+}
+
+.qualification-panel {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+  gap: 18px;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(220, 228, 223, 0.95);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  padding: 20px;
+}
+
+.qualification-panel h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.qualification-panel p:last-child {
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 0;
+}
+
+.qualification-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.qualification-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8fbf8;
+  display: grid;
+  gap: 8px;
+  min-height: 96px;
+  padding: 14px;
+}
+
+.qualification-grid article.warning {
+  background: #fff8e5;
+  border-color: rgba(199, 107, 66, 0.42);
+}
+
+.qualification-grid span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.qualification-grid strong {
+  align-self: end;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(360px, 1.18fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.insight-grid.bottom {
+  grid-template-columns: minmax(230px, 0.68fr) minmax(460px, 1.32fr);
+}
+
+.panel {
+  padding: 20px;
+  min-width: 0;
+}
+
+.panel-head {
+  margin-bottom: 18px;
+}
+
+.panel-head span,
+#coverageBadge,
+#equityBadge {
+  border-radius: 999px;
+  background: #edf6f0;
+  color: var(--green-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.bar-chart {
+  display: grid;
+  gap: 14px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 94px minmax(0, 1fr) 118px;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.track {
+  height: 28px;
+  border-radius: 6px;
+  background: #edf1ee;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 6px;
+  min-width: 2px;
+}
+
+.fill.grid-cost {
+  background: var(--terra);
+}
+
+.fill.solar-cost {
+  background: var(--green);
+}
+
+.fill.savings {
+  background: var(--sky);
+}
+
+.bar-value {
+  color: var(--ink);
+  text-align: right;
+}
+
+.decision-panel p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+dl {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+}
+
+dl div,
+.technical-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 11px;
+}
+
+dt,
+.technical-list span {
+  color: var(--muted);
+}
+
+dd,
+.technical-list strong {
+  margin: 0;
+  font-weight: 850;
+  text-align: right;
+}
+
+.line-chart {
+  width: 100%;
+  height: 240px;
+  display: block;
+  overflow: visible;
+}
+
+.technical-list {
+  display: grid;
+  gap: 12px;
+}
+
+.table-panel {
+  margin-bottom: 20px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 780px;
+}
+
+th,
+td {
+  border-top: 1px solid var(--line);
+  padding: 12px 10px;
+  text-align: right;
+  vertical-align: top;
+}
+
+th:first-child,
+td:first-child,
+th:last-child,
+td:last-child {
+  text-align: left;
+}
+
+th {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+td {
+  font-weight: 700;
+}
+
+.fine-print {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .input-panel {
+    position: relative;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .summary-band,
+  .qualification-panel,
+  .insight-grid,
+  .insight-grid.bottom {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .qualification-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .qualification-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .input-panel,
+  .dashboard {
+    padding: 18px;
+  }
+
+  .field-grid,
+  .summary-band,
+  .qualification-panel,
+  .qualification-grid,
+  .insight-grid,
+  .insight-grid.bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header,
+  .panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .bar-value {
+    text-align: left;
+  }
+}
+
+.site-header {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(28, 36, 32, 0.12);
+  box-shadow: 0 14px 34px rgba(25, 37, 31, 0.08);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: auto minmax(0, 1fr);
+  left: 0;
+  min-height: 76px;
+  padding: 14px clamp(18px, 4vw, 48px);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 40;
+}
+
+.site-brand {
+  align-items: center;
+  color: #101820;
+  display: inline-flex;
+  gap: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-brand-mark {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, 11px);
+  transform: rotate(45deg);
+}
+
+.site-brand-mark i {
+  background: #96c93d;
+  display: block;
+  height: 11px;
+  width: 11px;
+}
+
+.site-nav {
+  align-items: center;
+  display: flex;
+  gap: clamp(14px, 2vw, 28px);
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.site-nav-link {
+  color: rgba(16, 24, 32, 0.78);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  padding: 8px 0;
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav-link::after {
+  background: #96c93d;
+  border-radius: 999px;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  width: 100%;
+}
+
+.site-nav-link:hover::after,
+.site-nav-link:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body {
+  padding-top: 76px;
+}
+
+.input-panel {
+  height: calc(100vh - 76px);
+  top: 76px;
+}
+
+@media (max-width: 980px) {
+  .site-header {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  body {
+    padding-top: 124px;
+  }
+
+  .input-panel {
+    height: auto;
+    top: 0;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    padding-top: 0;
+  }
+
+  .site-header {
+    display: none;
+  }
+
+  .app-shell {
+    display: block;
+  }
+
+  .input-panel,
+  .print-button {
+    display: none;
+  }
+
+  .dashboard {
+    padding: 0;
+  }
+
+  .panel,
+  .summary-band article {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Navegacion TerraNova">
+      <a class="site-brand" href="index.html" aria-label="TerraNova Energy">
+        <span class="site-brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>TerraNova Energy</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegacion principal">
+        <a class="site-nav-link" href="index.html">Inicio</a>
+        <a class="site-nav-link" href="soluciones.html">Explorar Soluciones</a>
+        <a class="site-nav-link" href="ppa.html">PPA TerraNova</a>
+        <a class="site-nav-link" href="solucion-empresas.html">Solución Empresas</a>
+        <a class="site-nav-link" href="capital.html">TerraNova Capital</a>
+        <a class="site-nav-link" href="index.html#nosotros">Nosotros</a>
+        <a class="site-nav-link" href="index.html#contacto">Contacto</a>
+      </nav>
+    </header>
+    <main class="app-shell">
+      <aside class="input-panel" aria-label="Datos del plan PPA">
+        <div class="brand-row">
+          <div class="brand-lockup">
+            <img src="data:image/png;base64,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" alt="TerraNova Energy" />
+            <h1>PLAN PPA EMPRESAS</h1>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Secciones">
+          <button class="tab active" type="button" data-target="client">Cliente</button>
+          <button class="tab" type="button" data-target="ppa">PPA</button>
+          <button class="tab" type="button" data-target="terms">Contrato</button>
+        </div>
+
+        <form id="project-form">
+          <section class="form-section active" data-section="client">
+            <div class="step-callout">
+              <strong>Completar datos en los siguientes campos para poder ingresar su consumo y factura y podremos generar su evaluacion en segundos.</strong>
+            </div>
+            <label>
+              Nombre de la empresa
+              <input id="companyName" type="text" value="" required />
+            </label>
+            <label>
+              Ubicacion
+              <input id="location" type="text" value="" required />
+            </label>
+            <div class="field-grid">
+              <label>
+                Responsable
+                <input id="contactName" type="text" value="" required />
+              </label>
+              <label>
+                Cargo
+                <input id="contactRole" type="text" value="" required />
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Email
+                <input id="contactEmail" type="email" value="" required />
+              </label>
+              <label>
+                Telefono / WhatsApp
+                <input id="contactPhone" type="tel" value="" required />
+              </label>
+            </div>
+            <label class="consent-box">
+              <input id="dataConsent" type="checkbox" />
+              <span>
+                Autorizo a TerraNova Energy para tratar mis datos personales con el fin de preparar la evaluacion PPA, contactarme, presentar una propuesta comercial de suministro energetico y realizar seguimiento del proyecto.
+              </span>
+            </label>
+            <div id="energyGateCard" class="energy-gate-card locked">
+              <div class="energy-step-header">
+                <span>Paso 2</span>
+                <strong>Si completo la información solicitada arriba entonces ya puede ingresar consumo y valor de factura para generar su evaluación preliminar.</strong>
+              </div>
+              <div class="field-grid">
+                <label>
+                  Consumo mensual
+                  <span class="input-unit">
+                    <input id="monthlyConsumption" type="number" value="" min="0" step="100" disabled />
+                    <small>kWh</small>
+                  </span>
+                </label>
+                <label>
+                  Valor factura mensual
+                  <span class="input-unit">
+                    <input id="monthlyBill" type="number" value="" min="0" step="100000" disabled />
+                    <small>COP</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" data-section="ppa">
+            <div class="reference-box">
+              <div>
+                <p class="eyebrow">Regla comercial PPA</p>
+                <h3>Cero inversion inicial para el cliente</h3>
+                <p>
+                  TerraNova vende energia entregada. El cliente paga una tarifa por kWh consumido bajo contrato PPA, sin compra de activo ni venta de participacion en granja solar.
+                </p>
+              </div>
+            </div>
+            <div class="field-grid">
+              <label>
+                Tarifa PPA base
+                <span class="input-unit">
+                  <input id="ppaRate" type="number" value="650" min="0" step="1" />
+                  <small>COP/kWh</small>
+                </span>
+              </label>
+              <label>
+                Cobertura PPA objetivo
+                <span class="input-unit">
+                  <input id="ppaCoverage" type="number" value="100" min="1" max="100" step="1" />
+                  <small>% consumo</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Minimo comercial TerraNova
+                <span class="input-unit">
+                  <input id="minimumMwp" type="number" value="1" min="0" step="0.01" />
+                  <small>MWp</small>
+                </span>
+              </label>
+              <label>
+                Horas solares pico
+                <span class="input-unit">
+                  <input id="peakSunHours" type="number" value="4.5" min="0" max="8" step="0.1" />
+                  <small>h/dia</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Escalador anual PPA
+                <span class="input-unit">
+                  <input id="ppaEscalation" type="number" value="3" min="0" max="20" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+              <label>
+                Aumento esperado red
+                <span class="input-unit">
+                  <input id="gridEscalation" type="number" value="5" min="0" max="25" step="0.1" />
+                  <small>%</small>
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <div hidden>
+            <input id="solarDataSource" type="text" value="Manual / estudio tecnico" />
+            <input id="systemSize" type="number" value="1.48" min="0" step="0.01" />
+            <input id="selfConsumption" type="number" value="95" min="0" max="100" step="1" />
+            <input id="systemLosses" type="number" value="0" min="0" max="60" step="0.1" />
+            <input id="degradation" type="number" value="0.5" min="0" max="5" step="0.1" />
+            <input id="emissionsFactor" type="number" value="0.62" min="0" max="2" step="0.01" />
+          </div>
+
+          <section class="form-section" data-section="terms">
+            <div class="field-grid">
+              <label>
+                Plazo PPA
+                <span class="input-unit">
+                  <input id="contractYears" type="number" value="5" min="1" max="5" step="1" />
+                  <small>años</small>
+                </span>
+              </label>
+              <label>
+                Descuento energia nocturna
+                <span class="input-unit">
+                  <input id="nightDiscountRate" type="number" value="20" min="0" step="1" />
+                  <small>COP/kWh</small>
+                </span>
+              </label>
+            </div>
+            <label>
+              Consumo fuera de horas solares
+              <span class="input-unit">
+                <input id="nightConsumptionPercent" type="number" value="" min="0" max="100" step="1" />
+                <small>%</small>
+              </span>
+            </label>
+            <input id="terranovaNightMargin" type="hidden" value="15" />
+          </section>
+        </form>
+      </aside>
+
+      <section class="dashboard" aria-live="polite">
+        <header class="dashboard-header">
+          <div>
+            <p class="eyebrow">Plan PPA para empresas</p>
+            <h2 id="headline">Plan PPA</h2>
+            <p id="subheadline">Completa los datos del cliente</p>
+          </div>
+          <button id="printButton" class="print-button" type="button" title="Imprimir propuesta">
+            <span aria-hidden="true">PDF</span>
+            Imprimir
+          </button>
+        </header>
+        <div id="leadGateNotice" class="lead-gate-notice" hidden>
+          Complete los datos del cliente, acepte autorización de datos e ingrese consumo y factura para generar su informe y evaluación preliminar.
+        </div>
+
+        <section class="summary-band">
+          <article>
+            <p>Inversion inicial</p>
+            <strong>$0</strong>
+            <span>para el cliente</span>
+          </article>
+          <article>
+            <p>Tarifa PPA</p>
+            <strong id="ppaRateMetric">$650/kWh</strong>
+            <span>energia entregada</span>
+          </article>
+          <article>
+            <p>Ahorro mes 1</p>
+            <strong id="monthlySavings">$0</strong>
+            <span>vs factura actual</span>
+          </article>
+          <article>
+            <p>Ahorro contrato</p>
+            <strong id="contractSavings">$0</strong>
+            <span>plazo PPA</span>
+          </article>
+        </section>
+
+        <section class="qualification-panel" aria-label="Diagnostico comercial PPA">
+          <div>
+            <p class="eyebrow">Elegibilidad PPA</p>
+            <h3 id="qualificationTitle">Complete los datos para generar la evaluacion PPA.</h3>
+            <p id="qualificationCopy">
+              Ingrese los datos del cliente, consumo y factura para calcular si el caso cumple el minimo comercial.
+            </p>
+          </div>
+          <div class="qualification-grid">
+            <article id="minimumEnergyCard">
+              <span>Minimo energia PPA</span>
+              <strong id="minimumEnergyStatus">0 kWh/mes</strong>
+            </article>
+            <article id="minimumMwpCard">
+              <span>Minimo comercial</span>
+              <strong id="minimumMwpStatus">0.00 MWp</strong>
+            </article>
+            <article>
+              <span>Energia minima</span>
+              <strong id="minimumMonthlyEnergy">135.000 kWh/mes</strong>
+            </article>
+            <article>
+              <span>MWp requeridos</span>
+              <strong id="requiredMwpStatus">0.00 MWp</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="insight-grid">
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Comparacion mensual</p>
+                <h3>Factura actual vs Plan PPA</h3>
+              </div>
+              <span id="coverageBadge">100% objetivo</span>
+            </div>
+            <div class="bar-chart" id="barChart" aria-label="Comparacion de costos mensuales"></div>
+          </div>
+
+          <div class="panel decision-panel">
+            <p class="eyebrow">Lectura ejecutiva</p>
+            <h3 id="decisionTitle">El cliente compra energia, no el activo.</h3>
+            <p id="decisionCopy">
+              El PPA reduce el costo por kWh con cero inicial y una tarifa contractual por energia entregada.
+            </p>
+            <dl>
+              <div>
+                <dt>Tarifa real factura</dt>
+                <dd id="currentRate">$0/kWh</dd>
+              </div>
+              <div>
+                <dt>Tarifa PPA propuesta</dt>
+                <dd id="ppaRateDetail">$650/kWh</dd>
+              </div>
+              <div>
+                <dt>Energia PPA mes 1</dt>
+                <dd id="ppaEnergyMetric">0 kWh</dd>
+              </div>
+              <div>
+                <dt>Brecha inicial</dt>
+                <dd id="rateSpread">$0/kWh</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="insight-grid bottom">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Resumen energetico</p>
+                <h3>Capacidad estimada del proyecto</h3>
+              </div>
+            </div>
+            <div class="technical-list">
+              <div>
+                <span>Produccion mensual estimada</span>
+                <strong id="monthlyProductionMetric">0 kWh</strong>
+              </div>
+              <div>
+                <span>Energia aplicable al PPA</span>
+                <strong id="billableEnergyMetric">0 kWh</strong>
+              </div>
+              <div>
+                <span>Minimo comercial requerido</span>
+                <strong id="minimumMonthlyMetric">135.000 kWh</strong>
+              </div>
+              <div>
+                <span>CO2 evitado año 1</span>
+                <strong id="co2Metric">0 t</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Terminos comerciales</p>
+                <h3>Resumen PPA</h3>
+              </div>
+              <span id="contractBadge">5 años</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                    <th>Lectura</th>
+                  </tr>
+                </thead>
+                <tbody id="termsRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Proyeccion PPA</p>
+              <h3>Flujo de ahorro para el cliente</h3>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Tarifa red</th>
+                  <th>Tarifa PPA</th>
+                  <th>Energia PPA</th>
+                  <th>Pago PPA</th>
+                  <th>Ahorro anual</th>
+                </tr>
+              </thead>
+              <tbody id="projectionRows"></tbody>
+            </table>
+          </div>
+          <p class="fine-print">
+            Modelo preliminar. El PPA final depende de disponibilidad de red, perfil horario, medicion, garantias, contrato, regulacion aplicable y validacion del sitio.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <script>
+const fields = [
+  "companyName",
+  "location",
+  "contactName",
+  "contactRole",
+  "contactEmail",
+  "contactPhone",
+  "dataConsent",
+  "monthlyConsumption",
+  "monthlyBill",
+  "ppaRate",
+  "ppaCoverage",
+  "minimumMwp",
+  "peakSunHours",
+  "ppaEscalation",
+  "gridEscalation",
+  "solarDataSource",
+  "systemSize",
+  "selfConsumption",
+  "systemLosses",
+  "degradation",
+  "emissionsFactor",
+  "contractYears",
+  "nightDiscountRate",
+  "nightConsumptionPercent",
+  "terranovaNightMargin",
+];
+
+const requiredClientFields = [
+  "companyName",
+  "location",
+  "contactName",
+  "contactRole",
+  "contactEmail",
+  "contactPhone",
+];
+
+const gatedEnergyFields = ["monthlyConsumption", "monthlyBill"];
+const leadEndpoint = window.TERRANOVA_LEAD_ENDPOINT || "/_functions/terranovaLead";
+const leadSource = "PPA TerraNova";
+const sentLeadKeys = new Set();
+
+const cop = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  maximumFractionDigits: 0,
+});
+
+const number = new Intl.NumberFormat("es-CO", {
+  maximumFractionDigits: 0,
+});
+
+const compactNumber = new Intl.NumberFormat("es-CO", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 1,
+});
+
+const copPerKwh = (value) => `${cop.format(value)}/kWh`;
+
+const compactCop = (value) => {
+  const abs = Math.abs(value);
+  const sign = value < 0 ? "-" : "";
+  if (abs >= 1_000_000_000) return `${sign}$${compactNumber.format(abs / 1_000_000_000)}B`;
+  if (abs >= 1_000_000) return `${sign}$${compactNumber.format(abs / 1_000_000)}M`;
+  return cop.format(value);
+};
+
+const getValue = (id) => {
+  const input = document.getElementById(id);
+  if (input.type === "checkbox") return input.checked ? 1 : 0;
+  return input.type === "number" ? Number(input.value || 0) : input.value;
+};
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function hasCompleteClientData(data) {
+  const hasRequiredData = requiredClientFields.every((field) => String(data[field] || "").trim().length > 0);
+  return hasRequiredData && isValidEmail(data.contactEmail) && data.dataConsent === 1;
+}
+
+function hasCompleteSimulationData(data) {
+  return data.monthlyConsumption > 0 && data.monthlyBill > 0;
+}
+
+function updateEnergyGate() {
+  const clientData = Object.fromEntries(
+    [...requiredClientFields, "dataConsent"].map((field) => [field, getValue(field)]),
+  );
+  const isUnlocked = hasCompleteClientData(clientData);
+
+  gatedEnergyFields.forEach((field) => {
+    const input = document.getElementById(field);
+    input.disabled = !isUnlocked;
+    input.setAttribute("aria-disabled", String(!isUnlocked));
+    if (!isUnlocked && input.value) input.value = "";
+  });
+
+  const gateCard = document.getElementById("energyGateCard");
+  gateCard.classList.toggle("locked", !isUnlocked);
+  gateCard.classList.toggle("unlocked", isUnlocked);
+  return isUnlocked;
+}
+
+function calculate() {
+  const data = Object.fromEntries(fields.map((field) => [field, getValue(field)]));
+  data.contractYears = Math.min(Math.max(Number(data.contractYears) || 1, 1), 5);
+  const hasEnergyInput = hasCompleteSimulationData(data);
+  const currentRate = hasEnergyInput ? data.monthlyBill / data.monthlyConsumption : 0;
+  const hasValidLead = hasCompleteClientData(data);
+  const canGenerateReport = hasValidLead && hasEnergyInput;
+  const minimumDailyEnergy = data.minimumMwp * 1000 * data.peakSunHours;
+  const minimumMonthlyEnergy = minimumDailyEnergy * 30;
+  const netSolarFactor = Math.max(1 - data.systemLosses / 100, 0.01);
+  const targetMonthlyPpaEnergy = hasEnergyInput
+    ? data.monthlyConsumption * (data.ppaCoverage / 100)
+    : 0;
+  const requiredMwp = targetMonthlyPpaEnergy > 0
+    ? targetMonthlyPpaEnergy / (30 * data.peakSunHours * 1000 * netSolarFactor)
+    : 0;
+  const requiredCommercialMwp = targetMonthlyPpaEnergy > 0
+    ? Math.max(requiredMwp, data.minimumMwp)
+    : 0;
+  const proposedDailyProduction = requiredCommercialMwp * 1000 * data.peakSunHours * netSolarFactor;
+  const proposedMonthlyProduction = proposedDailyProduction * 30;
+  const billableMonthlyEnergy = Math.min(
+    targetMonthlyPpaEnergy,
+    proposedMonthlyProduction * (data.selfConsumption / 100),
+  );
+  const qualifiesByEnergy = billableMonthlyEnergy >= minimumMonthlyEnergy;
+  const qualifiesByMwp = hasEnergyInput && requiredCommercialMwp >= data.minimumMwp;
+  const qualifies = hasValidLead && hasEnergyInput && qualifiesByEnergy && qualifiesByMwp && data.ppaRate < currentRate;
+  const monthlyPpaPayment = billableMonthlyEnergy * data.ppaRate;
+  const comparableGridCost = billableMonthlyEnergy * currentRate;
+  const monthlyEnergySavings = Math.max(comparableGridCost - monthlyPpaPayment, 0);
+  const monthlyNightConsumption = data.monthlyConsumption * (data.nightConsumptionPercent / 100);
+  const monthlyNightSavings = monthlyNightConsumption * data.nightDiscountRate;
+  const monthlyTotalSavings = monthlyEnergySavings + monthlyNightSavings;
+  const rateSpread = hasEnergyInput ? currentRate - data.ppaRate : 0;
+  const co2YearOne = (billableMonthlyEnergy * 12 * data.emissionsFactor) / 1000;
+  const rows = [];
+  let contractSavings = 0;
+  let contractPpaPayment = 0;
+  let contractGridReference = 0;
+
+  for (let year = 1; year <= data.contractYears; year += 1) {
+    const gridRate = currentRate * Math.pow(1 + data.gridEscalation / 100, year - 1);
+    const ppaRate = data.ppaRate * Math.pow(1 + data.ppaEscalation / 100, year - 1);
+    const annualEnergy = billableMonthlyEnergy * 12 * Math.pow(1 - data.degradation / 100, year - 1);
+    const ppaPayment = annualEnergy * ppaRate;
+    const gridReference = annualEnergy * gridRate;
+    const nightSavings = monthlyNightSavings * 12 * Math.pow(1 + data.gridEscalation / 100, year - 1);
+    const annualSavings = Math.max(gridReference - ppaPayment, 0) + nightSavings;
+
+    contractSavings += annualSavings;
+    contractPpaPayment += ppaPayment;
+    contractGridReference += gridReference;
+
+    rows.push({
+      year,
+      gridRate,
+      ppaRate,
+      annualEnergy,
+      ppaPayment,
+      annualSavings,
+    });
+  }
+
+  return {
+    data,
+    currentRate,
+    hasValidLead,
+    hasEnergyInput,
+    canGenerateReport,
+    minimumDailyEnergy,
+    minimumMonthlyEnergy,
+    proposedDailyProduction,
+    proposedMonthlyProduction,
+    targetMonthlyPpaEnergy,
+    billableMonthlyEnergy,
+    requiredMwp,
+    requiredCommercialMwp,
+    qualifiesByEnergy,
+    qualifiesByMwp,
+    qualifies,
+    monthlyPpaPayment,
+    comparableGridCost,
+    monthlyEnergySavings,
+    monthlyNightConsumption,
+    monthlyNightSavings,
+    monthlyTotalSavings,
+    rateSpread,
+    co2YearOne,
+    contractSavings,
+    contractPpaPayment,
+    contractGridReference,
+    rows,
+  };
+}
+
+function renderBarChart(result) {
+  const container = document.getElementById("barChart");
+  const bars = [
+    ["Costo red equivalente", result.comparableGridCost, "grid-cost"],
+    ["Pago PPA", result.monthlyPpaPayment, "solar-cost"],
+    ["Ahorro mes 1", result.monthlyTotalSavings, "savings"],
+  ];
+  const maxValue = Math.max(...bars.map((bar) => bar[1]), 1);
+
+  container.innerHTML = bars.map(([label, value, className]) => {
+    const width = Math.max((value / maxValue) * 100, 2);
+    return `
+      <div class="bar-row">
+        <span>${label}</span>
+        <div class="track"><div class="fill ${className}" style="width:${width}%"></div></div>
+        <span class="bar-value">${compactCop(value)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderTermsTable(result) {
+  const rows = [
+    ["Inversion inicial cliente", "$0", "El cliente no compra el activo solar."],
+    ["Unidad comercial", "kWh entregado", "La tarifa se aplica a energia facturada bajo PPA."],
+    ["Tarifa PPA base", copPerKwh(result.data.ppaRate), "Precio inicial del contrato."],
+    ["Energia minima para calificar", `${number.format(result.minimumMonthlyEnergy)} kWh/mes`, `${result.data.minimumMwp} MWp x ${result.data.peakSunHours} h/dia x 30 dias.`],
+    ["Pago mensual PPA estimado", compactCop(result.monthlyPpaPayment), "Mes 1 con energia facturable estimada."],
+    ["Ahorro nocturno opcional", compactCop(result.monthlyNightSavings), "Si TerraNova gestiona energia fuera de horas solares."],
+  ];
+
+  document.getElementById("termsRows").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row[0]}</td>
+      <td>${row[1]}</td>
+      <td>${row[2]}</td>
+    </tr>
+  `).join("");
+}
+
+function renderProjection(result) {
+  document.getElementById("projectionRows").innerHTML = result.rows.map((row) => `
+    <tr>
+      <td>${row.year}</td>
+      <td>${copPerKwh(row.gridRate)}</td>
+      <td>${copPerKwh(row.ppaRate)}</td>
+      <td>${number.format(row.annualEnergy)} kWh</td>
+      <td>${compactCop(row.ppaPayment)}</td>
+      <td>${compactCop(row.annualSavings)}</td>
+    </tr>
+  `).join("");
+}
+
+function leadFingerprint(payload) {
+  return [
+    payload.source,
+    payload.action,
+    payload.client.email,
+    payload.inputs.monthlyConsumption,
+    payload.inputs.monthlyBill,
+    payload.results.contractSavings,
+  ].join("|");
+}
+
+function buildLeadPayload(result, action) {
+  return {
+    source: leadSource,
+    action,
+    generatedAt: new Date().toISOString(),
+    pageUrl: window.location.href,
+    client: {
+      companyName: result.data.companyName,
+      location: result.data.location,
+      contactName: result.data.contactName,
+      role: result.data.contactRole,
+      email: result.data.contactEmail,
+      phone: result.data.contactPhone,
+    },
+    inputs: {
+      monthlyConsumption: result.data.monthlyConsumption,
+      monthlyBill: result.data.monthlyBill,
+      currentRate: result.currentRate,
+      ppaRate: result.data.ppaRate,
+      ppaCoverage: result.data.ppaCoverage,
+      contractYears: result.data.contractYears,
+      nightConsumptionPercent: result.data.nightConsumptionPercent,
+      nightDiscountRate: result.data.nightDiscountRate,
+      minimumMwp: result.data.minimumMwp,
+    },
+    results: {
+      qualifies: result.qualifies,
+      requiredMwp: result.requiredCommercialMwp,
+      billableMonthlyEnergy: result.billableMonthlyEnergy,
+      monthlyPpaPayment: result.monthlyPpaPayment,
+      monthlySavings: result.monthlyTotalSavings,
+      contractSavings: result.contractSavings,
+      co2YearOne: result.co2YearOne,
+    },
+    consent: {
+      accepted: result.data.dataConsent === 1,
+      text: "Autorizacion de tratamiento de datos aceptada para generar la evaluacion preliminar TerraNova.",
+    },
+  };
+}
+
+async function sendLeadToTerraNova(result, action = "print") {
+  const payload = buildLeadPayload(result, action);
+  const fingerprint = leadFingerprint(payload);
+  if (sentLeadKeys.has(fingerprint)) return true;
+
+  if (window.location.protocol === "file:") {
+    console.info("Lead TerraNova preparado para Wix", payload);
+    sentLeadKeys.add(fingerprint);
+    return true;
+  }
+
+  try {
+    const response = await fetch(leadEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error("No fue posible registrar el lead.");
+    sentLeadKeys.add(fingerprint);
+    return true;
+  } catch (error) {
+    console.warn("Lead TerraNova no enviado", error);
+    return true;
+  }
+}
+
+function updateDashboard() {
+  updateEnergyGate();
+  const result = calculate();
+  document.getElementById("contractYears").value = result.data.contractYears;
+
+  document.getElementById("headline").textContent = result.data.companyName || "Plan PPA";
+  document.getElementById("subheadline").textContent = [
+    result.data.location || "Ubicacion pendiente",
+    result.data.contactName ? `Contacto: ${result.data.contactName}` : "",
+  ].filter(Boolean).join(" | ");
+  document.getElementById("leadGateNotice").hidden = result.canGenerateReport;
+  document.getElementById("printButton").classList.toggle("disabled", !result.canGenerateReport);
+  document.getElementById("printButton").title = result.canGenerateReport
+    ? "Imprimir propuesta PPA"
+    : "Completa datos, autorizacion, consumo y factura para generar el informe";
+
+  document.getElementById("ppaRateMetric").textContent = copPerKwh(result.data.ppaRate);
+  document.getElementById("monthlySavings").textContent = result.hasEnergyInput
+    ? compactCop(result.monthlyTotalSavings)
+    : "$0";
+  document.getElementById("contractSavings").textContent = result.hasEnergyInput
+    ? compactCop(result.contractSavings)
+    : "$0";
+  document.getElementById("coverageBadge").textContent = `${result.data.ppaCoverage}% objetivo`;
+  document.getElementById("currentRate").textContent = copPerKwh(result.currentRate);
+  document.getElementById("ppaRateDetail").textContent = copPerKwh(result.data.ppaRate);
+  document.getElementById("ppaEnergyMetric").textContent = `${number.format(result.billableMonthlyEnergy)} kWh`;
+  document.getElementById("rateSpread").textContent = copPerKwh(result.rateSpread);
+  document.getElementById("minimumMonthlyEnergy").textContent = `${number.format(result.minimumMonthlyEnergy)} kWh/mes`;
+  document.getElementById("requiredMwpStatus").textContent = `${result.requiredCommercialMwp.toFixed(2)} MWp`;
+  document.getElementById("minimumEnergyStatus").textContent = !result.hasEnergyInput
+    ? "0 kWh/mes"
+    : result.qualifiesByEnergy
+      ? `Cumple ${number.format(result.billableMonthlyEnergy)} kWh/mes`
+      : `Faltan ${number.format(Math.max(result.minimumMonthlyEnergy - result.billableMonthlyEnergy, 0))} kWh/mes`;
+  document.getElementById("minimumMwpStatus").textContent = !result.hasEnergyInput
+    ? "0.00 MWp"
+    : result.qualifiesByMwp
+      ? `Cumple ${result.requiredCommercialMwp.toFixed(2)} MWp`
+      : `Subir a ${result.data.minimumMwp.toFixed(2)} MWp`;
+  document.getElementById("minimumEnergyCard").classList.toggle("warning", result.hasEnergyInput && !result.qualifiesByEnergy);
+  document.getElementById("minimumMwpCard").classList.toggle("warning", result.hasEnergyInput && !result.qualifiesByMwp);
+  document.getElementById("minimumMonthlyMetric").textContent = `${number.format(result.minimumMonthlyEnergy)} kWh`;
+  document.getElementById("monthlyProductionMetric").textContent = `${number.format(result.proposedMonthlyProduction)} kWh`;
+  document.getElementById("billableEnergyMetric").textContent = `${number.format(result.billableMonthlyEnergy)} kWh`;
+  document.getElementById("co2Metric").textContent = `${number.format(result.co2YearOne)} t`;
+  document.getElementById("contractBadge").textContent = `${result.data.contractYears} años`;
+
+  document.getElementById("qualificationTitle").textContent = !result.hasEnergyInput
+    ? "Complete los datos para generar la evaluacion PPA."
+    : result.qualifies
+    ? "Proyecto apto para Plan PPA TerraNova."
+    : "Proyecto para ajustar antes de presentar PPA.";
+  document.getElementById("qualificationCopy").textContent = !result.hasEnergyInput
+    ? "Ingrese consumo mensual y valor de factura para calcular energia PPA, MWp requeridos y ahorro preliminar."
+    : result.qualifies
+    ? `Con ${number.format(result.billableMonthlyEnergy)} kWh/mes facturables, el caso supera el minimo comercial de ${number.format(result.minimumMonthlyEnergy)} kWh/mes y mantiene cero inversion inicial para el cliente.`
+    : "Revisa consumo, tamaño MWp o tarifa. Para calificar al precio PPA base se requiere al menos 1 MWp, equivalente a 4.500 kWh/dia y 135.000 kWh/mes con 4,5 horas solares.";
+  document.getElementById("decisionTitle").textContent = !result.hasEnergyInput
+    ? "Esperando consumo y factura."
+    : result.qualifies
+    ? "El cliente compra energia con cero inicial."
+    : "Todavia no cumple la regla comercial PPA.";
+  document.getElementById("decisionCopy").textContent = !result.hasEnergyInput
+    ? "Cuando el cliente complete los datos, esta lectura mostrara la tarifa real de factura, la comparacion con el PPA y el ahorro estimado."
+    : result.qualifies
+    ? `La tarifa real de factura es ${copPerKwh(result.currentRate)} y el PPA inicia en ${copPerKwh(result.data.ppaRate)}. El ahorro estimado del primer mes es ${compactCop(result.monthlyTotalSavings)}.`
+    : "La propuesta debe llegar al minimo mensual de energia PPA y mantener una tarifa contractual menor que la tarifa real de factura.";
+
+  renderBarChart(result);
+  renderTermsTable(result);
+  renderProjection(result);
+}
+
+function bindEvents() {
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach((item) => item.classList.remove("active"));
+      document.querySelectorAll(".form-section").forEach((section) => section.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelector(`[data-section="${tab.dataset.target}"]`).classList.add("active");
+    });
+  });
+
+  const form = document.getElementById("project-form");
+  ["input", "change", "keyup"].forEach((eventName) => {
+    form.addEventListener(eventName, updateDashboard);
+  });
+
+  document.getElementById("printButton").addEventListener("click", async () => {
+    const result = calculate();
+    if (!result.canGenerateReport) {
+      document.getElementById("leadGateNotice").hidden = false;
+      return;
+    }
+    await sendLeadToTerraNova(result, "print");
+    window.print();
+  });
+}
+
+bindEvents();
+updateDashboard();
+
+    </script>
+  </body>
+</html>
