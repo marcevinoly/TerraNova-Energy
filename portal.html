@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portal TerraNova</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; font-family: Arial, Helvetica, sans-serif; color: #13271d; background: #f3f7f2; }
+      header { align-items: center; background: #fff; border-bottom: 1px solid #dce5de; display: flex; justify-content: space-between; min-height: 76px; padding: 16px clamp(22px, 5vw, 72px); }
+      .brand { align-items: center; color: #14231b; display: inline-flex; font-size: 24px; font-weight: 850; gap: 12px; text-decoration: none; }
+      .mark { display: grid; gap: 3px; grid-template-columns: repeat(2, 10px); transform: rotate(45deg); }
+      .mark i { background: #91d529; display: block; height: 10px; width: 10px; }
+      .brand em { color: #91d529; font-style: normal; }
+      .languages { display: flex; gap: 7px; }
+      .languages button { appearance: none; background: transparent; border: 0; border-radius: 4px; cursor: pointer; font-size: 18px; padding: 6px; }
+      .languages button.active { background: rgba(145, 213, 41, .2); box-shadow: inset 0 0 0 1px rgba(80, 137, 24, .42); }
+      main { display: grid; min-height: calc(100vh - 76px); place-items: center; padding: 36px 22px; }
+      .panel { background: #fff; border: 1px solid #dce5de; border-radius: 8px; box-shadow: 0 18px 50px rgba(20, 49, 33, .1); max-width: 620px; padding: clamp(34px, 6vw, 66px); width: 100%; }
+      .eyebrow { color: #18713d; font-size: 12px; font-weight: 850; text-transform: uppercase; }
+      h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.03; margin: 12px 0 18px; }
+      p { color: #526258; font-size: 17px; line-height: 1.6; margin: 0 0 28px; }
+      .home { background: #91d529; border-radius: 6px; color: #102012; display: inline-flex; font-weight: 850; padding: 13px 18px; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TerraNova <em>Energy</em></span></a>
+      <div class="languages" aria-label="Idioma">
+        <button type="button" class="active" data-lang="es" aria-label="Español" title="Español">🇪🇸</button>
+        <button type="button" data-lang="en" aria-label="English" title="English">🇺🇸</button>
+      </div>
+    </header>
+    <main>
+      <section class="panel">
+        <div class="eyebrow" data-es="Acceso seguro" data-en="Secure access">Acceso seguro</div>
+        <h1>Portal TerraNova</h1>
+        <p data-es="El portal para clientes e inversionistas se encuentra en preparación. El acceso se habilitará únicamente con credenciales verificadas por TerraNova Energy." data-en="The client and investor portal is currently being prepared. Access will be enabled only with credentials verified by TerraNova Energy.">El portal para clientes e inversionistas se encuentra en preparación. El acceso se habilitará únicamente con credenciales verificadas por TerraNova Energy.</p>
+        <a class="home" href="index.html" data-es="Volver al inicio" data-en="Return home">Volver al inicio</a>
+      </section>
+    </main>
+    <script>
+      const setLanguage = (language) => {
+        const selected = language === "en" ? "en" : "es";
+        document.documentElement.lang = selected;
+        document.querySelectorAll("[data-es]").forEach((element) => { element.textContent = element.dataset[selected]; });
+        document.querySelectorAll("[data-lang]").forEach((button) => button.classList.toggle("active", button.dataset.lang === selected));
+        localStorage.setItem("terranova-language", selected);
+      };
+      document.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+      setLanguage(localStorage.getItem("terranova-language") || "es");
+    </script>
+  </body>
+</html>

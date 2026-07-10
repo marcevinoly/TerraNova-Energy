@@ -574,21 +574,31 @@
     businessLink.remove();
     capitalLink.remove();
 
+    const aboutLink = Array.from(nav.querySelectorAll("a")).find((link) => (link.getAttribute("href") || "").includes("#nosotros"));
+    if (aboutLink && !nav.querySelector(".portal-link")) {
+      const portalLink = document.createElement("a");
+      portalLink.className = `${itemClass.split(" ")[0]} portal-link`;
+      portalLink.href = "portal.html";
+      portalLink.textContent = "Portal TerraNova";
+      aboutLink.before(portalLink);
+    }
+
     const style = document.createElement("style");
     style.id = "terranova-nav-enhancements";
     style.textContent = `
       .site-nav:has(.solutions-menu), .main-nav:has(.solutions-menu) { overflow: visible !important; }
-      .solutions-menu { flex: 0 0 auto; position: relative; }
-      .solutions-trigger { align-items: center; appearance: none; background: transparent; border: 0; cursor: pointer; display: inline-flex; font: inherit; gap: 6px; }
+      .solutions-menu { align-items: center; display: flex; flex: 0 0 auto; min-height: 36px; position: relative; }
+      .solutions-trigger { align-items: center; appearance: none; background: transparent; border: 0; cursor: pointer; display: inline-flex; font-family: inherit; font-size: inherit; font-weight: inherit; gap: 6px; height: 36px; line-height: 1; margin: 0; padding: 0; }
       .menu-chevron { font-size: .72em; transition: transform 180ms ease; }
-      .solutions-dropdown { background: rgba(255,255,255,.98); border: 1px solid rgba(20,35,27,.14); border-radius: 6px; box-shadow: 0 16px 34px rgba(12,25,18,.2); left: 50%; min-width: 224px; opacity: 0; padding: 8px; pointer-events: none; position: absolute; top: calc(100% + 9px); transform: translate(-50%,-6px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease; visibility: hidden; z-index: 100; }
+      .solutions-dropdown { background: rgba(255,255,255,.98); border: 1px solid rgba(20,35,27,.14); border-radius: 6px; box-shadow: 0 16px 34px rgba(12,25,18,.2); left: 50%; min-width: 224px; opacity: 0; padding: 8px; pointer-events: none; position: absolute; top: calc(100% - 1px); transform: translate(-50%,-4px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease; visibility: hidden; z-index: 100; }
       .solutions-dropdown a { border-radius: 4px; color: #183126; display: block; font-size: 12px; font-weight: 800; padding: 10px 12px; text-decoration: none; white-space: nowrap; }
       .solutions-dropdown a:hover, .solutions-dropdown a:focus-visible { background: rgba(145,213,41,.18); color: #0f632f; outline: none; }
       .solutions-menu:hover .solutions-dropdown, .solutions-menu:focus-within .solutions-dropdown, .solutions-menu.open .solutions-dropdown { opacity: 1; pointer-events: auto; transform: translate(-50%,0); visibility: visible; }
       .solutions-menu:hover .menu-chevron, .solutions-menu:focus-within .menu-chevron, .solutions-menu.open .menu-chevron { transform: rotate(180deg); }
-      .language-switch button { border-radius: 4px !important; font-size: 17px !important; line-height: 1 !important; min-width: 30px !important; padding: 6px 4px !important; }
+      .site-nav-link, .main-nav .nav-link { align-items: center !important; display: inline-flex !important; font-size: 13px !important; line-height: 1 !important; min-height: 36px !important; padding: 0 !important; }
+      .language-switch button { border-bottom: 0 !important; border-radius: 4px !important; font-size: 17px !important; line-height: 1 !important; min-width: 30px !important; padding: 6px 4px !important; }
       .language-switch button:not(.active) { filter: grayscale(.2); opacity: .7; }
-      .language-switch button.active { filter: none; opacity: 1; }
+      .language-switch button.active { background: rgba(145,213,41,.2) !important; box-shadow: inset 0 0 0 1px rgba(80,137,24,.42); filter: none; opacity: 1; }
       @media (max-width: 980px) { .site-nav:has(.solutions-menu), .main-nav:has(.solutions-menu) { flex-wrap: wrap; } }
     `;
     document.head.appendChild(style);
