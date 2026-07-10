@@ -1168,6 +1168,22 @@ body {
             </div>
             <div class="field-grid">
               <label>
+                Ganancia gravable anual del inversionista
+                <span class="input-unit">
+                  <input id="taxpayerTaxableIncomeYearOne" type="number" value="" min="0" step="1000000" placeholder="Ej. 2.000.000.000" />
+                  <small>COP año 1</small>
+                </span>
+              </label>
+              <label>
+                Crecimiento anual ganancia gravable
+                <span class="input-unit">
+                  <input id="taxpayerIncomeGrowth" type="number" value="3" min="0" max="30" step="0.1" />
+                  <small>% anual</small>
+                </span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
                 Plazo deduccion
                 <span class="input-unit">
                   <input id="deductionYears" type="number" value="15" min="1" max="30" step="1" />
@@ -1421,6 +1437,39 @@ body {
           </div>
         </section>
 
+        <section class="panel table-panel tax-benefits-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Beneficios tributarios</p>
+              <h3>Conciliacion fiscal estimada</h3>
+            </div>
+            <span id="taxSavingsBadge">Ahorro estimado: $0</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Renta antes de incentivos</th>
+                  <th>Depreciacion ordinaria</th>
+                  <th>Depreciacion acelerada</th>
+                  <th>Diferencia depreciacion</th>
+                  <th>Deduccion especial usada</th>
+                  <th>Renta gravable final</th>
+                  <th>Impuesto sin incentivos</th>
+                  <th>Impuesto con incentivos</th>
+                  <th>Ahorro tributario</th>
+                  <th>Saldo deduccion</th>
+                </tr>
+              </thead>
+              <tbody id="taxBenefitRows"></tbody>
+            </table>
+          </div>
+          <p class="fine-print">
+            La deduccion especial y la depreciacion acelerada son beneficios distintos. La depreciacion acelerada modifica el momento en que se reconoce el costo fiscal del activo; por eso su efecto puede compensarse en años posteriores frente a la depreciacion ordinaria. Para esta comparacion preliminar, la depreciacion ordinaria se distribuye linealmente durante el horizonte seleccionado. La deduccion especial se utiliza hasta agotar el porcentaje elegible, sin superar el limite anual modelado sobre la renta liquida previa a esa deduccion. Estimacion sujeta a certificacion UPME, entrada en operacion, aviso y requisitos tributarios aplicables, y validacion independiente de un asesor fiscal colombiano.
+          </p>
+        </section>
+
         <section class="panel table-panel projection-panel">
           <div class="panel-head">
             <div>
@@ -1476,6 +1525,8 @@ const fields = [
   "volumeDiscountPercent",
   "incomeTaxRate",
   "investmentDeductionPercent",
+  "taxpayerTaxableIncomeYearOne",
+  "taxpayerIncomeGrowth",
   "deductionYears",
   "annualDeductionCapPercent",
   "acceleratedDepreciationRate",
@@ -1600,14 +1651,16 @@ function calculate() {
   let paybackYear = null;
   let remainingDebtCop = financedCop;
   let accumulatedDepreciationCop = 0;
+  let accumulatedOrdinaryDepreciationCop = 0;
   const dscrValues = [];
   const benefitsEnabled = data.taxBenefitsEnabled === "Si";
-  const annualDeductionTarget = benefitsEnabled
-    ? (totalInvestmentCop * (data.investmentDeductionPercent / 100)) / data.deductionYears
+  let remainingInvestmentDeductionCop = benefitsEnabled
+    ? totalInvestmentCop * (data.investmentDeductionPercent / 100)
     : 0;
   const annualDepreciationTarget = benefitsEnabled
     ? totalInvestmentCop * (data.acceleratedDepreciationRate / 100)
     : totalInvestmentCop / Math.max(data.contractYears, 1);
+  const annualOrdinaryDepreciationTarget = totalInvestmentCop / Math.max(data.contractYears, 1);
 
   for (let year = 1; year <= data.contractYears; year += 1) {
     const energy = billableAnnualEnergy * Math.pow(1 - data.degradation / 100, year - 1);
@@ -1622,13 +1675,34 @@ function calculate() {
     remainingDebtCop = Math.max(remainingDebtCop - principal, 0);
     const depreciation = Math.min(annualDepreciationTarget, Math.max(totalInvestmentCop - accumulatedDepreciationCop, 0));
     accumulatedDepreciationCop += depreciation;
+    const ordinaryDepreciation = Math.min(
+      annualOrdinaryDepreciationTarget,
+      Math.max(totalInvestmentCop - accumulatedOrdinaryDepreciationCop, 0),
+    );
+    accumulatedOrdinaryDepreciationCop += ordinaryDepreciation;
     const operatingEgress = postSaleCost + opex + reserve;
     const ebitda = grossRevenue - operatingEgress;
-    const taxableBeforeIncentive = grossRevenue - operatingEgress - interest - depreciation;
-    const deductionCap = Math.max(taxableBeforeIncentive, 0) * (data.annualDeductionCapPercent / 100);
-    const investmentDeduction = year <= data.deductionYears ? Math.min(annualDeductionTarget, deductionCap) : 0;
-    const taxableIncome = Math.max(taxableBeforeIncentive - investmentDeduction, 0);
-    const incomeTax = taxableIncome * (data.incomeTaxRate / 100);
+    const taxpayerTaxableIncome = data.taxpayerTaxableIncomeYearOne
+      * Math.pow(1 + data.taxpayerIncomeGrowth / 100, year - 1);
+    const taxpayerBaseTax = Math.max(taxpayerTaxableIncome, 0) * (data.incomeTaxRate / 100);
+    const baselineTaxableIncome = Math.max(
+      taxpayerTaxableIncome + grossRevenue - operatingEgress - interest - ordinaryDepreciation,
+      0,
+    );
+    const baselineIncomeTax = baselineTaxableIncome * (data.incomeTaxRate / 100);
+    const taxableBeforeSpecialDeduction = Math.max(
+      taxpayerTaxableIncome + grossRevenue - operatingEgress - interest - depreciation,
+      0,
+    );
+    const deductionCap = taxableBeforeSpecialDeduction * (data.annualDeductionCapPercent / 100);
+    const investmentDeduction = benefitsEnabled && year <= data.deductionYears
+      ? Math.min(remainingInvestmentDeductionCop, deductionCap)
+      : 0;
+    remainingInvestmentDeductionCop = Math.max(remainingInvestmentDeductionCop - investmentDeduction, 0);
+    const taxableIncome = Math.max(taxableBeforeSpecialDeduction - investmentDeduction, 0);
+    const totalIncomeTaxWithIncentives = taxableIncome * (data.incomeTaxRate / 100);
+    const incomeTax = totalIncomeTaxWithIncentives - taxpayerBaseTax;
+    const taxSavings = baselineIncomeTax - totalIncomeTaxWithIncentives;
     const totalEgress = operatingEgress + debtService;
     const netCashFlow = grossRevenue - totalEgress - incomeTax;
     const dscr = debtService > 0 ? ebitda / debtService : null;
@@ -1652,10 +1726,19 @@ function calculate() {
       interest,
       principal,
       debtService,
+      ordinaryDepreciation,
       depreciation,
+      acceleratedDepreciationDifference: depreciation - ordinaryDepreciation,
       investmentDeduction,
+      taxpayerTaxableIncome,
+      taxpayerBaseTax,
+      baselineTaxableIncome,
+      baselineIncomeTax,
       taxableIncome,
+      totalIncomeTaxWithIncentives,
       incomeTax,
+      taxSavings,
+      remainingInvestmentDeduction: remainingInvestmentDeductionCop,
       totalEgress,
       netCashFlow,
       cumulativeCashFlow,
@@ -1677,6 +1760,10 @@ function calculate() {
   const loanToValue = totalInvestmentCop > 0 ? (financedCop / totalInvestmentCop) * 100 : 0;
   const bankable = (minimumDscr === null || minimumDscr >= 1.2) && (irr ?? -Infinity) >= 8 && paybackWithinTerm;
   const annualReturn = downPaymentCop > 0 ? (netCashFlowYearOne / downPaymentCop) * 100 : 0;
+  const totalBaselineIncomeTax = rows.reduce((sum, row) => sum + row.baselineIncomeTax, 0);
+  const totalIncomeTax = rows.reduce((sum, row) => sum + row.totalIncomeTaxWithIncentives, 0);
+  const totalTaxSavings = rows.reduce((sum, row) => sum + row.taxSavings, 0);
+  const totalInvestmentDeductionUsed = rows.reduce((sum, row) => sum + row.investmentDeduction, 0);
 
   return {
     data,
@@ -1709,6 +1796,11 @@ function calculate() {
     loanToValue,
     bankable,
     annualReturn,
+    totalBaselineIncomeTax,
+    totalIncomeTax,
+    totalTaxSavings,
+    totalInvestmentDeductionUsed,
+    remainingInvestmentDeductionCop,
     irr,
     co2YearOne,
     rows,
@@ -1790,7 +1882,11 @@ function renderTermsTable(result) {
     ["Energia vendida año 1", `${number.format(result.billableAnnualEnergy)} kWh`, "Energia comercializable estimada para el primer año."],
     ["Precio energia", copPerKwh(result.data.energySaleRate), "Precio base de venta usado en el modelo."],
     ["Impuesto renta", percent(result.data.incomeTaxRate), "Aplicado sobre utilidad fiscal estimada."],
+    ["Ganancia gravable aportada", compactCop(result.data.taxpayerTaxableIncomeYearOne), "Renta anual del inversionista disponible para aplicar el limite de la deduccion; si es cero se usa solo la renta del proyecto."],
     ["Beneficio tributario", result.data.taxBenefitsEnabled, "Deduccion y depreciacion acelerada sujetas a certificacion y validacion."],
+    ["Deduccion especial utilizada", compactCop(result.totalInvestmentDeductionUsed), "Deduccion efectivamente aplicada dentro del limite anual y del plazo seleccionado."],
+    ["Saldo de deduccion", compactCop(result.remainingInvestmentDeductionCop), "Beneficio especial pendiente de utilizar al finalizar la proyeccion."],
+    ["Ahorro tributario estimado", compactCop(result.totalTaxSavings), "Diferencia acumulada entre impuesto con depreciacion ordinaria e impuesto con incentivos."],
     ["EBITDA año 1", compactCop(result.ebitdaYearOne), "Ingreso operativo antes de deuda, impuestos y depreciacion."],
     ["DSCR minimo", ratio(result.minimumDscr), "Cobertura minima del servicio de deuda durante el periodo financiado."],
     ["DSCR promedio", ratio(result.averageDscr), "Cobertura promedio del servicio de deuda durante el periodo financiado."],
@@ -1806,6 +1902,25 @@ function renderTermsTable(result) {
       <td>${row[0]}</td>
       <td>${row[1]}</td>
       <td>${row[2]}</td>
+    </tr>
+  `).join("");
+}
+
+function renderTaxBenefits(result) {
+  document.getElementById("taxSavingsBadge").textContent = `Ahorro estimado: ${compactCop(result.totalTaxSavings)}`;
+  document.getElementById("taxBenefitRows").innerHTML = result.rows.map((row) => `
+    <tr>
+      <td>${row.year}</td>
+      <td>${compactCop(row.baselineTaxableIncome)}</td>
+      <td>${compactCop(row.ordinaryDepreciation)}</td>
+      <td>${compactCop(row.depreciation)}</td>
+      <td>${compactCop(row.acceleratedDepreciationDifference)}</td>
+      <td>${compactCop(row.investmentDeduction)}</td>
+      <td>${compactCop(row.taxableIncome)}</td>
+      <td>${compactCop(row.baselineIncomeTax)}</td>
+      <td>${compactCop(row.totalIncomeTaxWithIncentives)}</td>
+      <td>${compactCop(row.taxSavings)}</td>
+      <td>${compactCop(row.remainingInvestmentDeduction)}</td>
     </tr>
   `).join("");
 }
@@ -1859,6 +1974,10 @@ function buildLeadPayload(result, action) {
       financingInterest: result.data.financingInterest,
       financingYears: result.data.financingYears,
       contractYears: result.data.contractYears,
+      taxpayerTaxableIncomeYearOne: result.data.taxpayerTaxableIncomeYearOne,
+      taxpayerIncomeGrowth: result.data.taxpayerIncomeGrowth,
+      investmentDeductionPercent: result.data.investmentDeductionPercent,
+      acceleratedDepreciationRate: result.data.acceleratedDepreciationRate,
     },
     results: {
       bankable: result.bankable,
@@ -1873,6 +1992,9 @@ function buildLeadPayload(result, action) {
       totalReturnPercent: result.totalReturnPercent,
       paybackYear: result.paybackYear,
       co2YearOne: result.co2YearOne,
+      totalTaxSavings: result.totalTaxSavings,
+      totalInvestmentDeductionUsed: result.totalInvestmentDeductionUsed,
+      remainingInvestmentDeductionCop: result.remainingInvestmentDeductionCop,
     },
     consent: {
       accepted: result.data.dataConsent === 1,
@@ -1964,6 +2086,7 @@ function updateDashboard() {
 
   renderBarChart(result);
   renderTermsTable(result);
+  renderTaxBenefits(result);
   renderProjection(result);
 }
 
@@ -2028,6 +2151,6 @@ bindEvents();
 updateDashboard();
 
     </script>
-    <script src="terranova-i18n.js?v=7"></script>
+    <script src="terranova-i18n.js?v=9"></script>
   </body>
 </html>

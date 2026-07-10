@@ -3,51 +3,450 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portal TerraNova</title>
+    <meta name="description" content="Portal privado para clientes activos de TerraNova Energy." />
+    <title>Portal Cliente TerraNova</title>
     <style>
+      :root {
+        --green: #91d529;
+        --green-dark: #116838;
+        --ink: #13251c;
+        --muted: #5d6d63;
+        --line: #dbe5dd;
+        --surface: #ffffff;
+        --soft: #eff5f0;
+      }
+
       * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; font-family: Arial, Helvetica, sans-serif; color: #13271d; background: #f3f7f2; }
-      header { align-items: center; background: #fff; border-bottom: 1px solid #dce5de; display: flex; justify-content: space-between; min-height: 76px; padding: 16px clamp(22px, 5vw, 72px); }
-      .brand { align-items: center; color: #14231b; display: inline-flex; font-size: 24px; font-weight: 850; gap: 12px; text-decoration: none; }
-      .mark { display: grid; gap: 3px; grid-template-columns: repeat(2, 10px); transform: rotate(45deg); }
-      .mark i { background: #91d529; display: block; height: 10px; width: 10px; }
-      .brand em { color: #91d529; font-style: normal; }
-      .languages { display: flex; gap: 7px; }
-      .languages button { appearance: none; background: transparent; border: 0; border-radius: 4px; cursor: pointer; font-size: 18px; padding: 6px; }
-      .languages button.active { background: rgba(145, 213, 41, .2); box-shadow: inset 0 0 0 1px rgba(80, 137, 24, .42); }
-      main { display: grid; min-height: calc(100vh - 76px); place-items: center; padding: 36px 22px; }
-      .panel { background: #fff; border: 1px solid #dce5de; border-radius: 8px; box-shadow: 0 18px 50px rgba(20, 49, 33, .1); max-width: 620px; padding: clamp(34px, 6vw, 66px); width: 100%; }
-      .eyebrow { color: #18713d; font-size: 12px; font-weight: 850; text-transform: uppercase; }
-      h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.03; margin: 12px 0 18px; }
-      p { color: #526258; font-size: 17px; line-height: 1.6; margin: 0 0 28px; }
-      .home { background: #91d529; border-radius: 6px; color: #102012; display: inline-flex; font-weight: 850; padding: 13px 18px; text-decoration: none; }
+
+      body {
+        background: #f4f7f4;
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      button,
+      input { font: inherit; }
+
+      .site-header {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.96);
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        min-height: 76px;
+        padding: 14px clamp(20px, 5vw, 72px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .brand {
+        align-items: center;
+        color: var(--ink);
+        display: inline-flex;
+        font-size: clamp(20px, 2vw, 27px);
+        font-weight: 850;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .mark {
+        display: grid;
+        gap: 3px;
+        grid-template-columns: repeat(2, 10px);
+        transform: rotate(45deg);
+      }
+
+      .mark i {
+        background: var(--green);
+        display: block;
+        height: 10px;
+        width: 10px;
+      }
+
+      .brand em { color: var(--green); font-style: normal; }
+
+      .header-actions { align-items: center; display: flex; gap: 18px; }
+
+      .home-link {
+        color: #31433a;
+        font-size: 14px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .home-link:hover,
+      .home-link:focus-visible { color: var(--green-dark); }
+
+      .languages { display: flex; gap: 6px; }
+
+      .languages button {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        padding: 7px 6px;
+      }
+
+      .languages button.active {
+        background: rgba(145, 213, 41, 0.2);
+        box-shadow: inset 0 0 0 1px rgba(80, 137, 24, 0.42);
+      }
+
+      main { padding: clamp(34px, 5vw, 72px) clamp(20px, 5vw, 72px) 72px; }
+
+      .portal-shell {
+        display: grid;
+        gap: clamp(34px, 5vw, 68px);
+        grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+        margin: 0 auto;
+        max-width: 1240px;
+      }
+
+      .access-column { min-width: 0; }
+
+      .eyebrow {
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(36px, 5vw, 58px);
+        line-height: 1.02;
+        margin: 12px 0 18px;
+      }
+
+      .intro {
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.6;
+        margin: 0 0 28px;
+      }
+
+      .login-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 18px 50px rgba(20, 49, 33, 0.08);
+        padding: clamp(24px, 4vw, 34px);
+      }
+
+      .login-card h2 { font-size: 20px; margin: 0 0 22px; }
+
+      .field { display: grid; gap: 8px; margin-bottom: 18px; }
+
+      .field label { color: #34483d; font-size: 13px; font-weight: 800; }
+
+      .field input {
+        background: #fbfcfb;
+        border: 1px solid #cfdad2;
+        border-radius: 6px;
+        color: var(--ink);
+        min-height: 48px;
+        outline: none;
+        padding: 0 14px;
+        width: 100%;
+      }
+
+      .field input:focus {
+        border-color: var(--green-dark);
+        box-shadow: 0 0 0 3px rgba(17, 104, 56, 0.12);
+      }
+
+      .login-button,
+      .billing-button {
+        align-items: center;
+        border: 0;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        font-weight: 850;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        text-decoration: none;
+      }
+
+      .login-button {
+        background: var(--green);
+        color: #102012;
+        width: 100%;
+      }
+
+      .login-button:hover { background: #83c51f; }
+
+      .login-status {
+        border-radius: 5px;
+        color: #365045;
+        display: none;
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 16px 0 0;
+        padding: 11px 12px;
+      }
+
+      .login-status.visible { background: #edf5ee; display: block; }
+
+      .security-note {
+        color: #718078;
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 16px 0 0;
+      }
+
+      .billing-button {
+        background: var(--green-dark);
+        color: #fff;
+        gap: 10px;
+        margin-top: 16px;
+        width: 100%;
+      }
+
+      .billing-button:hover { background: #0b572d; }
+
+      .billing-icon { font-size: 18px; line-height: 1; }
+
+      .services-column { min-width: 0; }
+
+      .services-heading {
+        align-items: end;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+
+      .services-heading h2 {
+        font-size: clamp(26px, 3vw, 38px);
+        line-height: 1.08;
+        margin: 8px 0 0;
+        max-width: 720px;
+      }
+
+      .active-badge {
+        background: #e9f4ea;
+        border-radius: 999px;
+        color: var(--green-dark);
+        flex: 0 0 auto;
+        font-size: 12px;
+        font-weight: 850;
+        padding: 8px 11px;
+      }
+
+      .service-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .service-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-height: 100%;
+        padding: 23px;
+      }
+
+      .service-card.billing { border-top: 4px solid var(--green); grid-column: 1 / -1; }
+
+      .service-card h3 { font-size: 18px; margin: 0 0 15px; }
+
+      .service-list {
+        display: grid;
+        gap: 11px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .service-list li {
+        align-items: flex-start;
+        color: #526258;
+        display: flex;
+        font-size: 14px;
+        gap: 10px;
+        line-height: 1.35;
+      }
+
+      .service-list li::before {
+        color: var(--green-dark);
+        content: "✓";
+        flex: 0 0 auto;
+        font-weight: 900;
+      }
+
+      @media (max-width: 900px) {
+        .portal-shell { grid-template-columns: 1fr; }
+        .access-column { max-width: 620px; }
+      }
+
+      @media (max-width: 620px) {
+        .site-header { gap: 12px; }
+        .brand { font-size: 19px; }
+        .header-actions { gap: 8px; }
+        .home-link { font-size: 12px; }
+        .service-grid { grid-template-columns: 1fr; }
+        .service-card.billing { grid-column: auto; }
+        .services-heading { align-items: flex-start; flex-direction: column; }
+      }
     </style>
   </head>
   <body>
-    <header>
-      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TerraNova <em>Energy</em></span></a>
-      <div class="languages" aria-label="Idioma">
-        <button type="button" class="active" data-lang="es" aria-label="Español" title="Español">🇪🇸</button>
-        <button type="button" data-lang="en" aria-label="English" title="English">🇺🇸</button>
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>TerraNova <em>Energy</em></span>
+      </a>
+      <div class="header-actions">
+        <a class="home-link" href="index.html" data-es="Volver al inicio" data-en="Return home">Volver al inicio</a>
+        <div class="languages" aria-label="Idioma">
+          <button type="button" class="active" data-lang="es" aria-label="Español" title="Español">🇪🇸</button>
+          <button type="button" data-lang="en" aria-label="English" title="English">🇺🇸</button>
+        </div>
       </div>
     </header>
+
     <main>
-      <section class="panel">
-        <div class="eyebrow" data-es="Acceso seguro" data-en="Secure access">Acceso seguro</div>
-        <h1>Portal TerraNova</h1>
-        <p data-es="El portal para clientes e inversionistas se encuentra en preparación. El acceso se habilitará únicamente con credenciales verificadas por TerraNova Energy." data-en="The client and investor portal is currently being prepared. Access will be enabled only with credentials verified by TerraNova Energy.">El portal para clientes e inversionistas se encuentra en preparación. El acceso se habilitará únicamente con credenciales verificadas por TerraNova Energy.</p>
-        <a class="home" href="index.html" data-es="Volver al inicio" data-en="Return home">Volver al inicio</a>
-      </section>
+      <div class="portal-shell">
+        <section class="access-column">
+          <div class="eyebrow" data-es="Acceso privado" data-en="Private access">Acceso privado</div>
+          <h1 data-es="Portal Cliente TerraNova" data-en="TerraNova Client Portal">Portal Cliente TerraNova</h1>
+          <p class="intro" data-es="Información energética, financiera y contractual de su proyecto TerraNova en un solo lugar." data-en="Energy, financial and contractual information for your TerraNova project in one place.">Información energética, financiera y contractual de su proyecto TerraNova en un solo lugar.</p>
+
+          <form class="login-card" id="portal-login" novalidate>
+            <h2 data-es="Ingrese a su cuenta" data-en="Sign in to your account">Ingrese a su cuenta</h2>
+            <div class="field">
+              <label for="portal-user" data-es="Usuario" data-en="Username">Usuario</label>
+              <input id="portal-user" name="username" type="text" autocomplete="username" required data-placeholder-es="Ingrese su usuario" data-placeholder-en="Enter your username" placeholder="Ingrese su usuario" />
+            </div>
+            <div class="field">
+              <label for="portal-password" data-es="Clave de acceso" data-en="Access password">Clave de acceso</label>
+              <input id="portal-password" name="password" type="password" autocomplete="current-password" required data-placeholder-es="Ingrese su clave" data-placeholder-en="Enter your password" placeholder="Ingrese su clave" />
+            </div>
+            <button class="login-button" type="submit" data-es="Ingresar al portal" data-en="Sign in to portal">Ingresar al portal</button>
+            <p class="login-status" id="login-status" role="status"></p>
+            <p class="security-note" data-es="Acceso exclusivo para clientes activos. Nunca comparta su clave de acceso." data-en="Exclusive access for active clients. Never share your access password.">Acceso exclusivo para clientes activos. Nunca comparta su clave de acceso.</p>
+            <button class="billing-button" id="billing-access" type="button">
+              <span class="billing-icon" aria-hidden="true">▤</span>
+              <span data-es="Facturación" data-en="Billing">Facturación</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="services-column">
+          <div class="services-heading">
+            <div>
+              <div class="eyebrow" data-es="Servicios del portal" data-en="Portal services">Servicios del portal</div>
+              <h2 data-es="En este portal nuestros clientes activos pueden acceder a:" data-en="In this portal, our active clients can access:">En este portal nuestros clientes activos pueden acceder a:</h2>
+            </div>
+            <span class="active-badge" data-es="Clientes activos" data-en="Active clients">Clientes activos</span>
+          </div>
+
+          <div class="service-grid">
+            <article class="service-card">
+              <h3 data-es="Mi energía solar" data-en="My solar energy">Mi energía solar</h3>
+              <ul class="service-list">
+                <li data-es="Capacidad instalada" data-en="Installed capacity">Capacidad instalada</li>
+                <li data-es="Monitoreo" data-en="Monitoring">Monitoreo</li>
+                <li data-es="Energía generada" data-en="Energy generated">Energía generada</li>
+                <li data-es="Consumo energético" data-en="Energy consumption">Consumo energético</li>
+                <li data-es="Ahorro acumulado" data-en="Accumulated savings">Ahorro acumulado</li>
+                <li data-es="Reducción estimada de CO₂" data-en="Estimated CO₂ reduction">Reducción estimada de CO₂</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <h3 data-es="Desarrollo del proyecto" data-en="Project development">Desarrollo del proyecto</h3>
+              <ul class="service-list">
+                <li data-es="Preconstrucción energética" data-en="Energy pre-construction">Preconstrucción energética</li>
+                <li data-es="Avances de mi proyecto" data-en="My project progress">Avances de mi proyecto</li>
+                <li data-es="Proyectos activos" data-en="Active projects">Proyectos activos</li>
+                <li data-es="Alertas de documentos pendientes" data-en="Pending document alerts">Alertas de documentos pendientes</li>
+              </ul>
+            </article>
+
+            <article class="service-card billing">
+              <h3 data-es="Facturación y contratos" data-en="Billing and contracts">Facturación y contratos</h3>
+              <ul class="service-list">
+                <li data-es="Facturas pendientes" data-en="Pending invoices">Facturas pendientes</li>
+                <li data-es="Próximos pagos" data-en="Upcoming payments">Próximos pagos</li>
+                <li data-es="Estado de contratos" data-en="Contract status">Estado de contratos</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </div>
     </main>
+
     <script>
-      const setLanguage = (language) => {
-        const selected = language === "en" ? "en" : "es";
-        document.documentElement.lang = selected;
-        document.querySelectorAll("[data-es]").forEach((element) => { element.textContent = element.dataset[selected]; });
-        document.querySelectorAll("[data-lang]").forEach((button) => button.classList.toggle("active", button.dataset.lang === selected));
-        localStorage.setItem("terranova-language", selected);
+      let currentLanguage = "es";
+
+      const translations = {
+        es: {
+          required: "Ingrese su usuario y clave de acceso para continuar.",
+          pending: "El acceso seguro se habilitará cuando sus credenciales sean verificadas por TerraNova Energy.",
+          billing: "Ingrese primero sus credenciales para consultar la facturación."
+        },
+        en: {
+          required: "Enter your username and access password to continue.",
+          pending: "Secure access will be enabled once your credentials are verified by TerraNova Energy.",
+          billing: "Please enter your credentials first to view billing."
+        }
       };
-      document.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+
+      const showStatus = (message) => {
+        const status = document.getElementById("login-status");
+        status.textContent = message;
+        status.classList.add("visible");
+      };
+
+      const setLanguage = (language) => {
+        currentLanguage = language === "en" ? "en" : "es";
+        document.documentElement.lang = currentLanguage;
+        document.querySelectorAll("[data-es]").forEach((element) => {
+          element.textContent = element.dataset[currentLanguage];
+        });
+        document.querySelectorAll("[data-placeholder-es]").forEach((element) => {
+          element.placeholder = element.dataset[`placeholder${currentLanguage === "en" ? "En" : "Es"}`];
+        });
+        document.querySelectorAll("[data-lang]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.lang === currentLanguage);
+        });
+        const status = document.getElementById("login-status");
+        if (status.classList.contains("visible")) status.classList.remove("visible");
+        localStorage.setItem("terranova-language", currentLanguage);
+      };
+
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.lang));
+      });
+
+      document.getElementById("portal-login").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = document.getElementById("portal-user");
+        const password = document.getElementById("portal-password");
+        if (!username.value.trim() || !password.value) {
+          showStatus(translations[currentLanguage].required);
+          (!username.value.trim() ? username : password).focus();
+          return;
+        }
+        showStatus(translations[currentLanguage].pending);
+      });
+
+      document.getElementById("billing-access").addEventListener("click", () => {
+        showStatus(translations[currentLanguage].billing);
+        document.getElementById("portal-user").focus();
+      });
+
       setLanguage(localStorage.getItem("terranova-language") || "es");
     </script>
   </body>

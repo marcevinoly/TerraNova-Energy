@@ -152,6 +152,10 @@
     "Parámetros del beneficio fiscal": "Tax benefit parameters",
     "Crecimiento anual ganancia": "Annual profit growth",
     "Impuesto renta": "Income tax",
+    "Ganancia gravable anual del inversionista": "Investor annual taxable income",
+    "Crecimiento anual ganancia gravable": "Annual taxable income growth",
+    "Ganancia gravable aportada": "Taxable income provided",
+    "Renta anual del inversionista disponible para aplicar el limite de la deduccion; si es cero se usa solo la renta del proyecto.": "Investor annual taxable income available for the deduction limit; when zero, only project taxable income is used.",
     "Máximo deducible anual": "Maximum annual deduction",
     "Plazo maximo incentivo": "Maximum incentive term",
     "Precio conservador CO2": "Conservative CO2 price",
@@ -244,7 +248,25 @@
     "Plazo deduccion": "Deduction term",
     "Limite anual deduccion": "Annual deduction limit",
     "Depreciacion acelerada": "Accelerated depreciation",
+    "Diferencia depreciacion": "Depreciation difference",
     "Beneficios tributarios": "Tax benefits",
+    "Conciliacion fiscal estimada": "Estimated tax reconciliation",
+    "Renta antes de incentivos": "Taxable income before incentives",
+    "Depreciacion ordinaria": "Ordinary depreciation",
+    "Depreciacion acelerada": "Accelerated depreciation",
+    "Deduccion especial usada": "Special deduction used",
+    "Renta gravable final": "Final taxable income",
+    "Impuesto sin incentivos": "Tax without incentives",
+    "Impuesto con incentivos": "Tax with incentives",
+    "Ahorro tributario": "Tax savings",
+    "Saldo deduccion": "Remaining deduction",
+    "Deduccion especial utilizada": "Special deduction used",
+    "Saldo de deduccion": "Remaining deduction",
+    "Ahorro tributario estimado": "Estimated tax savings",
+    "Deduccion efectivamente aplicada dentro del limite anual y del plazo seleccionado.": "Deduction actually used within the annual limit and selected term.",
+    "Beneficio especial pendiente de utilizar al finalizar la proyeccion.": "Special deduction remaining at the end of the projection.",
+    "Diferencia acumulada entre impuesto con depreciacion ordinaria e impuesto con incentivos.": "Accumulated difference between tax with ordinary depreciation and tax with incentives.",
+    "La deduccion especial y la depreciacion acelerada son beneficios distintos. La depreciacion acelerada modifica el momento en que se reconoce el costo fiscal del activo; por eso su efecto puede compensarse en años posteriores frente a la depreciacion ordinaria. Para esta comparacion preliminar, la depreciacion ordinaria se distribuye linealmente durante el horizonte seleccionado. La deduccion especial se utiliza hasta agotar el porcentaje elegible, sin superar el limite anual modelado sobre la renta liquida previa a esa deduccion. Estimacion sujeta a certificacion UPME, entrada en operacion, aviso y requisitos tributarios aplicables, y validacion independiente de un asesor fiscal colombiano.": "The special deduction and accelerated depreciation are separate incentives. Accelerated depreciation changes when the asset's tax basis is recognized, so its effect may reverse in later years compared with ordinary depreciation. For this preliminary comparison, ordinary depreciation is allocated on a straight-line basis over the selected horizon. The special deduction is used until the eligible percentage is exhausted, without exceeding the annual limit modeled on taxable income before that deduction. This estimate is subject to UPME certification, commercial operation, notice and applicable tax requirements, and independent validation by a Colombian tax adviser.",
     "Si": "Yes",
     "No": "No",
     "Plazo estimado": "Estimated term",
@@ -504,6 +526,7 @@
     ,["Descuenta costo estimado de certificacion.", "Deducts the estimated certification cost."]
   ];
   const dynamicTranslations = [
+    [/^Ahorro estimado: (.+)$/, "Estimated savings: $1"],
     [/^(\d+(?:[.,]\d+)?)% objetivo$/, "$1% target"],
     [/^(\d+(?:[.,]\d+)?)% cubierto$/, "$1% covered"],
     [/^(\d+(?:[.,]\d+)?)% nocturno$/, "$1% nighttime"],
@@ -600,6 +623,21 @@
       .language-switch button:not(.active) { filter: grayscale(.2); opacity: .7; }
       .language-switch button.active { background: rgba(145,213,41,.2) !important; box-shadow: inset 0 0 0 1px rgba(80,137,24,.42); filter: none; opacity: 1; }
       @media (max-width: 980px) { .site-nav:has(.solutions-menu), .main-nav:has(.solutions-menu) { flex-wrap: wrap; } }
+      .mobile-nav-toggle { align-items:center; appearance:none; background:#fff; border:1px solid rgba(20,35,27,.18); border-radius:6px; color:#183126; cursor:pointer; display:none; font:inherit; font-size:20px; height:40px; justify-content:center; width:40px; }
+      @media (max-width: 700px) {
+        .site-header:has(.mobile-nav-toggle) { gap:10px !important; grid-template-columns:minmax(0,1fr) auto !important; min-height:68px !important; padding:12px 16px !important; }
+        .site-header .site-brand { min-width:0; overflow:hidden; }
+        .site-header .site-brand > span:last-child { overflow:hidden; text-overflow:ellipsis; }
+        .mobile-nav-toggle { display:inline-flex; grid-column:2; }
+        .site-header .site-nav { align-items:stretch !important; background:rgba(255,255,255,.99); border:1px solid rgba(20,35,27,.14); border-radius:8px; box-shadow:0 18px 44px rgba(12,25,18,.22); display:none !important; flex-direction:column; gap:2px !important; grid-column:1/-1; left:12px; max-height:calc(100vh - 82px); overflow-y:auto !important; padding:10px; position:fixed; right:12px; top:70px; z-index:120; }
+        .site-header.nav-open .site-nav { display:flex !important; }
+        .site-header .site-nav-link, .site-header .solutions-trigger { color:#183126 !important; justify-content:space-between; min-height:42px !important; padding:0 10px !important; width:100%; }
+        .site-header .site-nav-link::after { display:none !important; }
+        .site-header .solutions-menu { align-items:stretch; display:block; width:100%; }
+        .site-header .solutions-dropdown { box-shadow:none; left:auto; margin:2px 0 6px; min-width:0; position:static; transform:none !important; width:100%; }
+        .site-header .language-switch { justify-content:flex-start; margin:6px 8px 2px; }
+        body { padding-top:68px !important; }
+      }
     `;
     document.head.appendChild(style);
 
@@ -615,6 +653,30 @@
     });
     document.addEventListener("click", (event) => { if (!wrapper.contains(event.target)) closeMenu(); });
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
+
+    const header = nav.closest(".site-header");
+    if (header && !header.querySelector(".mobile-nav-toggle")) {
+      const toggle = document.createElement("button");
+      toggle.className = "mobile-nav-toggle";
+      toggle.type = "button";
+      toggle.setAttribute("aria-label", "Abrir menú");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = "☰";
+      header.insertBefore(toggle, nav);
+
+      const closeMobileNav = () => {
+        header.classList.remove("nav-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.textContent = "☰";
+      };
+      toggle.addEventListener("click", () => {
+        const isOpen = header.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.textContent = isOpen ? "×" : "☰";
+      });
+      nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMobileNav));
+      window.addEventListener("resize", () => { if (window.innerWidth > 700) closeMobileNav(); });
+    }
 
     document.querySelectorAll("[data-lang]").forEach((button) => {
       const spanish = button.dataset.lang === "es";
