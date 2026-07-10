@@ -930,7 +930,10 @@ body {
   }
 }
 
-    </style>
+.language-switch { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; }
+.language-switch button { appearance: none; background: #fff; border: 1px solid #cbd5ce; color: #183126; cursor: pointer; font: inherit; font-size: 11px; font-weight: 800; min-width: 30px; padding: 5px 6px; }
+.language-switch button.active { background: #91d529; border-color: #91d529; }
+</style>
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion TerraNova">
@@ -946,6 +949,10 @@ body {
         <a class="site-nav-link" href="capital.html">TerraNova Capital</a>
         <a class="site-nav-link" href="index.html#nosotros">Nosotros</a>
         <a class="site-nav-link" href="index.html#contacto">Contacto</a>
+        <span class="language-switch" aria-label="Idioma">
+          <button type="button" data-lang="es" class="active">ES</button>
+          <button type="button" data-lang="en">EN</button>
+        </span>
       </nav>
     </header>
     <main class="app-shell">
@@ -1747,5 +1754,6 @@ bindEvents();
 updateDashboard();
 
     </script>
+    <script src="terranova-i18n.js"></script>
   </body>
 </html>
