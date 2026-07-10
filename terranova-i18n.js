@@ -332,6 +332,80 @@
   };
 
   const originalText = new WeakMap();
+  const selfChangedNodes = new WeakSet();
+  Object.assign(translations, {
+    "Costo red equivalente": "Equivalent grid cost",
+    "Ahorro mes 1": "Month 1 savings",
+    "Tarifa PPA base": "Base PPA rate",
+    "Complete los datos para generar la evaluacion PPA.": "Complete the information to generate the PPA assessment.",
+    "Ingrese consumo mensual y valor de factura para calcular energia PPA, MWp requeridos y ahorro preliminar.": "Enter monthly consumption and bill amount to calculate PPA energy, required MWp and preliminary savings.",
+    "Revisa consumo, tamaño MWp o tarifa. Para calificar al precio PPA base se requiere al menos 1 MWp, equivalente a 4.500 kWh/dia y 135.000 kWh/mes con 4,5 horas solares.": "Review consumption, MWp size or rate. Qualification for the base PPA rate requires at least 1 MWp, equivalent to 4,500 kWh/day and 135,000 kWh/month at 4.5 solar hours.",
+    "La propuesta debe llegar al minimo mensual de energia PPA y mantener una tarifa contractual menor que la tarifa real de factura.": "The proposal must meet the minimum monthly PPA energy requirement and maintain a contractual rate below the actual bill rate.",
+    "Cuando el cliente complete los datos, esta lectura mostrara la tarifa real de factura, la comparacion con el PPA y el ahorro estimado.": "When the client completes the information, this summary will show the actual bill rate, the PPA comparison and estimated savings.",
+    "No se pudo actualizar la TRM. Se conserva el valor manual.": "The official exchange rate could not be updated. The manual value has been retained.",
+    "Ubicacion pendiente": "Location pending",
+    "Solucion Empresas": "Business Solution",
+    "Costo red actual": "Current grid cost",
+    "Costo solar": "Solar cost",
+    "Referencia de inversion instalada.": "Installed investment reference.",
+    "Monto financiado TerraNova": "Amount financed by TerraNova",
+    "Costo financiero estimado": "Estimated financing cost",
+    "Interes total estimado, antes de variaciones de TRM.": "Estimated total financing cost before exchange-rate variations.",
+    "Calculado con energia solar usada por cliente.": "Calculated using solar energy consumed by the client.",
+    "Descuenta costo estimado de certificacion.": "Deducts the estimated certification cost.",
+    "No recupera": "No payback",
+    "Proyecto solar": "Solar project",
+    "Pendiente de validacion": "Pending validation",
+    "Esperando datos para generar la comparacion.": "Waiting for information to generate the comparison.",
+    "La tarifa solar mejora el costo real pagado por la empresa.": "The solar rate improves the company's actual energy cost.",
+    "La propuesta necesita revisar elegibilidad, tarifa, produccion o inversion.": "The proposal requires a review of eligibility, rate, production or investment.",
+    "Complete datos del cliente, consumo, factura, consumo diurno y declaracion de renta. En ese momento el sistema calculara ahorro, inversion, retorno y beneficio fiscal.": "Complete the client information, consumption, bill, daytime consumption and taxable income. The system will then calculate savings, investment, return and tax benefits.",
+    "Antes de presentar, valida que el consumo alcance el minimo comercial de 135.000 kWh/mes, equivalente a 1 MWp, y que la tarifa real supere suficientemente el costo solar entregado.": "Before presenting the proposal, confirm that consumption reaches the commercial minimum of 135,000 kWh/month, equivalent to 1 MWp, and that the actual rate is sufficiently above the delivered solar cost.",
+    "Los resultados permanecen en cero hasta que se ingrese consumo mensual, valor de factura, perfil diurno/nocturno y ganancia gravable anual.": "Results remain at zero until monthly consumption, bill amount, daytime/nighttime profile and annual taxable income are entered.",
+    "El diagnostico marca los puntos que deben ajustarse: consumo minimo comercial de 135.000 kWh/mes, tamaño minimo de 1 MWp o diferencia entre tarifa actual y costo solar entregado.": "The assessment identifies the items that must be adjusted: minimum commercial consumption of 135,000 kWh/month, minimum size of 1 MWp or the difference between the current rate and delivered solar cost.",
+    "Capacidad minima para participar en el plan.": "Minimum capacity required to participate in the plan.",
+    "Precio comercial inicial por MWp.": "Initial commercial price per MWp.",
+    "Capacidad comprada": "Purchased capacity",
+    "Capacidad solar asociada al inversionista.": "Solar capacity allocated to the investor.",
+    "Descuento por volumen": "Volume discount",
+    "Aplica 5% desde la compra de 3 MWp.": "A 5% discount applies to purchases of 3 MWp or more.",
+    "Valor total estimado de la compra solar.": "Estimated total value of the solar purchase.",
+    "Venta de energia": "Energy sale",
+    "Simulacion de venta a red o mediante contratos privados PPA.": "Simulation of a grid sale or private PPA agreements.",
+    "Costo operativo TerraNova": "TerraNova operating cost",
+    "Administracion, operacion y mantenimiento de la granja solar por kWh.": "Solar farm administration, operation and maintenance per kWh.",
+    "Impuesto renta": "Income tax",
+    "Beneficio tributario": "Tax benefit",
+    "Respaldo RETScreen": "RETScreen support",
+    "CO2 evitado": "CO2 avoided",
+    "Ingreso bruto potencial": "Potential gross revenue",
+    "Ingreso neto potencial": "Potential net revenue",
+    "$5 por tonelada de CO2.": "$5 per metric ton of CO2.",
+    "Costo estimado de certificacion.": "Estimated certification cost.",
+    "Simulacion de venta a red o mediante contratos privados PPA.": "Simulation of a grid sale or private PPA agreements.",
+    "Administracion, operacion y mantenimiento de la granja solar por kWh.": "Solar farm administration, operation and maintenance per kWh.",
+    "Aplicado sobre utilidad fiscal estimada.": "Applied to estimated taxable income.",
+    "Deduccion y depreciacion acelerada sujetas a certificacion y validacion.": "Deduction and accelerated depreciation subject to certification and validation.",
+    "Deduccion y depreciacion acelerada sujetas a certificacion y validacion.": "Deduction and accelerated depreciation subject to certification and validation.",
+    "Ingreso operativo antes de deuda, impuestos y depreciacion.": "Operating income before debt service, taxes and depreciation.",
+    "Cobertura minima del servicio de deuda durante el periodo financiado.": "Minimum debt-service coverage during the financing period.",
+    "Cobertura promedio del servicio de deuda durante el periodo financiado.": "Average debt-service coverage during the financing period.",
+    "Porcentaje financiado sobre valor total del activo.": "Financed percentage of the asset's total value.",
+    "TIR inversionista": "Investor IRR",
+    "Calculada con aporte inicial negativo y flujos netos despues de deuda e impuestos.": "Calculated using the negative initial contribution and net cash flows after debt service and taxes.",
+    "Validacion legal": "Legal validation",
+    "Aplicado sobre utilidad fiscal estimada.": "Applied to estimated taxable income.",
+    "Requerida": "Required",
+    "Cumple >= 1 MWp": "Meets requirement: >= 1 MWp",
+    "Estructura para ajustar antes de comite.": "Structure requires adjustment before committee review.",
+    "No calculable": "Not calculable",
+    "El flujo no recupera el capital dentro del plazo seleccionado. Revisa precio de venta, costos, monto minimo o plazo.": "Cash flow does not recover the capital within the selected term. Review the sale price, costs, minimum amount or term.",
+    "Revisa cobertura de deuda, precio de venta, plazo de financiamiento o costo operativo antes de presentarlo a banco, fondo o inversionista institucional.": "Review debt coverage, sale price, financing term or operating cost before presenting the project to a bank, fund or institutional investor.",
+    "El inversionista participa en capacidad solar.": "The investor participates in solar capacity.",
+    "PPA privado": "Private PPA",
+    "Si": "Yes",
+    "No": "No"
+  });
   const phraseTranslations = [
     ["Complete los datos para generar la evaluacion", "Complete the information to generate the assessment"],
     ["Completa datos, autorizacion, consumo y factura para generar el informe", "Complete the information, authorization, consumption and billing details to generate the report"],
@@ -356,6 +430,7 @@
     ["Mes 1 con energia facturable estimada.", "Month 1 with estimated billable energy."],
     ["Referencia de inversion instalada.", "Installed investment reference."],
     ["Monto inicial despues de aplicar financiamiento.", "Initial amount after financing."],
+    ["Precio comercial inicial por MWp.", "Initial commercial price per MWp."],
     ["Calculado con energia solar usada por cliente.", "Calculated using solar energy consumed by the client."],
     ["Precio comercial inicial por cada MWp.", "Initial commercial price per MWp."],
     ["Capital inicial despues del financiamiento.", "Initial capital after financing."],
@@ -370,7 +445,6 @@
     ["Revisar plazo/precio", "Review term/price"],
     ["Cumple minimo de", "Meets the minimum of"],
     ["Consumo menor a", "Consumption below"],
-    ["Cumple", "Meets requirement"],
     ["No incluido en retorno", "Not included in returns"],
     ["Incluido en retorno", "Included in returns"],
     ["Ahorro neto", "Net savings"],
@@ -395,45 +469,185 @@
     ["Solicitar informacion de inversion", "Request investment information"],
     ["Solicitud informacion inversion", "Investment information request"],
     ["Quiero solicitar informacion de inversion para proyectos TerraNova Energy.", "I would like to request investment information for TerraNova Energy projects."],
+    ["Contrato privado PPA", "Private PPA"],
+    ["PPA privado", "Private PPA"],
+    ["Venta a red", "Grid sale"],
     ["Precio total", "Total price"],
     ["Financiamiento", "Financing"],
     ["Retorno anual neto estimado", "Estimated annual net return"],
     ["Impuesto año 1", "Year 1 tax"],
     ["Recuperacion estimada", "Estimated payback"],
-    ["Recuperacion", "Payback"],
-    ["Proyecto", "Project"],
-    [" años", " years"],
-    [" meses", " months"],
-    [" anual", " annual"],
-    [" energia", " energy"],
-    [" inversion", " investment"],
-    [" cliente", " client"],
-    [" consumo", " consumption"],
-    [" factura", " bill"],
-    [" ahorro", " savings"]
+    ["Recuperacion", "Payback"]
+    ,["El flujo proyectado recupera el aporte inicial en ", "Projected cash flow recovers the initial contribution in "]
+    ,[" y deja una ganancia neta acumulada estimada de ", " and produces an estimated accumulated net profit of "]
+    ,["El modelo mantiene DSCR minimo de ", "The model maintains a minimum DSCR of "]
+    ,[" y TIR estimada de ", " and an estimated IRR of "]
+    ,[" despues de impuestos.", " after taxes."]
+    ,["La compra equivale a ", "The purchase represents "]
+    ,["La energia se simula bajo ", "Energy is modeled under "]
+    ,["con costo operativo TerraNova de ", "with a TerraNova operating cost of "]
+    ,["del consumo informado", "of reported consumption"]
+    ,["menos por kWh nocturno", "less per nighttime kWh"]
+    ,["meses a ", "months at "]
+    ,["% anual en USD.", "% per year in USD."]
+    ,["del CAPEX, maximo comercial 50%.", "of CAPEX, with a 50% commercial maximum."]
+    ,["Capacidad minima para participar en el plan.", "Minimum capacity required to participate in the plan."]
+    ,["Capacidad solar asociada al inversionista.", "Solar capacity allocated to the investor."]
+    ,["Aplica 5% desde la compra de 3 MWp.", "A 5% discount applies to purchases of 3 MWp or more."]
+    ,["Valor total estimado de la compra solar.", "Estimated total value of the solar purchase."]
+    ,["Simulacion de venta a red o mediante contratos privados PPA.", "Simulation of a grid sale or private PPA agreements."]
+    ,["Administracion, operacion y mantenimiento de la granja solar por kWh.", "Solar farm administration, operation and maintenance per kWh."]
+    ,["Aplicado sobre utilidad fiscal estimada.", "Applied to estimated taxable income."]
+    ,["Deduccion y depreciacion acelerada sujetas a certificacion y validacion.", "Deduction and accelerated depreciation subject to certification and validation."]
+    ,["Ingreso bruto potencial", "Potential gross revenue"]
+    ,["Ingreso neto potencial", "Potential net revenue"]
+    ,["Descuenta costo estimado de certificacion.", "Deducts the estimated certification cost."]
   ];
+  const dynamicTranslations = [
+    [/^(\d+(?:[.,]\d+)?)% objetivo$/, "$1% target"],
+    [/^(\d+(?:[.,]\d+)?)% cubierto$/, "$1% covered"],
+    [/^(\d+(?:[.,]\d+)?)% nocturno$/, "$1% nighttime"],
+    [/^Aporte inicial: (.+) COP$/, "Initial contribution: $1 COP"],
+    [/^(\d+(?:[.,]\d+)?)% sin interes$/, "$1% interest-free"],
+    [/^(\d+(?:[.,]\d+)?)% a (\d+(?:[.,]\d+)?)% anual$/, "$1% at $2% per year"],
+    [/^(\d+(?:[.,]\d+)?)% del CAPEX, maximo comercial 50%\.$/, "$1% of CAPEX, with a 50% commercial maximum."],
+    [/^(\d+) meses a ([\d.,]+)% anual en USD\.$/, "$1 months at $2% per year in USD."],
+    [/^Cumple (.+) kWh\/mes$/, "Meets requirement: $1 kWh/month"],
+    [/^Cumple (.+) MWp$/, "Meets requirement: $1 MWp"],
+    [/^Faltan (.+) kWh\/mes$/, "$1 kWh/month remaining"],
+    [/^Subir a (.+) MWp$/, "Increase to $1 MWp"],
+    [/^Minimo (.+) MWp$/, "Minimum $1 MWp"],
+    [/^Minimo (.+) kWh\/mes$/, "Minimum $1 kWh/month"],
+    [/^Consumo menor a (.+) kWh\/mes$/, "Consumption below $1 kWh/month"],
+    [/^Cumple minimo de (.+) kWh\/mes$/, "Meets the minimum of $1 kWh/month"],
+    [/^(.+) años$/, "$1 years"],
+    [/^(.+) meses$/, "$1 months"],
+    [/^(.+) kWh\/mes$/, "$1 kWh/month"],
+    [/^La tarifa real de factura es (.+) y el PPA inicia en (.+)\. El ahorro estimado del primer mes es (.+)\.$/, "The actual bill rate is $1 and the PPA starts at $2. Estimated savings in the first month are $3."],
+    [/^Con (.+) kWh\/mes facturables, el caso supera el minimo comercial de (.+) kWh\/mes y mantiene cero inversion inicial para el cliente\.$/, "With $1 billable kWh/month, the case exceeds the commercial minimum of $2 kWh/month and maintains zero upfront investment for the client."],
+    [/^La factura muestra una tarifa real de (.+) frente a una energia solar entregada de (.+)\. Ademas, el consumo nocturno puede recibir un descuento comercializado por Terranova\.$/, "The bill shows an actual rate of $1 compared with delivered solar energy at $2. In addition, nighttime consumption may receive a discount supplied by TerraNova."],
+    [/^Con (.+) MWh\/mes y (.+) MWp, el caso cumple los filtros comerciales iniciales y muestra una brecha positiva frente a la tarifa de red\.$/, "With $1 MWh/month and $2 MWp, the case meets the initial commercial criteria and shows a positive spread against the grid rate."],
+    [/^El flujo proyectado recupera el aporte inicial en (.+) años y deja una ganancia neta acumulada estimada de (.+) durante (.+) años\.$/, "Projected cash flow recovers the initial contribution in $1 years and produces an estimated accumulated net profit of $2 over $3 years."],
+    [/^El flujo proyectado recupera el aporte inicial en (.+) y deja una ganancia neta acumulada estimada de (.+) durante (.+) años\.$/, "Projected cash flow recovers the initial contribution in $1 and produces an estimated accumulated net profit of $2 over $3 years."],
+    [/^El modelo mantiene DSCR minimo de (.+), LTV de (.+) y TIR estimada de (.+) despues de impuestos\.$/, "The model maintains a minimum DSCR of $1, an LTV of $2 and an estimated after-tax IRR of $3."],
+    [/^La compra equivale a (.+) MWp por (.+)\. La energia se simula bajo (.+), con costo operativo TerraNova de (.+) y TIR estimada de (.+)\.$/, "The purchase represents $1 MWp for $2. Energy is modeled under $3, with a TerraNova operating cost of $4 and an estimated IRR of $5."],
+    [/^(.+) menos por kWh nocturno$/, "$1 less per nighttime kWh"],
+    [/^(\d+(?:[.,]\d+)?)% del consumo informado$/, "$1% of reported consumption"],
+    [/^(.+) por tonelada de CO2\.$/, "$1 per metric ton of CO2."],
+    [/^(\d+(?:[.,]\d+)?)% en USD \/ (\d+) meses$/, "$1% in USD / $2 months"],
+    [/^Proyecto: (.+)$/, "Project: $1"],
+    [/^Capacidad comprada: (.+)$/, "Purchased capacity: $1"],
+    [/^Precio total: (.+)$/, "Total price: $1"],
+    [/^Aporte inicial: (.+)$/, "Initial contribution: $1"],
+    [/^Financiamiento: (.+)$/, "Financing: $1"],
+    [/^Retorno anual neto estimado: (.+)$/, "Estimated annual net return: $1"],
+    [/^Plazo: (.+) años$/, "Term: $1 years"]
+  ];
+  const enhanceNavigation = () => {
+    const nav = document.querySelector(".site-nav, .main-nav");
+    if (!nav || nav.querySelector(".solutions-menu")) return;
+
+    const findLink = (fileName) => Array.from(nav.querySelectorAll("a")).find((link) => {
+      const href = (link.getAttribute("href") || "").split("#")[0].split("?")[0];
+      return href.endsWith(fileName);
+    });
+    const solutionsLink = findLink("soluciones.html");
+    const ppaLink = findLink("ppa.html");
+    const businessLink = findLink("solucion-empresas.html");
+    const capitalLink = findLink("capital.html");
+    if (!solutionsLink || !ppaLink || !businessLink || !capitalLink) return;
+
+    const itemClass = solutionsLink.classList.contains("site-nav-link") ? "site-nav-link" : "nav-link explore-link";
+    const wrapper = document.createElement("div");
+    wrapper.className = "solutions-menu";
+    wrapper.innerHTML = `
+      <button class="${itemClass} solutions-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span>Explorar Soluciones</span><span class="menu-chevron" aria-hidden="true">⌄</span>
+      </button>
+      <div class="solutions-dropdown" role="menu">
+        <a href="ppa.html" role="menuitem">PPA TerraNova</a>
+        <a href="solucion-empresas.html" role="menuitem">Solución Empresas</a>
+        <a href="capital.html" role="menuitem">TerraNova Capital</a>
+      </div>`;
+    solutionsLink.replaceWith(wrapper);
+    ppaLink.remove();
+    businessLink.remove();
+    capitalLink.remove();
+
+    const style = document.createElement("style");
+    style.id = "terranova-nav-enhancements";
+    style.textContent = `
+      .site-nav:has(.solutions-menu), .main-nav:has(.solutions-menu) { overflow: visible !important; }
+      .solutions-menu { flex: 0 0 auto; position: relative; }
+      .solutions-trigger { align-items: center; appearance: none; background: transparent; border: 0; cursor: pointer; display: inline-flex; font: inherit; gap: 6px; }
+      .menu-chevron { font-size: .72em; transition: transform 180ms ease; }
+      .solutions-dropdown { background: rgba(255,255,255,.98); border: 1px solid rgba(20,35,27,.14); border-radius: 6px; box-shadow: 0 16px 34px rgba(12,25,18,.2); left: 50%; min-width: 224px; opacity: 0; padding: 8px; pointer-events: none; position: absolute; top: calc(100% + 9px); transform: translate(-50%,-6px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease; visibility: hidden; z-index: 100; }
+      .solutions-dropdown a { border-radius: 4px; color: #183126; display: block; font-size: 12px; font-weight: 800; padding: 10px 12px; text-decoration: none; white-space: nowrap; }
+      .solutions-dropdown a:hover, .solutions-dropdown a:focus-visible { background: rgba(145,213,41,.18); color: #0f632f; outline: none; }
+      .solutions-menu:hover .solutions-dropdown, .solutions-menu:focus-within .solutions-dropdown, .solutions-menu.open .solutions-dropdown { opacity: 1; pointer-events: auto; transform: translate(-50%,0); visibility: visible; }
+      .solutions-menu:hover .menu-chevron, .solutions-menu:focus-within .menu-chevron, .solutions-menu.open .menu-chevron { transform: rotate(180deg); }
+      .language-switch button { border-radius: 4px !important; font-size: 17px !important; line-height: 1 !important; min-width: 30px !important; padding: 6px 4px !important; }
+      .language-switch button:not(.active) { filter: grayscale(.2); opacity: .7; }
+      .language-switch button.active { filter: none; opacity: 1; }
+      @media (max-width: 980px) { .site-nav:has(.solutions-menu), .main-nav:has(.solutions-menu) { flex-wrap: wrap; } }
+    `;
+    document.head.appendChild(style);
+
+    const trigger = wrapper.querySelector(".solutions-trigger");
+    const closeMenu = () => {
+      wrapper.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    };
+    trigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isOpen = wrapper.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", String(isOpen));
+    });
+    document.addEventListener("click", (event) => { if (!wrapper.contains(event.target)) closeMenu(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      const spanish = button.dataset.lang === "es";
+      button.textContent = spanish ? "🇪🇸" : "🇺🇸";
+      button.setAttribute("aria-label", spanish ? "Español" : "English");
+      button.title = spanish ? "Español" : "English";
+    });
+  };
+
+  enhanceNavigation();
   let currentLanguage = localStorage.getItem("terranova-language") || "es";
   let applying = false;
 
   const clean = (value) => value.replace(/\s+/g, " ").trim();
+
+  const setNodeText = (node, value) => {
+    if (node.nodeValue === value) return;
+    selfChangedNodes.add(node);
+    node.nodeValue = value;
+  };
 
   const translateNode = (node) => {
     if (!node || !node.parentElement || ["SCRIPT", "STYLE"].includes(node.parentElement.tagName)) return;
     if (!originalText.has(node)) originalText.set(node, node.nodeValue);
     const original = originalText.get(node);
     if (currentLanguage === "es") {
-      node.nodeValue = original;
+      setNodeText(node, original);
       return;
     }
     const trimmed = clean(original);
     const translated = translations[trimmed];
     if (translated) {
-      node.nodeValue = original.replace(trimmed, translated);
+      setNodeText(node, original.replace(trimmed, translated));
       return;
     }
     let partial = original;
+    const matchedDynamic = dynamicTranslations.some(([pattern, replacement]) => {
+      if (!pattern.test(trimmed)) return false;
+      partial = original.replace(trimmed, trimmed.replace(pattern, replacement));
+      return true;
+    });
     phraseTranslations.forEach(([source, target]) => { partial = partial.split(source).join(target); });
-    node.nodeValue = partial;
+    setNodeText(node, partial);
   };
 
   const applyLanguage = (language) => {
@@ -454,6 +668,15 @@
     if (applying || currentLanguage !== "en") return;
     applying = true;
     records.forEach((record) => {
+      if (record.type === "characterData") {
+        if (selfChangedNodes.has(record.target)) {
+          selfChangedNodes.delete(record.target);
+          return;
+        }
+        originalText.set(record.target, record.target.nodeValue);
+        translateNode(record.target);
+        return;
+      }
       record.addedNodes.forEach((added) => {
         if (added.nodeType === Node.TEXT_NODE) translateNode(added);
         if (added.nodeType === Node.ELEMENT_NODE) {
@@ -466,6 +689,6 @@
     applying = false;
   });
 
-  observer.observe(document.body, { childList: true, subtree: true });
+  observer.observe(document.body, { childList: true, characterData: true, subtree: true });
   applyLanguage(currentLanguage);
 })();
