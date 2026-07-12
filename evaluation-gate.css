@@ -1,0 +1,27 @@
+.required-marker { color: #c4472d; font-weight: 900; margin-left: 4px; }
+.evaluation-gate-dashboard { position: relative; }
+.evaluation-gate-dashboard.is-locked > :not(.dashboard-header):not(.evaluation-lock) {
+  filter: blur(5px); opacity: .48; pointer-events: none; user-select: none;
+}
+.evaluation-lock {
+  position: absolute; z-index: 20; top: 145px; left: 50%;
+  width: min(520px, calc(100% - 48px)); transform: translateX(-50%);
+  padding: 26px; border: 1px solid rgba(34,103,62,.2); border-radius: 14px;
+  background: rgba(255,255,255,.96); box-shadow: 0 22px 55px rgba(25,55,37,.18);
+  text-align: center;
+}
+.evaluation-lock strong { display: block; margin-bottom: 8px; color: #17613d; font-size: 1.12rem; }
+.evaluation-lock p { margin: 0; color: #59655e; line-height: 1.5; }
+.generate-evaluation-button {
+  border: 1px solid #87bd26; border-radius: 8px; min-height: 44px; padding: 0 18px;
+  background: #9bd234; color: #10200c; cursor: pointer; font-weight: 900;
+  box-shadow: 0 8px 18px rgba(65,110,20,.18);
+}
+.generate-evaluation-button.disabled {
+  background: #dfe6da; border-color: #cbd4c6; color: #6c7868; box-shadow: none;
+}
+.evaluation-lock[hidden], .evaluation-gate-hidden { display: none !important; }
+@media (max-width: 760px) {
+  .evaluation-lock { top: 165px; width: calc(100% - 28px); padding: 20px; }
+}
+

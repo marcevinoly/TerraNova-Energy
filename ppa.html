@@ -934,6 +934,7 @@ body {
 .language-switch button { appearance: none; background: #fff; border: 1px solid #cbd5ce; color: #183126; cursor: pointer; font: inherit; font-size: 11px; font-weight: 800; min-width: 30px; padding: 5px 6px; }
 .language-switch button.active { background: #91d529; border-color: #91d529; }
 </style>
+    <link rel="stylesheet" href="evaluation-gate.css?v=1" />
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion TerraNova">
@@ -1646,7 +1647,7 @@ async function sendLeadToTerraNova(result, action = "print") {
     return true;
   } catch (error) {
     console.warn("Lead TerraNova no enviado", error);
-    return true;
+    return false;
   }
 }
 
@@ -1754,6 +1755,17 @@ bindEvents();
 updateDashboard();
 
     </script>
+    <script>
+      window.TERRANOVA_EVALUATION_GATE = {
+        buttonLabel: "Generar mi evaluación PPA",
+        lockTitle: "Su evaluación estará lista en segundos",
+        lockCopy: "Complete los campos obligatorios, autorice el tratamiento de información e ingrese su consumo y factura. Luego pulse “Generar mi evaluación PPA”.",
+        action: "generate-evaluation",
+        requiredIds: ["companyName", "location", "contactName", "contactRole", "contactEmail", "contactPhone", "dataConsent", "monthlyConsumption", "monthlyBill"],
+        isReady: (result) => result.canGenerateReport
+      };
+    </script>
+    <script src="evaluation-gate.js?v=1"></script>
     <script src="terranova-i18n.js?v=9"></script>
   </body>
 </html>

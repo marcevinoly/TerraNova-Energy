@@ -983,6 +983,7 @@ body {
 .language-switch button { appearance: none; background: #fff; border: 1px solid #cbd5ce; color: #183126; cursor: pointer; font: inherit; font-size: 11px; font-weight: 800; min-width: 30px; padding: 5px 6px; }
 .language-switch button.active { background: #91d529; border-color: #91d529; }
 </style>
+    <link rel="stylesheet" href="evaluation-gate.css?v=1" />
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion TerraNova">
@@ -2025,7 +2026,7 @@ async function sendLeadToTerraNova(result, action = "print") {
     return true;
   } catch (error) {
     console.warn("Lead TerraNova no enviado", error);
-    return true;
+    return false;
   }
 }
 
@@ -2151,6 +2152,17 @@ bindEvents();
 updateDashboard();
 
     </script>
+    <script>
+      window.TERRANOVA_EVALUATION_GATE = {
+        buttonLabel: "Evaluar oportunidad de inversión",
+        lockTitle: "Su evaluación de inversión estará lista en segundos",
+        lockCopy: "Complete los campos obligatorios, autorice el tratamiento de información e indique la capacidad de inversión. Luego pulse “Evaluar oportunidad de inversión”.",
+        action: "generate-evaluation",
+        requiredIds: ["projectName", "location", "contactEmail", "contactPhone", "dataConsent", "capacityMwp"],
+        isReady: (result) => result.hasValidLead && result.data.capacityMwp >= 1
+      };
+    </script>
+    <script src="evaluation-gate.js?v=1"></script>
     <script src="terranova-i18n.js?v=10"></script>
   </body>
 </html>
