@@ -6,6 +6,17 @@
   const header = dashboard?.querySelector(".dashboard-header");
   if (!dashboard || !header) return;
 
+  const inputPanel = document.querySelector(".input-panel");
+  const brandRow = inputPanel?.querySelector(".brand-row");
+  const tabs = inputPanel?.querySelector(".tabs");
+  if (inputPanel && brandRow && tabs && !inputPanel.querySelector(".input-panel-sticky-header")) {
+    const stickyHeader = document.createElement("div");
+    stickyHeader.className = "input-panel-sticky-header";
+    inputPanel.insertBefore(stickyHeader, brandRow);
+    stickyHeader.appendChild(brandRow);
+    stickyHeader.appendChild(tabs);
+  }
+
   dashboard.classList.add("evaluation-gate-dashboard", "is-locked");
   const actions = header.querySelector(".dashboard-actions") || header;
   const resultButtons = [...actions.querySelectorAll("button")];
@@ -33,7 +44,16 @@
       label.querySelector("span").appendChild(marker);
     } else {
       const directChild = input.parentElement === label ? input : input.parentElement;
-      label.insertBefore(marker, directChild);
+      const textNode = [...label.childNodes].find((node) => node.nodeType === 3 && node.textContent.trim());
+      if (textNode) {
+        const title = document.createElement("span");
+        title.className = "field-label-title";
+        title.textContent = textNode.textContent.trim();
+        title.appendChild(marker);
+        label.replaceChild(title, textNode);
+      } else {
+        label.insertBefore(marker, directChild);
+      }
     }
   });
 
