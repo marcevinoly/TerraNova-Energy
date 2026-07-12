@@ -1,4 +1,10 @@
 .required-marker { color: #c4472d; font-weight: 900; margin-left: 4px; }
+.input-panel {
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  padding-bottom: 120px;
+}
 .evaluation-gate-dashboard { position: relative; }
 .evaluation-gate-dashboard.is-locked > :not(.dashboard-header):not(.evaluation-lock) {
   filter: blur(5px); opacity: .48; pointer-events: none; user-select: none;
@@ -23,5 +29,5 @@
 .evaluation-lock[hidden], .evaluation-gate-hidden { display: none !important; }
 @media (max-width: 760px) {
   .evaluation-lock { top: 165px; width: calc(100% - 28px); padding: 20px; }
+  .input-panel { padding-bottom: 36px; }
 }
-
