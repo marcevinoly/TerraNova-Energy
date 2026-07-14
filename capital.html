@@ -3,7 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TerraNova Tuluá | Inversion Solar Colombia</title>
+    <title>Evaluación preliminar de energía solar en Colombia | TerraNova Capital</title>
+    <meta name="description" content="Evalúe escenarios informativos y no vinculantes de infraestructura solar con un modelo financiero preliminar, indicadores y proyección de largo plazo." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.terranovaenergy.net/capital.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="TerraNova Energy" />
+    <meta property="og:title" content="Evaluación preliminar de energía solar en Colombia | TerraNova Capital" />
+    <meta property="og:description" content="Escenarios financieros para analizar participación en infraestructura energética productiva." />
+    <meta property="og:url" content="https://www.terranovaenergy.net/capital.html" />
+    <meta property="og:image" content="https://www.terranovaenergy.net/assets/terranova-tulua-hero.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      { "@context": "https://schema.org", "@type": "Service", "name": "Evaluación de inversión en infraestructura solar", "provider": { "@type": "Organization", "name": "TerraNova Energy", "url": "https://www.terranovaenergy.net/" }, "areaServed": "Colombia", "serviceType": "Estructuración y evaluación de inversión en proyectos solares", "url": "https://www.terranovaenergy.net/capital.html" }
+    </script>
     <style>
 :root {
   --bg: #f4f6f4;
@@ -1015,8 +1029,8 @@ body {
         </div>
 
         <div class="tabs" role="tablist" aria-label="Secciones">
-          <button class="tab active" type="button" data-target="investor">Inversionista</button>
-          <button class="tab" type="button" data-target="investment">Inversion</button>
+          <button class="tab active" type="button" data-target="investor">Solicitante</button>
+          <button class="tab" type="button" data-target="investment">Escenario</button>
           <button class="tab" type="button" data-target="retscreen">RETScreen</button>
           <button class="tab" type="button" data-target="taxes">Impuestos</button>
           <button class="tab" type="button" data-target="terms">Contrato</button>
@@ -1046,9 +1060,10 @@ body {
             <input id="contactName" type="hidden" value="" />
             <input id="investorProfile" type="hidden" value="" />
             <label class="consent-box">
-              <input id="dataConsent" type="checkbox" />
+              <input id="dataConsent" type="checkbox" required />
+              <span class="required-mark" aria-hidden="true">*</span>
               <span>
-                Autorizo a TerraNova Energy para tratar mis datos personales con el fin de preparar informacion de inversion, contactarme, presentar una propuesta y realizar seguimiento.
+                Autorizo de manera previa, expresa e informada a Terra Nova Trade S.A.S., NIT 901915789-8, responsable del tratamiento y titular de la marca TerraNova Energy, para tratar los datos suministrados con el fin de preparar la evaluacion preliminar solicitada, contactarme, responder consultas y realizar seguimiento relacionado con el proyecto. Puedo ejercer mis derechos mediante info@terranovaenergy.net y consultar la <a href="politica-tratamiento-datos.html" target="_blank" rel="noopener">Politica de Tratamiento de Datos Personales</a>. Entiendo que este formulario no constituye una orden o solicitud de compra ni crea una obligacion contractual. <span class="required-mark-inline" aria-hidden="true">*</span>
               </span>
             </label>
           </section>
@@ -1056,16 +1071,16 @@ body {
           <section class="form-section" data-section="investment">
             <div class="reference-box">
               <div>
-                <p class="eyebrow">Regla comercial de inversion</p>
-                <h3>Participacion en energia solar productiva</h3>
+                <p class="eyebrow">Supuestos para evaluacion</p>
+                <h3>Escenario preliminar de capacidad solar</h3>
                 <p>
-                  Inversion minima de 1 MWp. El precio base es USD 790.000 por MWp, con 5% de descuento desde la compra de 3 MWp. TerraNova puede estructurar financiamiento hasta el 50% del proyecto.
+                  El modelo evalua escenarios desde 1 MWp y usa como referencia USD 790.000 por MWp, un ajuste indicativo de 5% desde 3 MWp y financiacion simulada hasta 50%. Estos parametros no son una oferta, solicitud de compra ni compromiso de financiacion.
                 </p>
               </div>
             </div>
             <div class="field-grid">
               <label>
-                Capacidad a comprar
+                Capacidad a evaluar
                 <span class="input-unit">
                   <input id="capacityMwp" type="number" value="" min="1" step="0.1" />
                   <small>MWp</small>
@@ -1130,7 +1145,7 @@ body {
                 <p class="eyebrow">Validacion energetica</p>
                 <h3>RETScreen disponible</h3>
                 <p>
-                  TerraNova Energy cuenta con modelacion RETScreen para sustentar la produccion solar estimada por MWp. El informe tecnico detallado se incorporara al expediente de inversion cuando este disponible para revision de banco, fondo o inversionista.
+                  TerraNova Energy utiliza modelacion RETScreen como referencia para estimar la produccion por MWp. El informe tecnico detallado, cuando este disponible, debera revisarse durante la evaluacion independiente del proyecto.
                 </p>
               </div>
             </div>
@@ -1267,22 +1282,22 @@ body {
       <section class="dashboard" aria-live="polite">
         <header class="dashboard-header">
           <div>
-            <p class="eyebrow">Inversion solar para TerraNova Energy</p>
+            <p class="eyebrow">Evaluacion solar preliminar</p>
             <h2 id="headline">TerraNova Tuluá</h2>
-            <p id="subheadline">Colombia | Proyecto de inversion solar</p>
+            <p id="subheadline">Colombia | Escenario informativo no vinculante</p>
           </div>
           <div class="dashboard-actions">
             <button id="requestInfoButton" class="primary-action-button" type="button">
-              Solicitar información de inversión
+              Solicitar evaluación preliminar
             </button>
-            <button id="printButton" class="print-button" type="button" title="Imprimir propuesta">
+            <button id="printButton" class="print-button" type="button" title="Imprimir evaluación preliminar">
               <span aria-hidden="true">PDF</span>
               Imprimir
             </button>
           </div>
         </header>
         <div id="leadGateNotice" class="lead-gate-notice" hidden>
-          Complete los datos del inversionista y acepte autorización de datos para generar su informe, evaluación preliminar o solicitud de información.
+          Complete los datos solicitados y acepte la autorización de datos para generar y solicitar la evaluación preliminar.
         </div>
 
         <section class="zero-initial-banner investment-banner" aria-label="Inversion solar">
@@ -1291,39 +1306,42 @@ body {
             <h3>TerraNova Tuluá</h3>
           </div>
           <p>
-            Capital orientado a activos solares productivos, con retorno estimado por venta de energia y flujo proyectado para el inversionista.
+            Escenario indicativo para analizar la viabilidad de capacidad solar productiva. No constituye oferta, solicitud de compra, compromiso de financiacion ni promesa de rentabilidad.
           </p>
         </section>
 
         <section class="summary-band">
           <article>
-            <p>Precio total</p>
+            <p>Valor de referencia</p>
             <strong id="investmentMetric">USD 790K</strong>
             <span>antes de financiamiento</span>
           </article>
           <article>
             <p>Capacidad asignada</p>
             <strong id="capacityMetric">1 MWp</strong>
-            <span>minimo de entrada</span>
+            <span>escenario minimo evaluado</span>
           </article>
           <article>
-            <p>Aporte inicial</p>
+            <p>Aporte simulado</p>
             <strong id="downPaymentMetric">USD 395K</strong>
             <span>con financiamiento</span>
           </article>
           <article>
-            <p>TIR inversionista</p>
+            <p>TIR del escenario</p>
             <strong id="summaryIrrMetric">12,4%</strong>
             <span>despues de impuestos</span>
           </article>
         </section>
+        <p class="fine-print">
+          Escenario informativo y no vinculante, calculado con los datos ingresados y supuestos del modelo. Estos valores no constituyen una oferta, solicitud de compra, compromiso de financiacion ni garantia de ahorro o rentabilidad.
+        </p>
 
         <section class="qualification-panel" aria-label="Diagnostico de inversion">
           <div>
-            <p class="eyebrow">Lectura de inversion</p>
-            <h3 id="investmentTitle">Inversion preliminarmente atractiva.</h3>
+            <p class="eyebrow">Lectura del escenario</p>
+            <h3 id="investmentTitle">Escenario para evaluacion detallada.</h3>
             <p id="investmentCopy">
-              El flujo proyectado permite recuperar el capital dentro del plazo estimado y deja retorno acumulado para el inversionista.
+              El flujo simulado permite evaluar una recuperacion potencial dentro del plazo seleccionado. El resultado no es un rendimiento ofrecido ni garantizado.
             </p>
           </div>
           <div class="qualification-grid">
@@ -1351,7 +1369,7 @@ body {
             <p class="eyebrow">Indicadores para banco / fondo</p>
             <h3 id="bankabilityTitle">Estructura preliminarmente bancable.</h3>
             <p id="bankabilityCopy">
-              El proyecto muestra capacidad de pago, cobertura de deuda y flujo despues de impuestos para revision de inversion institucional.
+              El escenario muestra indicadores preliminares de cobertura y flujo despues de impuestos para continuar con una revision independiente.
             </p>
           </div>
           <div class="qualification-grid">
@@ -1388,9 +1406,9 @@ body {
 
           <div class="panel decision-panel">
             <p class="eyebrow">Lectura ejecutiva</p>
-            <h3 id="decisionTitle">El inversionista participa en capacidad solar.</h3>
+            <h3 id="decisionTitle">El modelo evalua capacidad solar potencial.</h3>
             <p id="decisionCopy">
-              La inversion se convierte en MWp asociados al proyecto y el retorno depende de energia vendida, precio contractual, costos operativos y financiamiento.
+              La simulacion asocia MWp al proyecto y calcula resultados sujetos a energia vendida, precio contractual, costos operativos, impuestos y financiacion. No representa una operacion acordada.
             </p>
             <dl>
               <div>
@@ -1420,8 +1438,8 @@ body {
         <section class="panel table-panel terms-panel">
           <div class="panel-head">
             <div>
-              <p class="eyebrow">Terminos comerciales</p>
-              <h3>Resumen de inversion</h3>
+              <p class="eyebrow">Supuestos del modelo</p>
+              <h3>Resumen del escenario</h3>
             </div>
           </div>
           <div class="table-wrap">
@@ -1474,8 +1492,8 @@ body {
         <section class="panel table-panel projection-panel">
           <div class="panel-head">
             <div>
-              <p class="eyebrow">Proyeccion de inversion</p>
-              <h3>Flujo anual para el inversionista</h3>
+              <p class="eyebrow">Proyeccion informativa</p>
+              <h3>Flujo anual del escenario</h3>
             </div>
           </div>
           <div class="table-wrap">
@@ -1495,11 +1513,16 @@ body {
             </table>
           </div>
           <p class="fine-print">
-            Modelo financiero preliminar para analisis comercial y due diligence. No constituye oferta publica de valores, recomendacion financiera, compromiso de financiacion ni promesa de rentabilidad. Todo resultado debe validarse con contrato, estructura juridica, titularidad del activo, permisos, garantias, impuestos, seguros, riesgos operativos, interconexion, contraparte compradora de energia, regulacion aplicable y asesoria legal, tributaria y financiera independiente.
+            Evaluacion preliminar e informativa elaborada con los datos ingresados y supuestos que pueden cambiar. No constituye cotizacion definitiva, oferta publica o privada, recomendacion financiera, orden o solicitud de compra, invitacion a transferir recursos, compromiso de financiacion, garantia de ahorro ni promesa de rentabilidad. Su finalidad exclusiva es determinar si existe merito para continuar con estudios tecnicos, juridicos, financieros, tributarios y regulatorios. Cualquier operacion requerira debida diligencia, aprobaciones y contratos definitivos.
           </p>
         </section>
       </section>
     </main>
+    <footer style="margin-top:32px;padding:22px;text-align:center;background:#09130f;color:rgba(255,255,255,.72);font-size:.82rem;line-height:1.7;">
+      Terra Nova Trade S.A.S. · NIT 901915789-8 · TerraNova Energy ·
+      <a href="politica-tratamiento-datos.html" style="color:#b7dc45;font-weight:800;">Politica de Tratamiento de Datos</a> ·
+      <a href="mailto:info@terranovaenergy.net" style="color:#b7dc45;font-weight:800;">info@terranovaenergy.net</a>
+    </footer>
 
     <script>
 const fields = [
@@ -1870,13 +1893,13 @@ function renderTermsTable(result) {
     ? `${percent(result.data.financingPercent)} a ${percent(result.data.financingInterest)} anual`
     : `${percent(result.data.financingPercent)} sin interes`;
   const rows = [
-    ["Inversion minima", "1 MWp", "Capacidad minima para participar en el plan."],
-    ["Capacidad comprada", `${decimal.format(result.data.capacityMwp)} MWp`, "Capacidad solar asociada al inversionista."],
+    ["Escenario minimo", "1 MWp", "Capacidad minima utilizada por esta evaluacion."],
+    ["Capacidad evaluada", `${decimal.format(result.data.capacityMwp)} MWp`, "Capacidad solar simulada; no representa una compra o asignacion."],
     ["Precio base por MWp", compactUsd(result.data.pricePerMwpUsd), "Precio comercial inicial por cada MWp."],
-    ["Descuento por volumen", percent(result.appliedDiscountPercent), "Aplica 5% desde la compra de 3 MWp."],
-    ["Precio total", `${compactUsd(result.totalInvestmentUsd)} / ${compactCop(result.totalInvestmentCop)}`, "Valor total estimado de la compra solar."],
-    ["Aporte inicial", `${compactUsd(result.downPaymentUsd)} / ${compactCop(result.downPaymentCop)}`, "Capital inicial despues del financiamiento."],
-    ["Financiamiento", financingText, "Financiamiento maximo permitido: 50%."],
+    ["Ajuste por volumen", percent(result.appliedDiscountPercent), "Supuesto indicativo desde 3 MWp; sujeto a validacion comercial."],
+    ["Valor de referencia", `${compactUsd(result.totalInvestmentUsd)} / ${compactCop(result.totalInvestmentCop)}`, "Resultado informativo del escenario; no constituye precio ofrecido."],
+    ["Aporte simulado", `${compactUsd(result.downPaymentUsd)} / ${compactCop(result.downPaymentCop)}`, "Capital hipotetico despues de la financiacion simulada."],
+    ["Financiacion simulada", financingText, "Supuesto de modelacion de hasta 50%; no implica aprobacion ni compromiso."],
     ["Venta de energia", result.data.saleMode, "Simulacion de venta a red o mediante contratos privados PPA."],
     ["Respaldo RETScreen", result.data.retscreenSource, "El informe tecnico detallado se incorporara al expediente de inversion."],
     ["Costo operativo TerraNova", copPerKwh(result.data.postSaleCostPerKwh), "Administracion, operacion y mantenimiento de la granja solar por kWh."],
@@ -1892,10 +1915,10 @@ function renderTermsTable(result) {
     ["DSCR minimo", ratio(result.minimumDscr), "Cobertura minima del servicio de deuda durante el periodo financiado."],
     ["DSCR promedio", ratio(result.averageDscr), "Cobertura promedio del servicio de deuda durante el periodo financiado."],
     ["LTV / deuda", percent(result.loanToValue), "Porcentaje financiado sobre valor total del activo."],
-    ["TIR inversionista", irr, "Calculada con aporte inicial negativo y flujos netos despues de deuda e impuestos."],
+    ["TIR del escenario", irr, "Proyeccion no garantizada calculada con aporte inicial hipotetico y flujos simulados."],
     ["ROI acumulado", percent(result.totalReturnPercent), "Ganancia neta acumulada sobre aporte inicial."],
     ["Recuperacion estimada", payback, "Tiempo aproximado para recuperar el capital con flujo neto."],
-    ["Validacion legal", "Requerida", "La estructura de inversion debe revisarse antes de presentarse al inversionista."],
+    ["Validacion legal", "Requerida", "La estructura real debe revisarse antes de presentar cualquier oferta o recibir recursos."],
   ];
 
   document.getElementById("termsRows").innerHTML = rows.map((row) => `
@@ -2037,17 +2060,17 @@ function updateDashboard() {
   document.getElementById("headline").textContent = result.data.projectName || "TerraNova Tuluá";
   document.getElementById("subheadline").textContent = [
     result.data.location || "Ubicacion pendiente",
-    "Proyecto de inversion solar",
+    "Escenario informativo no vinculante",
   ].filter(Boolean).join(" | ");
   document.getElementById("leadGateNotice").hidden = result.hasValidLead;
   document.getElementById("printButton").classList.toggle("disabled", !result.hasValidLead);
   document.getElementById("requestInfoButton").classList.toggle("disabled", !result.hasValidLead);
   document.getElementById("printButton").title = result.hasValidLead
-    ? "Imprimir propuesta de inversion"
+    ? "Imprimir evaluacion preliminar"
     : "Completa email y autorizacion para generar el informe";
   document.getElementById("requestInfoButton").title = result.hasValidLead
-    ? "Solicitar informacion de inversion"
-    : "Completa email y autorizacion para solicitar informacion";
+    ? "Solicitar evaluacion preliminar"
+    : "Completa email y autorizacion para solicitar la evaluacion";
 
   document.getElementById("investmentMetric").textContent = compactUsd(result.totalInvestmentUsd);
   document.getElementById("capacityMetric").textContent = `${decimal.format(result.data.capacityMwp)} MWp`;
@@ -2071,10 +2094,10 @@ function updateDashboard() {
   document.getElementById("totalReturnMetric").textContent = `${compactCop(result.totalReturn)} (${percent(result.totalReturnPercent)})`;
 
   document.getElementById("investmentTitle").textContent = result.paybackWithinTerm
-    ? "Inversion preliminarmente estructurable."
-    : "Inversion para ajustar antes de presentar.";
+    ? "Escenario para evaluacion detallada."
+    : "Escenario que requiere ajustes y validacion.";
   document.getElementById("investmentCopy").textContent = result.paybackWithinTerm
-    ? `El flujo proyectado recupera el aporte inicial en ${paybackCopy} y deja una ganancia neta acumulada estimada de ${compactCop(result.totalReturn)} durante ${result.data.contractYears} años.`
+    ? `El escenario simula la recuperacion del aporte hipotetico en ${paybackCopy} y un resultado neto acumulado de ${compactCop(result.totalReturn)} durante ${result.data.contractYears} años. No es un rendimiento ofrecido ni garantizado.`
     : "El flujo no recupera el capital dentro del plazo seleccionado. Revisa precio de venta, costos, monto minimo o plazo.";
   document.getElementById("bankabilityTitle").textContent = result.bankable
     ? "Estructura preliminarmente bancable."
@@ -2082,8 +2105,8 @@ function updateDashboard() {
   document.getElementById("bankabilityCopy").textContent = result.bankable
     ? `El modelo mantiene DSCR minimo de ${ratio(result.minimumDscr)}, LTV de ${percent(result.loanToValue)} y TIR estimada de ${result.irr === null ? "N/A" : percent(result.irr)} despues de impuestos.`
     : "Revisa cobertura de deuda, precio de venta, plazo de financiamiento o costo operativo antes de presentarlo a banco, fondo o inversionista institucional.";
-  document.getElementById("decisionTitle").textContent = "El inversionista participa en capacidad solar.";
-  document.getElementById("decisionCopy").textContent = `La compra equivale a ${decimal.format(result.data.capacityMwp)} MWp por ${compactUsd(result.totalInvestmentUsd)}. La energia se simula bajo ${result.data.saleMode}, con costo operativo TerraNova de ${copPerKwh(result.data.postSaleCostPerKwh)} y TIR estimada de ${result.irr === null ? "N/A" : percent(result.irr)}.`;
+  document.getElementById("decisionTitle").textContent = "El modelo evalua capacidad solar potencial.";
+  document.getElementById("decisionCopy").textContent = `El escenario analiza ${decimal.format(result.data.capacityMwp)} MWp con valor de referencia de ${compactUsd(result.totalInvestmentUsd)}. La energia se simula bajo ${result.data.saleMode}, con costo operativo de referencia de ${copPerKwh(result.data.postSaleCostPerKwh)} y TIR del escenario de ${result.irr === null ? "N/A" : percent(result.irr)}. No constituye oferta ni solicitud de compra.`;
 
   renderBarChart(result);
   renderTermsTable(result);
@@ -2123,20 +2146,21 @@ function bindEvents() {
     }
     await sendLeadToTerraNova(result, "request-info");
 
-    const subject = `Solicitud informacion inversion - ${result.data.projectName || "TerraNova Tuluá"}`;
+    const subject = `Solicitud de evaluacion preliminar - ${result.data.projectName || "TerraNova Tuluá"}`;
     const financingText = result.data.financingInterest > 0
       ? `${percent(result.data.financingPercent)} a ${percent(result.data.financingInterest)} anual`
       : `${percent(result.data.financingPercent)} sin interes`;
     const body = [
-      "Quiero solicitar informacion de inversion para proyectos TerraNova Energy.",
+      "Solicito a TerraNova Energy revisar la viabilidad preliminar del escenario descrito a continuacion.",
+      "Entiendo que los resultados son informativos y no vinculantes y que este mensaje no constituye una orden o solicitud de compra, aceptacion de una oferta, entrega de recursos ni compromiso de celebrar un contrato.",
       "",
       `Proyecto: ${result.data.projectName}`,
       `Email: ${result.data.contactEmail}`,
       `Telefono: ${result.data.contactPhone}`,
-      `Capacidad comprada: ${decimal.format(result.data.capacityMwp)} MWp`,
-      `Precio total: ${compactUsd(result.totalInvestmentUsd)}`,
-      `Aporte inicial: ${compactUsd(result.downPaymentUsd)}`,
-      `Financiamiento: ${financingText}`,
+      `Capacidad evaluada: ${decimal.format(result.data.capacityMwp)} MWp`,
+      `Valor de referencia: ${compactUsd(result.totalInvestmentUsd)}`,
+      `Aporte simulado: ${compactUsd(result.downPaymentUsd)}`,
+      `Financiacion simulada: ${financingText}`,
       `Retorno anual neto estimado: ${percent(result.annualReturn)}`,
       `TIR estimada: ${result.irr === null ? "N/A" : percent(result.irr)}`,
       `Impuesto año 1: ${compactCop(result.incomeTaxYearOne)}`,
@@ -2154,15 +2178,15 @@ updateDashboard();
     </script>
     <script>
       window.TERRANOVA_EVALUATION_GATE = {
-        buttonLabel: "Evaluar oportunidad de inversión",
-        lockTitle: "Su evaluación de inversión estará lista en segundos",
-        lockCopy: "Complete los campos obligatorios, autorice el tratamiento de información e indique la capacidad de inversión. Luego pulse “Evaluar oportunidad de inversión”.",
+        buttonLabel: "Generar evaluación preliminar",
+        lockTitle: "Su evaluación preliminar estará lista en segundos",
+        lockCopy: "Complete los campos obligatorios, autorice el tratamiento de información e indique la capacidad que desea evaluar. Luego pulse “Generar evaluación preliminar”.",
         action: "generate-evaluation",
         requiredIds: ["projectName", "location", "contactEmail", "contactPhone", "dataConsent", "capacityMwp"],
         isReady: (result) => result.hasValidLead && result.data.capacityMwp >= 1
       };
     </script>
     <script src="evaluation-gate.js?v=2"></script>
-    <script src="terranova-i18n.js?v=10"></script>
+    <script src="terranova-i18n.js?v=13"></script>
   </body>
 </html>
