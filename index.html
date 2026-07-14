@@ -933,6 +933,98 @@ h1 {
   line-height: 1.55;
 }
 
+.remote-energy-section {
+  background: #fff;
+  padding: 84px 32px 76px;
+}
+
+.remote-energy-inner {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+
+.remote-energy-heading {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  margin-bottom: 34px;
+}
+
+.remote-energy-heading h2 {
+  font-size: clamp(1.9rem, 3.4vw, 3.25rem);
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.remote-energy-heading p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.62;
+}
+
+.remote-energy-steps {
+  counter-reset: remote-step;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 28px;
+}
+
+.remote-step {
+  background: linear-gradient(180deg, #f8faf7, #fff);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 246px;
+  padding: 24px;
+  position: relative;
+}
+
+.remote-step::before {
+  align-items: center;
+  background: var(--green-deep);
+  border-radius: 50%;
+  color: #fff;
+  content: counter(remote-step);
+  counter-increment: remote-step;
+  display: inline-flex;
+  font-size: .9rem;
+  font-weight: 900;
+  height: 38px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 38px;
+}
+
+.remote-step h3 {
+  font-size: 1.12rem;
+  margin-bottom: 10px;
+}
+
+.remote-step p {
+  color: var(--muted);
+  line-height: 1.52;
+}
+
+.remote-energy-note {
+  background: #eef5ec;
+  border: 1px solid rgba(30, 106, 53, .2);
+  border-radius: 8px;
+  color: #294337;
+  line-height: 1.55;
+  padding: 22px 24px;
+}
+
+.remote-energy-note strong {
+  color: var(--green-deep);
+}
+
+.remote-energy-note a {
+  color: var(--green-deep);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .contact-band {
   background:
     linear-gradient(135deg, rgba(16, 24, 32, 0.94), rgba(17, 52, 36, 0.9)),
@@ -1681,6 +1773,8 @@ h1 {
   .pillar-grid,
   .commercial-heading,
   .commercial-grid,
+  .remote-energy-heading,
+  .remote-energy-steps,
   .contact-panel,
   .solution-cards-section {
     grid-template-columns: 1fr;
@@ -1872,6 +1966,7 @@ h1 {
             <span data-i18n="nav.solutions">Explorar Soluciones</span><span class="menu-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="solutions-dropdown" role="menu">
+            <a href="#como-funciona" role="menuitem" data-i18n="nav.how">Cómo funciona</a>
             <a href="ppa.html" role="menuitem">PPA TerraNova</a>
             <a href="solucion-empresas.html" role="menuitem" data-i18n="nav.business">Solución Empresas</a>
             <a href="capital.html" role="menuitem">TerraNova Capital</a>
@@ -1993,6 +2088,41 @@ h1 {
         </div>
       </section>
 
+      <section class="remote-energy-section" id="como-funciona" aria-label="Cómo funciona la energía solar remota">
+        <div class="remote-energy-inner">
+          <div class="remote-energy-heading">
+            <div>
+              <p class="eyebrow" data-i18n="remote.eyebrow">Cómo funciona</p>
+              <h2 data-i18n="remote.title">Energía solar producida en un lugar y aprovechada por su empresa en otro.</h2>
+            </div>
+            <p data-i18n="remote.intro">TerraNova desarrolla infraestructura solar en ubicaciones con condiciones adecuadas de generación. La energía se entrega y mide a través del Sistema Interconectado Nacional, mientras el consumo de su empresa continúa registrándose en su punto habitual de conexión.</p>
+          </div>
+
+          <div class="remote-energy-steps" aria-label="Proceso de energía solar remota">
+            <article class="remote-step">
+              <h3 data-i18n="remote.step1.title">Generamos</h3>
+              <p data-i18n="remote.step1.copy">La energía se produce en una planta solar desarrollada y operada bajo los estándares técnicos y regulatorios aplicables.</p>
+            </article>
+            <article class="remote-step">
+              <h3 data-i18n="remote.step2.title">Entregamos a la red</h3>
+              <p data-i18n="remote.step2.copy">La generación se mide en su frontera comercial y se entrega al Sistema Interconectado Nacional, sin construir una línea privada hasta cada empresa.</p>
+            </article>
+            <article class="remote-step">
+              <h3 data-i18n="remote.step3.title">Asociamos el consumo</h3>
+              <p data-i18n="remote.step3.copy">La energía se relaciona comercialmente con el consumo de uno o varios establecimientos mediante la modalidad aplicable a cada proyecto.</p>
+            </article>
+            <article class="remote-step">
+              <h3 data-i18n="remote.step4.title">Mantenemos el respaldo</h3>
+              <p data-i18n="remote.step4.copy">La empresa permanece conectada a la red para recibir energía complementaria cuando la generación solar no cubra todo su consumo.</p>
+            </article>
+          </div>
+
+          <div class="remote-energy-note">
+            <p><strong data-i18n="remote.note.title">Marco regulatorio.</strong> <span data-i18n="remote.note.copy">La solución puede estructurarse como suministro remoto, autogeneración remota u otra modalidad aplicable, según la propiedad del activo, la relación contractual y las características del consumo. Se evalúa conforme a las Leyes 142 y 143 de 1994, la Ley 1715 de 2014, el Decreto 1403 de 2024, la Resolución CREG 101 099 de 2026 y las normas que las modifiquen o sustituyan. La modalidad definitiva, los cargos de red, la medición, la conexión y los beneficios económicos dependen de cada proyecto.</span> <a href="https://gestornormativo.creg.gov.co/gestor/entorno/docs/resolucion_creg_101-99_2026.htm" target="_blank" rel="noopener noreferrer" data-i18n="remote.note.link">Consultar regulación CREG</a>.</p>
+          </div>
+        </div>
+      </section>
+
       <section class="contact-band" id="contacto" aria-label="Contacto">
         <div class="contact-panel">
           <div class="contact-content-card">
@@ -2074,7 +2204,7 @@ h1 {
     <script>
       const translations = {
         es: {
-          "nav.home": "Inicio", "nav.solutions": "Explorar Soluciones", "nav.business": "Solución Empresas", "nav.about": "Nosotros", "nav.who": "Quiénes somos", "nav.what": "Qué hacemos", "nav.contact": "Contacto",
+          "nav.home": "Inicio", "nav.solutions": "Explorar Soluciones", "nav.how": "Cómo funciona", "nav.business": "Solución Empresas", "nav.about": "Nosotros", "nav.who": "Quiénes somos", "nav.what": "Qué hacemos", "nav.contact": "Contacto",
           "hero.title": "Energía solar remota para empresas que necesitan reducir costos y asegurar suministro a largo plazo.",
           "hero.copy": "TerraNova Tuluá es el proyecto base para suministrar, financiar y comercializar energía solar mediante modelos diseñados para reducir costos, crear activos y proyectar retornos de largo plazo.",
           "hero.cta": "Solicitar evaluación energética",
@@ -2091,6 +2221,13 @@ h1 {
           "commercial.card1.label": "01 · Diseñamos", "commercial.card1.title": "Soluciones basadas en consumo real", "commercial.card1.copy": "Analizamos facturas, perfiles de carga, ubicación y objetivos para dimensionar una alternativa energética adecuada.",
           "commercial.card2.label": "02 · Estructuramos", "commercial.card2.title": "Modelos comerciales y financieros", "commercial.card2.copy": "Evaluamos PPA, adquisición de capacidad solar y participación en activos, con supuestos y condiciones claramente identificados.",
           "commercial.card3.label": "03 · Ejecutamos", "commercial.card3.title": "Construcción, operación y seguimiento", "commercial.card3.copy": "Integramos desarrollo, construcción, comercialización, operación y datos para acompañar el proyecto durante su ciclo de vida.",
+          "remote.eyebrow": "Cómo funciona", "remote.title": "Energía solar producida en un lugar y aprovechada por su empresa en otro.",
+          "remote.intro": "TerraNova desarrolla infraestructura solar en ubicaciones con condiciones adecuadas de generación. La energía se entrega y mide a través del Sistema Interconectado Nacional, mientras el consumo de su empresa continúa registrándose en su punto habitual de conexión.",
+          "remote.step1.title": "Generamos", "remote.step1.copy": "La energía se produce en una planta solar desarrollada y operada bajo los estándares técnicos y regulatorios aplicables.",
+          "remote.step2.title": "Entregamos a la red", "remote.step2.copy": "La generación se mide en su frontera comercial y se entrega al Sistema Interconectado Nacional, sin construir una línea privada hasta cada empresa.",
+          "remote.step3.title": "Asociamos el consumo", "remote.step3.copy": "La energía se relaciona comercialmente con el consumo de uno o varios establecimientos mediante la modalidad aplicable a cada proyecto.",
+          "remote.step4.title": "Mantenemos el respaldo", "remote.step4.copy": "La empresa permanece conectada a la red para recibir energía complementaria cuando la generación solar no cubra todo su consumo.",
+          "remote.note.title": "Marco regulatorio.", "remote.note.copy": "La solución puede estructurarse como suministro remoto, autogeneración remota u otra modalidad aplicable, según la propiedad del activo, la relación contractual y las características del consumo. Se evalúa conforme a las Leyes 142 y 143 de 1994, la Ley 1715 de 2014, el Decreto 1403 de 2024, la Resolución CREG 101 099 de 2026 y las normas que las modifiquen o sustituyan. La modalidad definitiva, los cargos de red, la medición, la conexión y los beneficios económicos dependen de cada proyecto.", "remote.note.link": "Consultar regulación CREG",
           "contact.eyebrow": "Contacto", "contact.title": "Hablemos de su próximo proyecto energético.",
           "contact.copy": "TerraNova puede evaluar empresas con alto consumo, propietarios interesados en adquirir capacidad solar e inversionistas que quieran analizar activos energéticos con flujo proyectado.",
           "contact.explore": "Explorar soluciones", "contact.models": "Ver modelos", "contact.request": "Solicitar contacto comercial", "contact.team": "Equipo TerraNova",
@@ -2101,7 +2238,7 @@ h1 {
           "footer.address": "Cr. de la Cordialidad #KM 1, Suroccidente, Galapa, Barranquilla, Atlántico, Colombia", "footer.email": "Email", "footer.whatsapp": "WhatsApp", "footer.rights": "© 2026 Terra Nova Trade S.A.S. · NIT 901915789-8 · TerraNova Energy.", "footer.privacy": "Política de Tratamiento de Datos"
         },
         en: {
-          "nav.home": "Home", "nav.solutions": "Explore Solutions", "nav.business": "Business Solutions", "nav.about": "About Us", "nav.who": "Who we are", "nav.what": "What we do", "nav.contact": "Contact",
+          "nav.home": "Home", "nav.solutions": "Explore Solutions", "nav.how": "How it works", "nav.business": "Business Solutions", "nav.about": "About Us", "nav.who": "Who we are", "nav.what": "What we do", "nav.contact": "Contact",
           "hero.title": "Remote solar energy for companies that need to reduce costs and secure long-term supply.",
           "hero.copy": "TerraNova Tuluá is the cornerstone project for supplying, financing and marketing solar energy through models designed to reduce costs, create assets and project long-term returns.",
           "hero.cta": "Request an energy assessment",
@@ -2118,6 +2255,13 @@ h1 {
           "commercial.card1.label": "01 · We design", "commercial.card1.title": "Solutions based on actual consumption", "commercial.card1.copy": "We analyze bills, load profiles, location and objectives to size an appropriate energy alternative.",
           "commercial.card2.label": "02 · We structure", "commercial.card2.title": "Commercial and financial models", "commercial.card2.copy": "We evaluate PPAs, solar capacity ownership and asset participation with clearly identified assumptions and conditions.",
           "commercial.card3.label": "03 · We execute", "commercial.card3.title": "Construction, operations and monitoring", "commercial.card3.copy": "We integrate development, construction, energy marketing, operations and data to support the project throughout its life cycle.",
+          "remote.eyebrow": "How it works", "remote.title": "Solar energy produced in one location and used by your business in another.",
+          "remote.intro": "TerraNova develops solar infrastructure in locations with suitable generation conditions. Energy is delivered and measured through Colombia's interconnected power system, while your company's consumption continues to be recorded at its usual connection point.",
+          "remote.step1.title": "We generate", "remote.step1.copy": "Energy is produced at a solar plant developed and operated under the applicable technical and regulatory standards.",
+          "remote.step2.title": "We deliver to the grid", "remote.step2.copy": "Generation is measured at its commercial boundary and delivered to the interconnected system, without building a private line to each business.",
+          "remote.step3.title": "We associate consumption", "remote.step3.copy": "Energy is commercially associated with consumption at one or more facilities through the structure applicable to each project.",
+          "remote.step4.title": "We maintain grid support", "remote.step4.copy": "The company remains connected to the grid to receive complementary energy whenever solar generation does not cover total consumption.",
+          "remote.note.title": "Regulatory framework.", "remote.note.copy": "The solution may be structured as remote supply, remote self-generation or another applicable arrangement depending on asset ownership, contractual relationships and consumption characteristics. It is evaluated under Laws 142 and 143 of 1994, Law 1715 of 2014, Decree 1403 of 2024, CREG Resolution 101 099 of 2026 and any rules that amend or replace them. The final structure, grid charges, metering, connection and economic benefits depend on each project.", "remote.note.link": "View CREG regulation",
           "contact.eyebrow": "Contact", "contact.title": "Let's discuss your next energy project.",
           "contact.copy": "TerraNova evaluates high-consumption businesses, owners interested in acquiring solar capacity, and investors seeking to analyze energy assets with projected cash flow.",
           "contact.explore": "Explore solutions", "contact.models": "View models", "contact.request": "Request business contact", "contact.team": "TerraNova team",
@@ -2179,9 +2323,10 @@ h1 {
       setLanguage(localStorage.getItem("terranova-language") || "es");
 
       const homeNavLink = document.querySelector('.main-nav a[href="index.html"]');
+      const solutionsNavLink = document.querySelector('.main-nav .solutions-menu:not(.about-menu) .solutions-trigger');
       const aboutNavLink = document.querySelector('.main-nav .about-trigger');
       const contactNavLink = document.querySelector('.main-nav a[href="#contacto"]');
-      const sectionNavLinks = [homeNavLink, aboutNavLink, contactNavLink].filter(Boolean);
+      const sectionNavLinks = [homeNavLink, solutionsNavLink, aboutNavLink, contactNavLink].filter(Boolean);
       const setActiveNavLink = (activeLink) => {
         sectionNavLinks.forEach((link) => {
           const isActive = link === activeLink;
@@ -2193,9 +2338,11 @@ h1 {
       const updateActiveNavLink = () => {
         const marker = window.scrollY + Math.max(140, window.innerHeight * 0.28);
         const contactTop = document.getElementById("contacto")?.offsetTop ?? Infinity;
+        const remoteEnergyTop = document.getElementById("como-funciona")?.offsetTop ?? Infinity;
         const commercialTop = document.getElementById("que-hacemos")?.offsetTop ?? Infinity;
         const aboutTop = document.getElementById("nosotros")?.offsetTop ?? Infinity;
         if (marker >= contactTop) setActiveNavLink(contactNavLink);
+        else if (marker >= remoteEnergyTop) setActiveNavLink(solutionsNavLink);
         else if (marker >= commercialTop) setActiveNavLink(aboutNavLink);
         else if (marker >= aboutTop) setActiveNavLink(aboutNavLink);
         else setActiveNavLink(homeNavLink);

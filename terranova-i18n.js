@@ -3,6 +3,7 @@
     "Inicio": "Home",
     "Explorar Soluciones": "Explore Solutions",
     "Explorar soluciones": "Explore solutions",
+    "Cómo funciona": "How it works",
     "Solución Empresas": "Business Solutions",
     "Nosotros": "About Us",
     "Quiénes somos": "Who we are",
@@ -590,6 +591,7 @@
         <span>Explorar Soluciones</span><span class="menu-chevron" aria-hidden="true">⌄</span>
       </button>
       <div class="solutions-dropdown" role="menu">
+        <a href="index.html#como-funciona" role="menuitem">Cómo funciona</a>
         <a href="ppa.html" role="menuitem">PPA TerraNova</a>
         <a href="solucion-empresas.html" role="menuitem">Solución Empresas</a>
         <a href="capital.html" role="menuitem">TerraNova Capital</a>
