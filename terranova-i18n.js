@@ -5,6 +5,8 @@
     "Explorar soluciones": "Explore solutions",
     "Solución Empresas": "Business Solutions",
     "Nosotros": "About Us",
+    "Quiénes somos": "Who we are",
+    "Qué hacemos": "What we do",
     "Contacto": "Contact",
     "Tres caminos para convertir energía en valor.": "Three paths to turn energy into value.",
     "Elija el modelo que mejor se ajusta a su empresa o estrategia de inversión. TerraNova valida el caso, estructura la propuesta y conecta cada solución con la capacidad de TerraNova Tuluá.": "Choose the model that best fits your business or investment strategy. TerraNova validates the case, structures the proposal and connects each solution with TerraNova Tuluá's capacity.",
@@ -617,6 +619,23 @@
       aboutLink.before(portalLink);
     }
 
+    let aboutWrapper = null;
+    if (aboutLink) {
+      const aboutHref = aboutLink.getAttribute("href") || "index.html#nosotros";
+      const homePrefix = aboutHref.includes("index.html") ? "index.html" : "";
+      aboutWrapper = document.createElement("div");
+      aboutWrapper.className = "solutions-menu about-menu";
+      aboutWrapper.innerHTML = `
+        <button class="${itemClass} solutions-trigger about-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
+          <span>Nosotros</span><span class="menu-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="solutions-dropdown" role="menu">
+          <a href="${homePrefix}#nosotros" role="menuitem">Quiénes somos</a>
+          <a href="${homePrefix}#que-hacemos" role="menuitem">Qué hacemos</a>
+        </div>`;
+      aboutLink.replaceWith(aboutWrapper);
+    }
+
     const style = document.createElement("style");
     style.id = "terranova-nav-enhancements";
     style.textContent = `
@@ -630,6 +649,7 @@
       .solutions-dropdown a { border-radius: 4px; color: #183126; display: block; font-size: 12px; font-weight: 800; padding: 10px 12px; text-decoration: none; white-space: nowrap; }
       .solutions-dropdown a:hover, .solutions-dropdown a:focus-visible { background: rgba(145,213,41,.18); color: #0f632f; outline: none; }
       .solutions-dropdown a[aria-current="page"] { background: rgba(145,213,41,.18); color: #0f632f; }
+      .about-menu .solutions-dropdown { min-width:184px; }
       .solutions-menu:hover .solutions-dropdown, .solutions-menu:focus-within .solutions-dropdown, .solutions-menu.open .solutions-dropdown { opacity: 1; pointer-events: auto; transform: translate(-50%,0); visibility: visible; }
       .solutions-menu:hover .menu-chevron, .solutions-menu:focus-within .menu-chevron, .solutions-menu.open .menu-chevron { transform: rotate(180deg); }
       .site-nav-link, .main-nav .nav-link { align-items: center !important; display: inline-flex !important; font-size: 13px !important; line-height: 1 !important; min-height: 36px !important; padding: 0 !important; }
@@ -661,17 +681,26 @@
     `;
     document.head.appendChild(style);
 
-    const closeMenu = () => {
-      wrapper.classList.remove("open");
-      trigger.setAttribute("aria-expanded", "false");
+    const dropdownMenus = [wrapper, aboutWrapper].filter(Boolean);
+    const closeMenus = (exceptMenu = null) => {
+      dropdownMenus.forEach((menu) => {
+        if (menu === exceptMenu) return;
+        menu.classList.remove("open");
+        menu.querySelector(".solutions-trigger")?.setAttribute("aria-expanded", "false");
+      });
     };
-    trigger.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const isOpen = wrapper.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", String(isOpen));
+    dropdownMenus.forEach((menu) => {
+      const menuTrigger = menu.querySelector(".solutions-trigger");
+      menuTrigger?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const willOpen = !menu.classList.contains("open");
+        closeMenus(menu);
+        menu.classList.toggle("open", willOpen);
+        menuTrigger.setAttribute("aria-expanded", String(willOpen));
+      });
     });
-    document.addEventListener("click", (event) => { if (!wrapper.contains(event.target)) closeMenu(); });
-    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
+    document.addEventListener("click", () => closeMenus());
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenus(); });
 
     const header = nav.closest(".site-header");
     if (header && !header.querySelector(".mobile-nav-toggle")) {

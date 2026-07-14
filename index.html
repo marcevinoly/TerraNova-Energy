@@ -181,6 +181,10 @@ a {
   outline: none;
 }
 
+.about-menu .solutions-dropdown {
+  min-width: 184px;
+}
+
 .solutions-menu:hover .solutions-dropdown,
 .solutions-menu:focus-within .solutions-dropdown,
 .solutions-menu.open .solutions-dropdown {
@@ -864,6 +868,69 @@ h1 {
   color: var(--muted);
   line-height: 1.52;
   margin: 0;
+}
+
+.commercial-section {
+  background: #f4f7f3;
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  padding: 76px 32px;
+}
+
+.commercial-inner {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+
+.commercial-heading {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  margin-bottom: 30px;
+}
+
+.commercial-heading h2 {
+  font-size: clamp(1.9rem, 3.4vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.commercial-heading > p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.62;
+}
+
+.commercial-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.commercial-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(13, 28, 20, .08);
+  padding: 26px;
+}
+
+.commercial-card strong {
+  color: var(--green-deep);
+  display: block;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.commercial-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.commercial-card p {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .contact-band {
@@ -1612,6 +1679,8 @@ h1 {
   .about-intro,
   .about-proof,
   .pillar-grid,
+  .commercial-heading,
+  .commercial-grid,
   .contact-panel,
   .solution-cards-section {
     grid-template-columns: 1fr;
@@ -1809,7 +1878,15 @@ h1 {
           </div>
         </div>
         <a class="nav-link portal-link" href="portal.html">Portal TerraNova</a>
-        <a class="nav-link" href="#nosotros" data-i18n="nav.about">Nosotros</a>
+        <div class="solutions-menu about-menu">
+          <button class="nav-link solutions-trigger about-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
+            <span data-i18n="nav.about">Nosotros</span><span class="menu-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="solutions-dropdown" role="menu">
+            <a href="#nosotros" role="menuitem" data-i18n="nav.who">Quiénes somos</a>
+            <a href="#que-hacemos" role="menuitem" data-i18n="nav.what">Qué hacemos</a>
+          </div>
+        </div>
         <a class="nav-link" href="#contacto" data-i18n="nav.contact">Contacto</a>
         <span class="language-switch" aria-label="Idioma">
           <button type="button" data-lang="es" class="active" aria-label="Español" title="Español"><span aria-hidden="true">🇪🇸</span></button>
@@ -1884,6 +1961,35 @@ h1 {
             <h3 data-i18n="pillar.operations.title">Operación y datos</h3>
             <p data-i18n="pillar.operations.copy">Usamos información técnica, consumo histórico y escenarios financieros para convertir una propuesta energética en una decisión medible.</p>
           </article>
+        </div>
+      </section>
+
+      <section class="commercial-section" id="que-hacemos" aria-label="Qué hacemos">
+        <div class="commercial-inner">
+          <div class="commercial-heading">
+            <div>
+              <p class="eyebrow" data-i18n="commercial.eyebrow">Qué hacemos</p>
+              <h2 data-i18n="commercial.title">Convertimos necesidades energéticas en proyectos evaluables, financiables y operables.</h2>
+            </div>
+            <p data-i18n="commercial.copy">TerraNova diseña, estructura, construye y opera infraestructura solar para empresas e inversionistas. Cada relación comienza con una evaluación preliminar y avanza únicamente cuando existe viabilidad técnica, jurídica y financiera.</p>
+          </div>
+          <div class="commercial-grid">
+            <article class="commercial-card">
+              <strong data-i18n="commercial.card1.label">01 · Diseñamos</strong>
+              <h3 data-i18n="commercial.card1.title">Soluciones basadas en consumo real</h3>
+              <p data-i18n="commercial.card1.copy">Analizamos facturas, perfiles de carga, ubicación y objetivos para dimensionar una alternativa energética adecuada.</p>
+            </article>
+            <article class="commercial-card">
+              <strong data-i18n="commercial.card2.label">02 · Estructuramos</strong>
+              <h3 data-i18n="commercial.card2.title">Modelos comerciales y financieros</h3>
+              <p data-i18n="commercial.card2.copy">Evaluamos PPA, adquisición de capacidad solar y participación en activos, con supuestos y condiciones claramente identificados.</p>
+            </article>
+            <article class="commercial-card">
+              <strong data-i18n="commercial.card3.label">03 · Ejecutamos</strong>
+              <h3 data-i18n="commercial.card3.title">Construcción, operación y seguimiento</h3>
+              <p data-i18n="commercial.card3.copy">Integramos desarrollo, construcción, comercialización, operación y datos para acompañar el proyecto durante su ciclo de vida.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -1968,7 +2074,7 @@ h1 {
     <script>
       const translations = {
         es: {
-          "nav.home": "Inicio", "nav.solutions": "Explorar Soluciones", "nav.business": "Solución Empresas", "nav.about": "Nosotros", "nav.contact": "Contacto",
+          "nav.home": "Inicio", "nav.solutions": "Explorar Soluciones", "nav.business": "Solución Empresas", "nav.about": "Nosotros", "nav.who": "Quiénes somos", "nav.what": "Qué hacemos", "nav.contact": "Contacto",
           "hero.title": "Energía solar remota para empresas que necesitan reducir costos y asegurar suministro a largo plazo.",
           "hero.copy": "TerraNova Tuluá es el proyecto base para suministrar, financiar y comercializar energía solar mediante modelos diseñados para reducir costos, crear activos y proyectar retornos de largo plazo.",
           "hero.cta": "Solicitar evaluación energética",
@@ -1980,6 +2086,11 @@ h1 {
           "pillar.solar.title": "Infraestructura solar", "pillar.solar.copy": "Partimos de proyectos de escala como TerraNova Tuluá para entregar energía competitiva y capacidad instalada real.",
           "pillar.marketing.title": "Comercialización", "pillar.marketing.copy": "Integramos energía solar diurna y suministro complementario para empresas con consumo relevante durante el día y la noche.",
           "pillar.operations.title": "Operación y datos", "pillar.operations.copy": "Usamos información técnica, consumo histórico y escenarios financieros para convertir una propuesta energética en una decisión medible.",
+          "commercial.eyebrow": "Qué hacemos", "commercial.title": "Convertimos necesidades energéticas en proyectos evaluables, financiables y operables.",
+          "commercial.copy": "TerraNova diseña, estructura, construye y opera infraestructura solar para empresas e inversionistas. Cada relación comienza con una evaluación preliminar y avanza únicamente cuando existe viabilidad técnica, jurídica y financiera.",
+          "commercial.card1.label": "01 · Diseñamos", "commercial.card1.title": "Soluciones basadas en consumo real", "commercial.card1.copy": "Analizamos facturas, perfiles de carga, ubicación y objetivos para dimensionar una alternativa energética adecuada.",
+          "commercial.card2.label": "02 · Estructuramos", "commercial.card2.title": "Modelos comerciales y financieros", "commercial.card2.copy": "Evaluamos PPA, adquisición de capacidad solar y participación en activos, con supuestos y condiciones claramente identificados.",
+          "commercial.card3.label": "03 · Ejecutamos", "commercial.card3.title": "Construcción, operación y seguimiento", "commercial.card3.copy": "Integramos desarrollo, construcción, comercialización, operación y datos para acompañar el proyecto durante su ciclo de vida.",
           "contact.eyebrow": "Contacto", "contact.title": "Hablemos de su próximo proyecto energético.",
           "contact.copy": "TerraNova puede evaluar empresas con alto consumo, propietarios interesados en adquirir capacidad solar e inversionistas que quieran analizar activos energéticos con flujo proyectado.",
           "contact.explore": "Explorar soluciones", "contact.models": "Ver modelos", "contact.request": "Solicitar contacto comercial", "contact.team": "Equipo TerraNova",
@@ -1990,7 +2101,7 @@ h1 {
           "footer.address": "Cr. de la Cordialidad #KM 1, Suroccidente, Galapa, Barranquilla, Atlántico, Colombia", "footer.email": "Email", "footer.whatsapp": "WhatsApp", "footer.rights": "© 2026 Terra Nova Trade S.A.S. · NIT 901915789-8 · TerraNova Energy.", "footer.privacy": "Política de Tratamiento de Datos"
         },
         en: {
-          "nav.home": "Home", "nav.solutions": "Explore Solutions", "nav.business": "Business Solutions", "nav.about": "About Us", "nav.contact": "Contact",
+          "nav.home": "Home", "nav.solutions": "Explore Solutions", "nav.business": "Business Solutions", "nav.about": "About Us", "nav.who": "Who we are", "nav.what": "What we do", "nav.contact": "Contact",
           "hero.title": "Remote solar energy for companies that need to reduce costs and secure long-term supply.",
           "hero.copy": "TerraNova Tuluá is the cornerstone project for supplying, financing and marketing solar energy through models designed to reduce costs, create assets and project long-term returns.",
           "hero.cta": "Request an energy assessment",
@@ -2002,6 +2113,11 @@ h1 {
           "pillar.solar.title": "Solar infrastructure", "pillar.solar.copy": "We build on utility-scale projects such as TerraNova Tuluá to deliver competitive energy and real installed capacity.",
           "pillar.marketing.title": "Energy marketing", "pillar.marketing.copy": "We integrate daytime solar energy and complementary supply for businesses with significant consumption during the day and at night.",
           "pillar.operations.title": "Operations and data", "pillar.operations.copy": "We use technical information, historical consumption and financial scenarios to turn an energy proposal into a measurable decision.",
+          "commercial.eyebrow": "What we do", "commercial.title": "We turn energy needs into projects that can be evaluated, financed and operated.",
+          "commercial.copy": "TerraNova designs, structures, builds and operates solar infrastructure for businesses and investors. Every relationship begins with a preliminary assessment and advances only when technical, legal and financial feasibility is established.",
+          "commercial.card1.label": "01 · We design", "commercial.card1.title": "Solutions based on actual consumption", "commercial.card1.copy": "We analyze bills, load profiles, location and objectives to size an appropriate energy alternative.",
+          "commercial.card2.label": "02 · We structure", "commercial.card2.title": "Commercial and financial models", "commercial.card2.copy": "We evaluate PPAs, solar capacity ownership and asset participation with clearly identified assumptions and conditions.",
+          "commercial.card3.label": "03 · We execute", "commercial.card3.title": "Construction, operations and monitoring", "commercial.card3.copy": "We integrate development, construction, energy marketing, operations and data to support the project throughout its life cycle.",
           "contact.eyebrow": "Contact", "contact.title": "Let's discuss your next energy project.",
           "contact.copy": "TerraNova evaluates high-consumption businesses, owners interested in acquiring solar capacity, and investors seeking to analyze energy assets with projected cash flow.",
           "contact.explore": "Explore solutions", "contact.models": "View models", "contact.request": "Request business contact", "contact.team": "TerraNova team",
@@ -2025,23 +2141,26 @@ h1 {
       };
 
       document.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
-      const solutionsMenu = document.querySelector(".solutions-menu");
-      const solutionsTrigger = solutionsMenu?.querySelector(".solutions-trigger");
-      const closeSolutionsMenu = () => {
-        solutionsMenu?.classList.remove("open");
-        solutionsTrigger?.setAttribute("aria-expanded", "false");
+      const dropdownMenus = Array.from(document.querySelectorAll(".solutions-menu"));
+      const closeDropdownMenus = (exceptMenu = null) => {
+        dropdownMenus.forEach((menu) => {
+          if (menu === exceptMenu) return;
+          menu.classList.remove("open");
+          menu.querySelector(".solutions-trigger")?.setAttribute("aria-expanded", "false");
+        });
       };
-      solutionsTrigger?.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const isOpen = solutionsMenu.classList.toggle("open");
-        solutionsTrigger.setAttribute("aria-expanded", String(isOpen));
+      dropdownMenus.forEach((menu) => {
+        const trigger = menu.querySelector(".solutions-trigger");
+        trigger?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const willOpen = !menu.classList.contains("open");
+          closeDropdownMenus(menu);
+          menu.classList.toggle("open", willOpen);
+          trigger.setAttribute("aria-expanded", String(willOpen));
+        });
       });
-      document.addEventListener("click", (event) => {
-        if (!solutionsMenu?.contains(event.target)) closeSolutionsMenu();
-      });
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeSolutionsMenu();
-      });
+      document.addEventListener("click", () => closeDropdownMenus());
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeDropdownMenus(); });
 
       const siteHeader = document.querySelector(".site-header");
       const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
@@ -2060,7 +2179,7 @@ h1 {
       setLanguage(localStorage.getItem("terranova-language") || "es");
 
       const homeNavLink = document.querySelector('.main-nav a[href="index.html"]');
-      const aboutNavLink = document.querySelector('.main-nav a[href="#nosotros"]');
+      const aboutNavLink = document.querySelector('.main-nav .about-trigger');
       const contactNavLink = document.querySelector('.main-nav a[href="#contacto"]');
       const sectionNavLinks = [homeNavLink, aboutNavLink, contactNavLink].filter(Boolean);
       const setActiveNavLink = (activeLink) => {
@@ -2074,8 +2193,10 @@ h1 {
       const updateActiveNavLink = () => {
         const marker = window.scrollY + Math.max(140, window.innerHeight * 0.28);
         const contactTop = document.getElementById("contacto")?.offsetTop ?? Infinity;
+        const commercialTop = document.getElementById("que-hacemos")?.offsetTop ?? Infinity;
         const aboutTop = document.getElementById("nosotros")?.offsetTop ?? Infinity;
         if (marker >= contactTop) setActiveNavLink(contactNavLink);
+        else if (marker >= commercialTop) setActiveNavLink(aboutNavLink);
         else if (marker >= aboutTop) setActiveNavLink(aboutNavLink);
         else setActiveNavLink(homeNavLink);
       };
