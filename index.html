@@ -1966,10 +1966,10 @@ h1 {
             <span data-i18n="nav.solutions">Explorar Soluciones</span><span class="menu-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="solutions-dropdown" role="menu">
-            <a href="#como-funciona" role="menuitem" data-i18n="nav.how">Cómo funciona</a>
             <a href="ppa.html" role="menuitem">PPA TerraNova</a>
             <a href="solucion-empresas.html" role="menuitem" data-i18n="nav.business">Solución Empresas</a>
             <a href="capital.html" role="menuitem">TerraNova Capital</a>
+            <a href="entregables/terranova-roof-v1.html" role="menuitem">TerraNova Roof</a>
           </div>
         </div>
         <a class="nav-link portal-link" href="portal.html">Portal TerraNova</a>
@@ -1980,6 +1980,7 @@ h1 {
           <div class="solutions-dropdown" role="menu">
             <a href="#nosotros" role="menuitem" data-i18n="nav.who">Quiénes somos</a>
             <a href="#que-hacemos" role="menuitem" data-i18n="nav.what">Qué hacemos</a>
+            <a href="#como-funciona" role="menuitem" data-i18n="nav.how">Cómo funciona</a>
           </div>
         </div>
         <a class="nav-link" href="#contacto" data-i18n="nav.contact">Contacto</a>
@@ -2342,7 +2343,7 @@ h1 {
         const commercialTop = document.getElementById("que-hacemos")?.offsetTop ?? Infinity;
         const aboutTop = document.getElementById("nosotros")?.offsetTop ?? Infinity;
         if (marker >= contactTop) setActiveNavLink(contactNavLink);
-        else if (marker >= remoteEnergyTop) setActiveNavLink(solutionsNavLink);
+        else if (marker >= remoteEnergyTop) setActiveNavLink(aboutNavLink);
         else if (marker >= commercialTop) setActiveNavLink(aboutNavLink);
         else if (marker >= aboutTop) setActiveNavLink(aboutNavLink);
         else setActiveNavLink(homeNavLink);

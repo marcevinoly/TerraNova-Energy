@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Soluciones de energía solar para empresas | TerraNova Energy</title>
-    <meta name="description" content="Compare PPA solar, compra de capacidad energética e inversión en TerraNova Tuluá. Soluciones para empresas de alto consumo e inversionistas en Colombia." />
+    <meta name="description" content="Compare PPA solar, compra de capacidad energética, TerraNova Roof e inversión en TerraNova Tuluá. Soluciones para empresas de alto consumo e inversionistas en Colombia." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://www.terranovaenergy.net/soluciones.html" />
     <link rel="preload" href="assets/terranova-tulua-hero.png" as="image" fetchpriority="high" />
@@ -12,7 +12,7 @@
     <meta property="og:locale" content="es_CO" />
     <meta property="og:site_name" content="TerraNova Energy" />
     <meta property="og:title" content="Soluciones de energía solar para empresas | TerraNova Energy" />
-    <meta property="og:description" content="PPA solar, infraestructura energética propia e inversión en TerraNova Tuluá." />
+    <meta property="og:description" content="PPA solar, infraestructura energética propia, TerraNova Roof e inversión en TerraNova Tuluá." />
     <meta property="og:url" content="https://www.terranovaenergy.net/soluciones.html" />
     <meta property="og:image" content="https://www.terranovaenergy.net/assets/terranova-tulua-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -22,7 +22,7 @@
         "@type": "CollectionPage",
         "name": "Soluciones TerraNova Energy",
         "url": "https://www.terranovaenergy.net/soluciones.html",
-        "description": "Modelos de PPA, infraestructura energética empresarial e inversión solar para Colombia.",
+        "description": "Modelos de PPA, infraestructura energética empresarial, TerraNova Roof e inversión solar para Colombia.",
         "isPartOf": { "@type": "WebSite", "name": "TerraNova Energy", "url": "https://www.terranovaenergy.net/" }
       }
     </script>
@@ -734,7 +734,7 @@ h1 {
 .solution-cards-section {
   display: grid;
   gap: 18px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 28px auto 0;
   max-width: 1280px;
   padding: 0 32px 82px;
@@ -958,6 +958,12 @@ h1 {
   color: var(--purple);
 }
 
+.solution-roof h2,
+.solution-roof .solution-symbol,
+.solution-roof li {
+  color: #4f7722;
+}
+
 .solution-ppa .solution-number,
 .solution-ppa .solution-price,
 .solution-ppa .filled-action {
@@ -995,6 +1001,17 @@ h1 {
   color: var(--purple);
 }
 
+.solution-roof .solution-number,
+.solution-roof .solution-price,
+.solution-roof .filled-action {
+  background: #4f7722;
+  color: #fff;
+}
+
+.solution-roof .filled-action::before {
+  color: #4f7722;
+}
+
 .solution-ppa .solution-symbol {
   background: rgba(30, 106, 53, 0.1);
 }
@@ -1005,6 +1022,10 @@ h1 {
 
 .solution-capital .solution-symbol {
   background: rgba(93, 55, 168, 0.1);
+}
+
+.solution-roof .solution-symbol {
+  background: rgba(79, 119, 34, 0.11);
 }
 
 @media (max-width: 980px) {
@@ -1130,7 +1151,7 @@ h1 {
         <div class="solutions-hero-media" aria-hidden="true"></div>
         <div class="solutions-hero-content">
           <p class="eyebrow">Explorar soluciones</p>
-          <h1>Tres caminos para convertir energía en valor.</h1>
+          <h1>Cuatro caminos para convertir energía en valor.</h1>
           <p>
             Elija el modelo que mejor se ajusta a su empresa o estrategia de inversión. TerraNova valida el caso, estructura la propuesta y conecta cada solución con la capacidad de TerraNova Tuluá.
           </p>
@@ -1218,6 +1239,33 @@ h1 {
             <a class="filled-action" href="capital.html">Comenzar diagnóstico</a>
           </div>
         </article>
+
+        <article class="solution-card solution-roof">
+          <span class="solution-number">4</span>
+          <div class="solution-symbol" aria-hidden="true">⌂</div>
+          <h2>TerraNova Roof</h2>
+          <strong>Construya su sistema solar directamente en su techo.</strong>
+          <p>Para empresas que quieren ser propietarias de un sistema de autoconsumo diseñado, construido y entregado llave en mano.</p>
+
+          <a class="solution-price" href="entregables/terranova-roof-v1.html" aria-label="Evaluar TerraNova Roof">
+            <span>Precio preliminar instalado</span>
+            <strong>$3.400.000 COP/kWp</strong>
+            <small>Oferta final sujeta a ingeniería y condiciones del sitio</small>
+          </a>
+
+          <ul>
+            <li>Sistema de autoconsumo en propiedad</li>
+            <li>Ingeniería y construcción llave en mano</li>
+            <li>Calculadora técnica y financiera preliminar</li>
+            <li>Estimación fiscal opcional</li>
+            <li>Financiación de hasta el 50% sujeta a crédito</li>
+          </ul>
+
+          <div class="solution-actions">
+            <a class="outline-action" href="entregables/terranova-roof-v1.html">Más información</a>
+            <a class="filled-action" href="entregables/terranova-roof-v1.html#calculadora">Calcular mi proyecto</a>
+          </div>
+        </article>
       </section>
       <p style="max-width:1180px;margin:22px auto 0;padding:0 24px;color:#63736c;font-size:.86rem;line-height:1.6;text-align:center;">
         Las tarifas, costos, ahorros y resultados financieros mostrados son escenarios informativos basados en supuestos que pueden cambiar. No constituyen cotizacion definitiva, oferta, orden o solicitud de compra, compromiso de financiacion ni garantia de ahorro o rentabilidad.
@@ -1228,6 +1276,6 @@ h1 {
       <a href="politica-tratamiento-datos.html" style="color:#b7dc45;font-weight:800;">Politica de Tratamiento de Datos</a> ·
       <a href="mailto:info@terranovaenergy.net" style="color:#b7dc45;font-weight:800;">info@terranovaenergy.net</a>
     </footer>
-    <script src="terranova-i18n.js?v=15"></script>
+    <script src="terranova-i18n.js?v=16"></script>
   </body>
 </html>

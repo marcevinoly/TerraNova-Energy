@@ -10,6 +10,7 @@
     "Qué hacemos": "What we do",
     "Contacto": "Contact",
     "Tres caminos para convertir energía en valor.": "Three paths to turn energy into value.",
+    "Cuatro caminos para convertir energía en valor.": "Four paths to turn energy into value.",
     "Elija el modelo que mejor se ajusta a su empresa o estrategia de inversión. TerraNova valida el caso, estructura la propuesta y conecta cada solución con la capacidad de TerraNova Tuluá.": "Choose the model that best fits your business or investment strategy. TerraNova validates the case, structures the proposal and connects each solution with TerraNova Tuluá's capacity.",
     "Energía solar con cero inversión inicial.": "Solar energy with zero upfront investment.",
     "Ideal para empresas que quieren reducir su costo energético sin comprar activos solares ni invertir capital propio.": "Ideal for businesses seeking to reduce energy costs without purchasing solar assets or investing their own capital.",
@@ -38,6 +39,16 @@
     "Inversión mínima desde 1 MWp": "Minimum investment from 1 MWp",
     "RETScreen como respaldo técnico": "RETScreen technical support",
     "Costos operativos modelados por kWh": "Operating costs modeled per kWh",
+    "Construya su sistema solar directamente en su techo.": "Build your solar system directly on your roof.",
+    "Para empresas que quieren ser propietarias de un sistema de autoconsumo diseñado, construido y entregado llave en mano.": "For businesses that want to own a turnkey self-consumption system designed, built and delivered by TerraNova.",
+    "Precio preliminar instalado": "Preliminary installed price",
+    "Oferta final sujeta a ingeniería y condiciones del sitio": "Final proposal subject to engineering and site conditions",
+    "Sistema de autoconsumo en propiedad": "Owned self-consumption system",
+    "Ingeniería y construcción llave en mano": "Turnkey engineering and construction",
+    "Calculadora técnica y financiera preliminar": "Preliminary technical and financial calculator",
+    "Estimación fiscal opcional": "Optional tax estimate",
+    "Financiación de hasta el 50% sujeta a crédito": "Financing of up to 50%, subject to credit approval",
+    "Calcular mi proyecto": "Calculate my project",
     "PLAN PPA EMPRESAS": "BUSINESS PPA PLAN",
     "SOLUCIÓN EMPRESA": "BUSINESS SOLUTION",
     "PLAN INVERSOR": "INVESTOR PLAN",
@@ -591,10 +602,10 @@
         <span>Explorar Soluciones</span><span class="menu-chevron" aria-hidden="true">⌄</span>
       </button>
       <div class="solutions-dropdown" role="menu">
-        <a href="index.html#como-funciona" role="menuitem">Cómo funciona</a>
         <a href="ppa.html" role="menuitem">PPA TerraNova</a>
         <a href="solucion-empresas.html" role="menuitem">Solución Empresas</a>
         <a href="capital.html" role="menuitem">TerraNova Capital</a>
+        <a href="entregables/terranova-roof-v1.html" role="menuitem">TerraNova Roof</a>
       </div>`;
     solutionsLink.replaceWith(wrapper);
     ppaLink.remove();
@@ -634,6 +645,7 @@
         <div class="solutions-dropdown" role="menu">
           <a href="${homePrefix}#nosotros" role="menuitem">Quiénes somos</a>
           <a href="${homePrefix}#que-hacemos" role="menuitem">Qué hacemos</a>
+          <a href="${homePrefix}#como-funciona" role="menuitem">Cómo funciona</a>
         </div>`;
       aboutLink.replaceWith(aboutWrapper);
     }
