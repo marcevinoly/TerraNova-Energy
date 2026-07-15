@@ -605,7 +605,7 @@
         <a href="ppa.html" role="menuitem">PPA TerraNova</a>
         <a href="solucion-empresas.html" role="menuitem">Solución Empresas</a>
         <a href="capital.html" role="menuitem">TerraNova Capital</a>
-        <a href="entregables/terranova-roof-v1.html" role="menuitem">TerraNova Roof</a>
+        <a href="terranova-roof.html" role="menuitem">TerraNova Roof</a>
       </div>`;
     solutionsLink.replaceWith(wrapper);
     ppaLink.remove();
