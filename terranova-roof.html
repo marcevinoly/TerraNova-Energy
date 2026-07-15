@@ -263,6 +263,10 @@
       .range-row { align-items: center; display: grid; gap: 13px; grid-template-columns: 1fr 58px; }
       input[type="range"] { accent-color: var(--green-dark); border: 0; box-shadow: none; min-height: 28px; padding: 0; }
       .range-value { background: var(--green-soft); border-radius: 8px; color: var(--green-dark); font-size: .82rem; font-weight: 900; padding: 8px 4px; text-align: center; }
+      .fixed-price { background: var(--green-soft); border: 1px solid rgba(29,107,57,.18); border-radius: 12px; padding: 17px 18px; }
+      .fixed-price small { color: var(--green-dark); display: block; font-size: .7rem; font-weight: 900; letter-spacing: .04em; margin-bottom: 6px; text-transform: uppercase; }
+      .fixed-price strong { color: var(--ink); display: block; font-size: 1.25rem; letter-spacing: -.02em; }
+      .fixed-price span { color: var(--muted); display: block; font-size: .72rem; font-weight: 600; margin-top: 6px; }
       .assumption-note { background: #f5f8f3; border-left: 4px solid var(--green); color: var(--muted); font-size: .76rem; margin-top: 24px; padding: 13px 14px; }
 
       .result-panel { overflow: hidden; }
@@ -278,17 +282,12 @@
       .metric span { color: var(--muted); display: block; font-size: .72rem; margin-top: 7px; }
       .metric.highlight { background: var(--green-soft); }
       .metric.highlight strong { color: var(--green-dark); }
-      .scenario-wrap { padding: 28px; }
-      .scenario-title { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 16px; }
-      .scenario-title h3 { margin: 0; }
       .credit-badge { background: var(--green-soft); border-radius: 999px; color: var(--green-dark); font-size: .69rem; font-weight: 900; padding: 8px 10px; text-transform: uppercase; }
-      .scenario-table { border-collapse: collapse; font-size: .84rem; width: 100%; }
-      .scenario-table th, .scenario-table td { border-bottom: 1px solid var(--line); padding: 13px 8px; text-align: right; }
-      .scenario-table th:first-child, .scenario-table td:first-child { padding-left: 0; text-align: left; }
-      .scenario-table th { color: var(--muted); font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; }
-      .scenario-table td { font-weight: 780; }
-      .scenario-table .recommended { color: var(--green-dark); }
       .credit-note { color: var(--muted); font-size: .7rem; margin: 14px 0 0; }
+      .financing-card { align-items: center; background: var(--ink); color: #fff; display: grid; gap: 20px; grid-template-columns: auto 1fr; padding: 25px 28px; }
+      .financing-card strong { display: block; font-size: 1.12rem; margin-bottom: 5px; }
+      .financing-card p { color: rgba(255,255,255,.66); font-size: .82rem; margin: 0; }
+      .financing-card .credit-badge { white-space: nowrap; }
       .fiscal-result { background: #f7faf4; border-top: 1px solid var(--line); padding: 27px 28px; }
       .fiscal-result-head { align-items: start; display: flex; gap: 18px; justify-content: space-between; }
       .fiscal-result-head h3 { margin-bottom: 7px; }
@@ -335,7 +334,20 @@
       .lead-form label { color: var(--ink); }
       .lead-form .full { grid-column: 1 / -1; }
       .lead-form button { border: 0; grid-column: 1 / -1; }
-      .form-status { color: var(--green-dark); display: none; font-size: .82rem; font-weight: 850; grid-column: 1 / -1; margin: 0; }
+      .lead-form button:disabled { cursor: wait; opacity: .62; }
+      .lead-consent { align-items: start; display: grid !important; font-size: .72rem !important; font-weight: 650 !important; gap: 10px !important; grid-template-columns: 18px 1fr; line-height: 1.45; }
+      .lead-consent input { accent-color: var(--green-dark); height: 18px; min-height: 18px; padding: 0; width: 18px; }
+      .lead-consent a { color: var(--green-dark); font-weight: 850; }
+      .form-status { display: none; font-size: .82rem; font-weight: 850; grid-column: 1 / -1; margin: 0; }
+      .form-status.is-sending, .form-status.is-success, .form-status.is-error { display: block; }
+      .form-status.is-sending { color: var(--muted); }
+      .form-status.is-success { color: var(--green-dark); }
+      .form-status.is-error { color: #a32d24; }
+      .post-submit-actions { display: grid; gap: 10px; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+      .post-submit-actions[hidden] { display: none; }
+      .post-submit-actions a { align-items: center; border-radius: 10px; display: flex; font-size: .8rem; font-weight: 900; justify-content: center; min-height: 46px; padding: 10px 14px; text-align: center; }
+      .whatsapp-action { background: #1f9d55; color: #fff; }
+      .email-action { background: var(--green-soft); color: var(--green-dark); }
 
       footer { background: var(--ink); color: #fff; padding: 34px 0; }
       .footer-inner { align-items: center; display: flex; gap: 28px; justify-content: space-between; }
@@ -395,8 +407,7 @@
         .metrics { grid-template-columns: 1fr 1fr; }
         .metric:nth-child(3n) { border-right: 1px solid var(--line); }
         .metric:nth-child(2n) { border-right: 0; }
-        .scenario-wrap { overflow-x: auto; padding: 23px 20px; }
-        .scenario-table { min-width: 550px; }
+        .financing-card { grid-template-columns: 1fr; padding: 23px 20px; }
         .fiscal-result { padding: 24px 20px; }
         .fiscal-result-head { flex-direction: column; }
         .fiscal-grid { grid-template-columns: 1fr 1fr; }
@@ -409,6 +420,7 @@
         .lead-panel { padding: 27px 20px; }
         .lead-form { grid-template-columns: 1fr; }
         .lead-form .full { grid-column: auto; }
+        .post-submit-actions { grid-template-columns: 1fr; }
         .footer-inner { align-items: flex-start; flex-direction: column; }
         footer img { height: auto; max-width: min(260px, 100%); width: 100%; }
       }
@@ -459,7 +471,7 @@
             <div class="hero-proof">
               <span>Ingeniería y construcción</span>
               <span>Conexión y puesta en marcha</span>
-              <span>Financiación hasta 50%*</span>
+              <span>Financiación hasta 50%</span>
             </div>
           </div>
           <section class="quick-values" aria-label="Beneficios principales">
@@ -475,8 +487,8 @@
             </article>
             <article class="quick-card">
               <small>Capital inteligente</small>
-              <strong>Hasta 50% financiable.*</strong>
-              <p>TerraNova puede estructurar parte de la inversión para clientes aprobados.</p>
+              <strong>Hasta 50% financiable.</strong>
+              <p>TerraNova puede financiar hasta el 50% por 4 años para clientes que califiquen.</p>
             </article>
           </section>
         </div>
@@ -518,11 +530,11 @@
                   <span class="input-wrap"><input id="roofArea" type="number" min="0" step="100" value="8500" inputmode="numeric" /><span class="unit">m²</span></span>
                   <span class="field-help">Área aproximada libre de equipos, sombras y restricciones.</span>
                 </label>
-                <label>
-                  Precio preliminar instalado por kWp
-                  <span class="input-wrap"><input id="pricePerKwp" type="number" min="1000000" step="50000" value="3400000" inputmode="numeric" /><span class="unit">COP</span></span>
-                  <span class="field-help">Valor editable para revisión interna; la oferta final depende de ingeniería.</span>
-                </label>
+                <div class="fixed-price" role="note" aria-label="Precio TerraNova por kWp">
+                  <small>Precio TerraNova</small>
+                  <strong>$3.400.000 COP/kWp</strong>
+                  <span>Tarifa fija utilizada para calcular la inversión preliminar.</span>
+                </div>
                 <label>
                   Renta líquida anual antes de esta deducción <span aria-hidden="true">(opcional)</span>
                   <span class="input-wrap"><input id="annualTaxableIncome" type="number" min="0" step="10000000" placeholder="Ej. 2.000.000.000" inputmode="numeric" /><span class="unit">COP</span></span>
@@ -587,39 +599,12 @@
                 </div>
                 <p class="credit-note">La estimación considera una deducción especial de hasta el 50% de la inversión, distribuible hasta por 15 años y limitada cada año al 50% de la renta líquida antes de la deducción. Usa una tarifa corporativa indicativa del 35%, no incluye valor del dinero en el tiempo y requiere certificación y validación tributaria. No constituye asesoría fiscal.</p>
               </section>
-              <div class="scenario-wrap">
-                <div class="scenario-title">
-                  <h3>Opciones de inversión</h3>
-                  <span class="credit-badge">Sujeto a crédito</span>
+              <div class="financing-card">
+                <span class="credit-badge">Sujeto a aprobación</span>
+                <div>
+                  <strong>Financiación TerraNova</strong>
+                  <p>TerraNova puede financiar hasta el 50% del proyecto por un plazo de 4 años, sujeto a evaluación y aprobación de crédito del cliente.</p>
                 </div>
-                <table class="scenario-table">
-                  <thead>
-                    <tr>
-                      <th>Escenario</th>
-                      <th>Aporte inicial</th>
-                      <th>Financiación</th>
-                      <th>Cuota estimada*</th>
-                      <th>Retorno del aporte</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Compra directa</td>
-                      <td id="cashInitial">$2.933 MM</td>
-                      <td>$0</td>
-                      <td>—</td>
-                      <td id="cashPayback">3,2 años</td>
-                    </tr>
-                    <tr>
-                      <td class="recommended">TerraNova 50%</td>
-                      <td class="recommended" id="financeInitial">$1.466 MM</td>
-                      <td id="financeAmount">$1.466 MM</td>
-                      <td id="monthlyPayment">$32,4 MM/mes</td>
-                      <td id="equityPayback">1,6 años**</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p class="credit-note">*Escenario ilustrativo a 48 meses y 3% E.A. La tasa, plazo, garantías y monto definitivo dependen del estudio de crédito. **Retorno simple del aporte inicial antes del servicio de deuda; no representa una rentabilidad garantizada.</p>
               </div>
             </section>
           </div>
@@ -691,8 +676,16 @@
               <label>Nombre de contacto<input type="text" name="name" autocomplete="name" placeholder="Nombre y apellido" required /></label>
               <label>Teléfono<input type="tel" name="phone" autocomplete="tel" placeholder="Número de contacto" required /></label>
               <label class="full">Correo empresarial<input type="email" name="email" autocomplete="email" placeholder="nombre@empresa.com" required /></label>
-              <button class="button button-dark" type="submit">Solicitar evaluación de mi techo</button>
-              <p class="form-status" id="formStatus">Solicitud preparada. En la versión publicada, este botón se conectará al canal comercial de TerraNova.</p>
+              <label class="lead-consent full">
+                <input type="checkbox" name="consent" value="yes" required />
+                <span>Autorizo a Terra Nova Trade S.A.S., NIT 901915789-8, a tratar mis datos para responder esta solicitud y realizar seguimiento relacionado. <a href="politica-tratamiento-datos.html" target="_blank" rel="noopener">Consultar política de tratamiento de datos.</a></span>
+              </label>
+              <button class="button button-dark" id="leadSubmit" type="submit">Enviar mi evaluación</button>
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+              <div class="post-submit-actions" id="postSubmitActions" hidden>
+                <a class="whatsapp-action" id="roofWhatsapp" href="https://wa.me/17805402844" target="_blank" rel="noopener noreferrer">Hablar con TerraNova por WhatsApp</a>
+                <a class="email-action" href="mailto:info@terranovaenergy.net?subject=Evaluaci%C3%B3n%20TerraNova%20Roof">Escribir a TerraNova</a>
+              </div>
             </form>
           </div>
         </div>
@@ -709,6 +702,10 @@
     <script>
       const $ = (id) => document.getElementById(id);
       const cop0 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
+      const PRICE_PER_KWP = 3400000;
+      const leadEndpoint = window.TERRANOVA_LEAD_ENDPOINT || "https://www.terranovaenergy.net/_functions/terranovaLead";
+      const consentText = "Autorizo a Terra Nova Trade S.A.S., NIT 901915789-8, a tratar mis datos para responder esta solicitud y realizar seguimiento relacionado.";
+      let currentScenario = {};
 
       function moneyCompact(value) {
         if (!Number.isFinite(value)) return "$0";
@@ -717,21 +714,12 @@
         return `$${cop0.format(value)}`;
       }
 
-      function moneyMM(value) {
-        return `$${(value / 1e6).toLocaleString("es-CO", { maximumFractionDigits: 1 })} MM`;
-      }
-
-      function calculatePayment(principal, annualRate, months) {
-        const monthlyRate = annualRate / 12;
-        return principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-      }
-
       function updateCalculator() {
         const monthlyConsumption = Math.max(Number($("monthlyConsumption").value) || 0, 0);
         const monthlyBill = Math.max(Number($("monthlyBill").value) || 0, 0);
         const daytimeUse = Math.min(Math.max(Number($("daytimeUse").value) || 0, 0), 100);
         const roofArea = Math.max(Number($("roofArea").value) || 0, 0);
-        const pricePerKwp = Math.max(Number($("pricePerKwp").value) || 0, 0);
+        const pricePerKwp = PRICE_PER_KWP;
         const annualTaxableIncome = Math.max(Number($("annualTaxableIncome").value) || 0, 0);
 
         const peakSunHours = 4.5;
@@ -749,10 +737,6 @@
         const annualSavings = solarMonthly * tariff * 12;
         const payback = annualSavings > 0 ? investment / annualSavings : 0;
         const coverage = monthlyConsumption > 0 ? solarMonthly / monthlyConsumption * 100 : 0;
-        const financed = investment * .5;
-        const equity = investment - financed;
-        const monthlyPayment = financed > 0 ? calculatePayment(financed, .03, 48) : 0;
-        const equityPayback = annualSavings > 0 ? equity / annualSavings : 0;
         const roofConstraint = roofLimitedKwp + .01 < demandLimitedKwp;
         const specialDeduction = investment * .5;
         const annualDeductionLimit = annualTaxableIncome * .5;
@@ -771,12 +755,6 @@
         $("effectiveTariff").textContent = `Tarifa calculada: $${cop0.format(tariff)}/kWh`;
         $("payback").textContent = `${payback.toLocaleString("es-CO", { maximumFractionDigits: 1 })} años`;
         $("coverage").textContent = `${coverage.toLocaleString("es-CO", { maximumFractionDigits: 0 })}%`;
-        $("cashInitial").textContent = moneyMM(investment);
-        $("cashPayback").textContent = `${payback.toLocaleString("es-CO", { maximumFractionDigits: 1 })} años`;
-        $("financeInitial").textContent = moneyMM(equity);
-        $("financeAmount").textContent = moneyMM(financed);
-        $("monthlyPayment").textContent = `${moneyMM(monthlyPayment)}/mes`;
-        $("equityPayback").textContent = `${equityPayback.toLocaleString("es-CO", { maximumFractionDigits: 1 })} años**`;
         $("fiscalGrid").hidden = annualTaxableIncome <= 0;
         $("fiscalEmpty").hidden = annualTaxableIncome > 0;
         $("fiscalDeduction").textContent = moneyCompact(specialDeduction);
@@ -787,9 +765,29 @@
         $("resultSummary").textContent = roofConstraint
           ? `Con el área informada, el sistema cubriría aproximadamente ${coverage.toLocaleString("es-CO", { maximumFractionDigits: 0 })}% del consumo mensual. Una visita técnica puede identificar área adicional o alternativas.`
           : "La cubierta informada permite instalar la capacidad estimada para atender el consumo diurno declarado.";
+
+        currentScenario = {
+          monthlyConsumption,
+          monthlyBill,
+          daytimeUsePercent: daytimeUse,
+          roofAreaM2: roofArea,
+          annualTaxableIncome,
+          pricePerKwp,
+          systemKwp,
+          requiredAreaM2: areaRequired,
+          monthlySolarKwh: solarMonthly,
+          investmentCop: investment,
+          annualSavingsCop: annualSavings,
+          paybackYears: payback,
+          coveragePercent: coverage,
+          fiscalDeductionCop: specialDeduction,
+          fiscalSavingCop: estimatedTaxSaving,
+          fiscalPaybackYears: fiscalPayback,
+          roofConstraint
+        };
       }
 
-      ["monthlyConsumption", "monthlyBill", "daytimeUse", "roofArea", "pricePerKwp", "annualTaxableIncome"].forEach((id) => {
+      ["monthlyConsumption", "monthlyBill", "daytimeUse", "roofArea", "annualTaxableIncome"].forEach((id) => {
         $(id).addEventListener("input", updateCalculator);
       });
 
@@ -826,9 +824,93 @@
         document.body.classList.remove("menu-open");
       }));
 
-      $("leadForm").addEventListener("submit", (event) => {
+      function setFormStatus(state, message) {
+        const status = $("formStatus");
+        status.className = `form-status${state ? ` is-${state}` : ""}`;
+        status.textContent = message;
+      }
+
+      $("leadForm").addEventListener("submit", async (event) => {
         event.preventDefault();
-        $("formStatus").style.display = "block";
+        const form = event.currentTarget;
+        if (!form.reportValidity()) return;
+
+        const submit = $("leadSubmit");
+        const formData = new FormData(form);
+        const client = Object.fromEntries(formData.entries());
+        submit.disabled = true;
+        submit.textContent = "Enviando evaluación...";
+        $("postSubmitActions").hidden = true;
+        setFormStatus("sending", "Enviando su escenario a TerraNova...");
+
+        const payload = {
+          source: "TerraNova Roof",
+          action: "roof-evaluation-request",
+          generatedAt: new Date().toISOString(),
+          pageUrl: window.location.href,
+          client: {
+            companyName: client.company,
+            location: client.city,
+            contactName: client.name,
+            email: client.email,
+            phone: client.phone
+          },
+          inputs: {
+            monthlyConsumption: currentScenario.monthlyConsumption,
+            monthlyBill: currentScenario.monthlyBill,
+            daytimeUsePercent: currentScenario.daytimeUsePercent,
+            roofAreaM2: currentScenario.roofAreaM2,
+            annualTaxableIncome: currentScenario.annualTaxableIncome
+          },
+          results: {
+            systemKwp: currentScenario.systemKwp,
+            requiredAreaM2: currentScenario.requiredAreaM2,
+            pricePerKwp: PRICE_PER_KWP,
+            investmentCop: currentScenario.investmentCop,
+            monthlySolarKwh: currentScenario.monthlySolarKwh,
+            annualSavingsCop: currentScenario.annualSavingsCop,
+            paybackYears: currentScenario.paybackYears,
+            coveragePercent: currentScenario.coveragePercent,
+            fiscalDeductionCop: currentScenario.annualTaxableIncome > 0 ? currentScenario.fiscalDeductionCop : null,
+            fiscalSavingCop: currentScenario.annualTaxableIncome > 0 ? currentScenario.fiscalSavingCop : null,
+            fiscalPaybackYears: currentScenario.annualTaxableIncome > 0 ? currentScenario.fiscalPaybackYears : null
+          },
+          financing: "TerraNova puede financiar hasta el 50% del proyecto por 4 años, sujeto a evaluación y aprobación de crédito.",
+          consent: {
+            accepted: client.consent === "yes",
+            text: consentText
+          }
+        };
+
+        try {
+          const response = await fetch(leadEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || result.ok !== true) throw new Error(result.error || `HTTP ${response.status}`);
+
+          const whatsappMessage = [
+            "Hola TerraNova, envié una evaluación TerraNova Roof.",
+            `Empresa: ${client.company}`,
+            `Ciudad: ${client.city}`,
+            `Sistema estimado: ${cop0.format(currentScenario.systemKwp)} kWp`,
+            `Inversión preliminar: ${moneyCompact(currentScenario.investmentCop)}`
+          ].join("\n");
+          $("roofWhatsapp").href = `https://wa.me/17805402844?text=${encodeURIComponent(whatsappMessage)}`;
+          setFormStatus("success", "Su evaluación fue enviada correctamente. TerraNova podrá contactarlo para continuar con la revisión técnica.");
+          $("postSubmitActions").hidden = false;
+          form.reset();
+        } catch (error) {
+          console.error("No se pudo enviar la evaluación TerraNova Roof.", error);
+          setFormStatus("error", "No pudimos enviar la evaluación. Inténtelo nuevamente o comuníquese con TerraNova por WhatsApp.");
+          $("roofWhatsapp").href = "https://wa.me/17805402844";
+          $("postSubmitActions").hidden = false;
+        } finally {
+          submit.disabled = false;
+          submit.textContent = "Enviar mi evaluación";
+        }
       });
 
       updateCalculator();
