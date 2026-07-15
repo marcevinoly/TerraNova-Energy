@@ -268,6 +268,9 @@
       .fixed-price strong { color: var(--ink); display: block; font-size: 1.25rem; letter-spacing: -.02em; }
       .fixed-price span { color: var(--muted); display: block; font-size: .72rem; font-weight: 600; margin-top: 6px; }
       .assumption-note { background: #f5f8f3; border-left: 4px solid var(--green); color: var(--muted); font-size: .76rem; margin-top: 24px; padding: 13px 14px; }
+      .assumption-note a { color: var(--green-dark); font-weight: 850; }
+      .structural-note { background: #fff8e8; border: 1px solid rgba(156,105,18,.22); border-radius: 12px; color: #62502f; font-size: .76rem; margin: 14px 0 0; padding: 14px 15px; }
+      .structural-note strong { color: #3f321d; }
 
       .result-panel { overflow: hidden; }
       .result-top { background: var(--ink); color: #fff; padding: 30px; }
@@ -530,10 +533,26 @@
                   <span class="input-wrap"><input id="roofArea" type="number" min="0" step="100" value="8500" inputmode="numeric" /><span class="unit">m²</span></span>
                   <span class="field-help">Área aproximada libre de equipos, sombras y restricciones.</span>
                 </label>
+                <label>
+                  Ciudad o municipio del proyecto
+                  <input id="projectLocation" type="text" autocomplete="address-level2" placeholder="Ej. Barranquilla, Atlántico" />
+                  <span class="field-help">Esta ubicación se incluirá en la evaluación enviada a TerraNova.</span>
+                </label>
+                <label>
+                  Región solar preliminar
+                  <select id="solarRegion">
+                    <option value="5">Costa Atlántica — 5,0 h solares pico</option>
+                    <option value="6">La Guajira — 6,0 h solares pico</option>
+                    <option value="4.5">Región Andina u Orinoquía — 4,5 h solares pico</option>
+                    <option value="4.25">Amazonía — 4,25 h solares pico</option>
+                    <option value="3.5">Costa Pacífica — 3,5 h solares pico</option>
+                  </select>
+                  <span class="field-help">Seleccione la región correspondiente para ajustar la producción estimada.</span>
+                </label>
                 <div class="fixed-price" role="note" aria-label="Precio TerraNova por kWp">
                   <small>Precio TerraNova</small>
                   <strong>$3.400.000 COP/kWp</strong>
-                  <span>Tarifa fija utilizada para calcular la inversión preliminar.</span>
+                  <span>Incluye construcción y entrega del sistema llave en mano, instalado, probado y funcionando.</span>
                 </div>
                 <label>
                   Renta líquida anual antes de esta deducción <span aria-hidden="true">(opcional)</span>
@@ -541,7 +560,8 @@
                   <span class="field-help">Dato opcional usado únicamente para estimar el beneficio fiscal y un retorno ajustado. Valide la cifra con su contador.</span>
                 </label>
               </div>
-              <p class="assumption-note">Supuestos iniciales: 4,5 horas solares pico, factor técnico del 80%, 30 días por mes, 7 m² por kWp y degradación no incluida en esta lectura rápida.</p>
+              <p class="assumption-note">Supuestos iniciales: <span id="solarResourceAssumption">5,0 horas solares pico para Costa Atlántica</span>, factor técnico del 80%, 30 días por mes, 7 m² por kWp y degradación no incluida en esta lectura rápida. Referencia regional preliminar basada en el <a href="https://www1.upme.gov.co/Hemeroteca/Impresos/Atlas_Radiacion_Solar_2005/1-Atlas_Radiacion_Solar.pdf" target="_blank" rel="noopener noreferrer">Atlas de Radiación Solar de Colombia</a>.</p>
+              <p class="structural-note"><strong>Condición estructural.</strong> Antes de construir deberá realizarse un estudio para determinar si la cubierta soporta la implementación del sistema solar. El estudio deberá ser realizado por una compañía especializada e independiente de TerraNova, contratada y pagada por el cliente. Su costo no está incluido en el precio por kWp y la propuesta definitiva queda sujeta a un resultado favorable.</p>
             </form>
 
             <section class="result-panel" aria-live="polite">
@@ -652,7 +672,7 @@
             <h2>Todo lo necesario para convertir la cubierta en un activo energético.</h2>
           </div>
           <div class="included-grid">
-            <article class="included-card"><div class="included-icon">01</div><h3>Ingeniería especializada</h3><p>Diseño fotovoltaico, eléctrico, estructural y de seguridad para las condiciones del sitio.</p></article>
+            <article class="included-card"><div class="included-icon">01</div><h3>Ingeniería del sistema</h3><p>Diseño fotovoltaico, eléctrico y de seguridad para las condiciones del sitio. El estudio estructural independiente de la cubierta no está incluido.</p></article>
             <article class="included-card"><div class="included-icon">02</div><h3>Equipos y construcción</h3><p>Paneles, inversores, estructuras, cableado, protecciones, montaje y pruebas.</p></article>
             <article class="included-card"><div class="included-icon">03</div><h3>Gestión de conexión</h3><p>Acompañamiento documental y técnico ante los actores que correspondan.</p></article>
             <article class="included-card"><div class="included-icon">04</div><h3>Monitoreo</h3><p>Visualización de producción, alertas y trazabilidad del desempeño del activo.</p></article>
@@ -672,7 +692,7 @@
             </div>
             <form class="lead-form" id="leadForm">
               <label>Empresa<input type="text" name="company" autocomplete="organization" placeholder="Nombre de la empresa" required /></label>
-              <label>Ciudad<input type="text" name="city" autocomplete="address-level2" placeholder="Ciudad / departamento" required /></label>
+              <label>Ciudad<input id="leadCity" type="text" name="city" autocomplete="address-level2" placeholder="Ciudad / departamento" required /></label>
               <label>Nombre de contacto<input type="text" name="name" autocomplete="name" placeholder="Nombre y apellido" required /></label>
               <label>Teléfono<input type="tel" name="phone" autocomplete="tel" placeholder="Número de contacto" required /></label>
               <label class="full">Correo empresarial<input type="email" name="email" autocomplete="email" placeholder="nombre@empresa.com" required /></label>
@@ -695,7 +715,7 @@
     <footer>
       <div class="wrap footer-inner">
         <img src="pagina-web-soluciones/assets/terranova-energy-logo.png" alt="TerraNova Energy" />
-        <p>TerraNova Roof · Todas las cifras son estimaciones preliminares y no constituyen oferta vinculante, aprobación de crédito ni garantía de ahorro.</p>
+        <p>TerraNova Roof · Todas las cifras son estimaciones preliminares y no constituyen oferta vinculante, aprobación de crédito ni garantía de ahorro. La construcción queda sujeta a un estudio estructural independiente y favorable de la cubierta, contratado y pagado por el cliente.</p>
       </div>
     </footer>
 
@@ -719,10 +739,13 @@
         const monthlyBill = Math.max(Number($("monthlyBill").value) || 0, 0);
         const daytimeUse = Math.min(Math.max(Number($("daytimeUse").value) || 0, 0), 100);
         const roofArea = Math.max(Number($("roofArea").value) || 0, 0);
+        const projectLocation = $("projectLocation").value.trim();
+        const solarRegion = $("solarRegion");
+        const solarRegionLabel = solarRegion.options[solarRegion.selectedIndex].textContent.split("—")[0].trim();
         const pricePerKwp = PRICE_PER_KWP;
         const annualTaxableIncome = Math.max(Number($("annualTaxableIncome").value) || 0, 0);
 
-        const peakSunHours = 4.5;
+        const peakSunHours = Math.max(Number(solarRegion.value) || 4.5, 0);
         const technicalFactor = 0.8;
         const squareMetersPerKwp = 7;
         const monthlyYieldPerKwp = peakSunHours * 30 * technicalFactor;
@@ -747,6 +770,7 @@
         const fiscalIsPartial = yearsToUse > 15;
 
         $("daytimeValue").textContent = `${daytimeUse}%`;
+        $("solarResourceAssumption").textContent = `${peakSunHours.toLocaleString("es-CO", { maximumFractionDigits: 2 })} horas solares pico para ${solarRegionLabel}`;
         $("systemSize").textContent = systemKwp >= 1000 ? `${(systemKwp / 1000).toLocaleString("es-CO", { maximumFractionDigits: 2 })} MWp` : `${cop0.format(systemKwp)} kWp`;
         $("areaRequired").textContent = `${cop0.format(areaRequired)} m² requeridos`;
         $("investment").textContent = moneyCompact(investment);
@@ -771,6 +795,9 @@
           monthlyBill,
           daytimeUsePercent: daytimeUse,
           roofAreaM2: roofArea,
+          projectLocation,
+          solarRegion: solarRegionLabel,
+          peakSunHours,
           annualTaxableIncome,
           pricePerKwp,
           systemKwp,
@@ -787,8 +814,12 @@
         };
       }
 
-      ["monthlyConsumption", "monthlyBill", "daytimeUse", "roofArea", "annualTaxableIncome"].forEach((id) => {
+      ["monthlyConsumption", "monthlyBill", "daytimeUse", "roofArea", "projectLocation", "solarRegion", "annualTaxableIncome"].forEach((id) => {
         $(id).addEventListener("input", updateCalculator);
+      });
+
+      $("projectLocation").addEventListener("input", () => {
+        if (!$("leadCity").value.trim()) $("leadCity").value = $("projectLocation").value;
       });
 
       const toggle = document.querySelector(".menu-toggle");
@@ -860,6 +891,9 @@
             monthlyBill: currentScenario.monthlyBill,
             daytimeUsePercent: currentScenario.daytimeUsePercent,
             roofAreaM2: currentScenario.roofAreaM2,
+            projectLocation: currentScenario.projectLocation || client.city,
+            solarRegion: currentScenario.solarRegion,
+            peakSunHours: currentScenario.peakSunHours,
             annualTaxableIncome: currentScenario.annualTaxableIncome
           },
           results: {
@@ -894,7 +928,7 @@
           const whatsappMessage = [
             "Hola TerraNova, envié una evaluación TerraNova Roof.",
             `Empresa: ${client.company}`,
-            `Ciudad: ${client.city}`,
+            `Ciudad: ${currentScenario.projectLocation || client.city}`,
             `Sistema estimado: ${cop0.format(currentScenario.systemKwp)} kWp`,
             `Inversión preliminar: ${moneyCompact(currentScenario.investmentCop)}`
           ].join("\n");
